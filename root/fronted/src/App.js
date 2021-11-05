@@ -1,5 +1,5 @@
-function App() {
-  return <div className="App">Hello world!</div>
+const App = ({ children }) => {
+  return <div className="App">{children}</div>
 }
 
 export default App
