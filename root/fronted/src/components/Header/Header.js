@@ -7,12 +7,10 @@ import Button from '@mui/material/Button'
 import logotipo from '../../assets/images/jaguaresLogo.jpg'
 
 function Header() {
-  // const classes = useStyles()
-
   const isLoggedIn = false
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ height: '64px', flexShrink: '0' }}>
       <AppBar position="static" sx={{ backgroundColor: 'white', color: 'black' }}>
         <Toolbar>
           <img
