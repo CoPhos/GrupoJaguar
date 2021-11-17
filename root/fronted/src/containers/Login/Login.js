@@ -1,4 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { login } from '../../actions/auth'
+
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Avatar from '@mui/material/Avatar'
@@ -7,7 +11,21 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import LockOutlined from '@material-ui/icons/LockOutlined'
 
-function Login() {
+function Login(login) {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: ''
+  })
+
+  const { username, password } = formData
+
+  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value })
+
+  const onSubmit = e => {
+    e.preventDefault()
+    login(username, password)
+  }
+
   return (
     <Box
       sx={{
@@ -22,8 +40,8 @@ function Login() {
         sx={{
           padding: '10px',
           margin: 'auto auto',
-          width: '250px',
-          height: '300px'
+          width: '350px',
+          height: '315px'
         }}
       >
         <Box
@@ -51,6 +69,9 @@ function Login() {
               placeholder="Ingrese usuario"
               required
               size="small"
+              name="username"
+              value={username}
+              onChange={e => onChange(e)}
             ></TextField>
           </Box>
           <Box>
@@ -60,10 +81,18 @@ function Login() {
               required
               type="password"
               size="small"
+              name="password"
+              value={password}
+              onChange={e => onChange(e)}
             ></TextField>
           </Box>
           <Box>
-            <Button type="submit" variant="contained" sx={{ backgroundColor: '#008433' }}>
+            <Button
+              type="submit"
+              variant="contained"
+              onSubmit={onSubmit}
+              sx={{ backgroundColor: '#008433' }}
+            >
               Iniciar sesión
             </Button>
           </Box>
@@ -73,4 +102,8 @@ function Login() {
   )
 }
 
-export default Login
+// const mapStateToProps = state => ({
+
+// })
+
+export default connect(null, { login })(Login)
