@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Avatar from '@mui/material/Avatar'
@@ -64,7 +65,7 @@ function Login() {
           </Box>
           <Box>
             <Button type="submit" variant="contained" sx={{ backgroundColor: '#008433' }}>
-              Iniciar sesión
+              <Link to="/home">Iniciar sesión</Link>
             </Button>
           </Box>
         </Box>
