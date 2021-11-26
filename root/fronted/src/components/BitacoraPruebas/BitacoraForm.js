@@ -126,6 +126,7 @@ function BitacoraForm() {
   }
   const [values, setvalues] = useState(initialState)
   const [errors, seterrors] = useState({})
+
   return (
     <ThemeProvider theme={theme}>
       <form onSubmit={handleSumbit}>
@@ -133,7 +134,7 @@ function BitacoraForm() {
           <Grid container sx={{ padding: '15px 0' }}>
             <Grid item xs={6}>
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="lab"
@@ -142,7 +143,7 @@ function BitacoraForm() {
                 helperText={errors.lab}
               ></TextField>
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="numObra"
@@ -151,7 +152,7 @@ function BitacoraForm() {
                 helperText={errors.numObra ? errors.numObra : ''}
               ></TextField>
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="obra"
@@ -161,7 +162,7 @@ function BitacoraForm() {
               ></TextField>
 
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="ubicacion"
@@ -171,7 +172,7 @@ function BitacoraForm() {
               ></TextField>
 
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="solicitadoPor"
@@ -180,7 +181,7 @@ function BitacoraForm() {
                 helperText={errors.solicitadoPor ? errors.solicitadoPor : ''}
               ></TextField>
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="elementoColado"
@@ -190,7 +191,7 @@ function BitacoraForm() {
               ></TextField>
 
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="valorResistenciaCompresion"
@@ -202,7 +203,7 @@ function BitacoraForm() {
               ></TextField>
 
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="revenimiento"
@@ -212,7 +213,7 @@ function BitacoraForm() {
               ></TextField>
 
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="revenimientoObtenido"
@@ -276,7 +277,7 @@ function BitacoraForm() {
               </LocalizationProvider>
 
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="equipoMezclado"
@@ -285,7 +286,7 @@ function BitacoraForm() {
                 helperText={errors.equipoMezclado ? errors.equipoMezclado : ''}
               ></TextField>
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="resistenciaTipo"
@@ -294,7 +295,7 @@ function BitacoraForm() {
                 helperText={errors.resistenciaTipo ? errors.resistenciaTipo : ''}
               ></TextField>
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="concretera"
@@ -304,7 +305,7 @@ function BitacoraForm() {
               ></TextField>
 
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="altura"
@@ -314,7 +315,7 @@ function BitacoraForm() {
               ></TextField>
 
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="diametro"
@@ -324,7 +325,7 @@ function BitacoraForm() {
               ></TextField>
 
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="area"
@@ -334,7 +335,7 @@ function BitacoraForm() {
               ></TextField>
 
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="carga"
@@ -344,7 +345,7 @@ function BitacoraForm() {
               ></TextField>
 
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="calculoResistenciaCompresion"
@@ -356,7 +357,7 @@ function BitacoraForm() {
               ></TextField>
 
               <TextField
-                onChange={handleInputChange}
+                onBlur={handleInputChange}
                 size="small"
                 variant="outlined"
                 label="porcentajeResistenciaCompresion"
