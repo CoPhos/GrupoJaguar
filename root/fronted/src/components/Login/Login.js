@@ -6,7 +6,7 @@ import Avatar from '@mui/material/Avatar'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
-import LockOutlined from '@material-ui/icons/LockOutlined'
+import LockOutlined from '@mui/icons-material/LockOutlined'
 
 function Login() {
   return (

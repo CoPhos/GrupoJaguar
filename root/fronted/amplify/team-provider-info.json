@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-jaguares-dev-150736-authRole",
+      "UnauthRoleArn": "arn:aws:iam::029293481975:role/amplify-jaguares-dev-150736-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::029293481975:role/amplify-jaguares-dev-150736-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-jaguares-dev-150736-deployment",
+      "UnauthRoleName": "amplify-jaguares-dev-150736-unauthRole",
+      "StackName": "amplify-jaguares-dev-150736",
+      "StackId": "arn:aws:cloudformation:us-east-2:029293481975:stack/amplify-jaguares-dev-150736/bcb20150-52ea-11ec-9b71-0241944885e0",
+      "AmplifyAppId": "dfodavs3juzk0"
+    }
+  }
+}

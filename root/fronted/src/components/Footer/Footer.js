@@ -1,6 +1,6 @@
 import React from 'react'
 import Typography from '@mui/material/Typography'
-import Box from '@material-ui/core/Box'
+import Box from '@mui/material/Box'
 
 function Footer() {
   return (
