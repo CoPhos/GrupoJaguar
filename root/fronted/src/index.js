@@ -1,10 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
+import Amplify from 'aws-amplify'
+import config from './aws-exports'
+
 // Routes
 import AppRoutes from './AppRoutes'
 import reportWebVitals from './reportWebVitals'
 
+Amplify.configure(config)
 ReactDOM.render(
   <Router>
     <AppRoutes />

@@ -4,8 +4,8 @@ import App from './App'
 import Login from './components/Login/Login'
 import Home from './components/Home/Home'
 import Bitacora from './components/BitacoraPruebas/Bitacora'
-import Header from './components/Header/Header'
-import Footer from './components/Footer/Footer'
+import Header from './components/Header'
+import Footer from './components/Footer'
 
 const AppRoutes = () => (
   <App>

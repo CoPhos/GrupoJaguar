@@ -13,8 +13,8 @@ function Bitacora() {
         marginTop: '20px',
         marginBottom: '20px',
         flex: '1 0 auto',
-        flexDirection: 'column',
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center'
       }}
     >

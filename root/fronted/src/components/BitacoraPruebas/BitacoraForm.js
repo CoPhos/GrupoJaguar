@@ -12,6 +12,7 @@ import TextField from '@mui/material/TextField'
 import DatePicker from '@mui/lab/DatePicker'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
+import FormLabel from '@mui/material/FormLabel'
 
 function BitacoraForm() {
   const useStyles = makeStyles(theme =>
@@ -33,11 +34,41 @@ function BitacoraForm() {
       [name]: value
     })
   }
-
+  // eslint-disable-next-line
   Date.prototype.addDays = function (days) {
     const date = new Date(this.valueOf())
     date.setDate(date.getDate() + days)
     return date
+  }
+
+  const handleArrays = (arg, e) => {
+    const { name, value } = e.target
+    switch (name) {
+      case '0':
+        setvalues({
+          ...values,
+          arg: arg.splice(name, 1, parseInt(value))
+        })
+        break
+      case '1':
+        setvalues({
+          ...values,
+          arg: arg.splice(name, 1, parseInt(value))
+        })
+        break
+      case '2':
+        setvalues({
+          ...values,
+          arg: arg.splice(name, 1, parseInt(value))
+        })
+        break
+      case '3':
+        setvalues({
+          ...values,
+          arg: arg.splice(name, 1, parseInt(value))
+        })
+        break
+    }
   }
   const handleDates = date => {
     if (!date) {
@@ -47,11 +78,9 @@ function BitacoraForm() {
     setvalues({
       ...values,
       fechaColado: date,
-      siete: date.addDays(7),
-      catorce: date.addDays(14),
-      veintiOcho: date.addDays(28),
-      veintiOchoDos: date.addDays(28)
+      fechas: [date.addDays(7), date.addDays(14), date.addDays(28), date.addDays(28)]
     })
+    console.log(values)
   }
 
   const initialState = {
@@ -66,19 +95,16 @@ function BitacoraForm() {
     revenimiento: '', //number
     revenimientoObtenido: '', //number
     fechaColado: new Date(),
-    siete: new Date(),
-    catorce: new Date(),
-    veintiOcho: new Date(),
-    veintiOchoDos: new Date(),
+    fechas: new Array(4),
     equipoMezclado: '',
     resistenciaTipo: '',
     concretera: '',
-    altura: '', //number
-    diametro: '', //number
-    area: '', //number
-    carga: '', //number
-    calculoResistenciaCompresion: '', //number
-    porcentajeResistenciaCompresion: ''
+    altura: [0, 0, 0, 0], //number
+    diametro: [0, 0, 0, 0], //number
+    area: [0, 0, 0, 0], //number
+    carga: [0, 0, 0, 0], //number
+    calculoResistenciaCompresion: [0, 0, 0, 0], //number
+    porcentajeResistenciaCompresion: [0, 0, 0, 0]
   }
 
   const validate = () => {
@@ -131,8 +157,28 @@ function BitacoraForm() {
     <ThemeProvider theme={theme}>
       <form onSubmit={handleSumbit}>
         <FormControl className={classes.root}>
-          <Grid container sx={{ padding: '15px 0' }}>
-            <Grid item xs={6}>
+          <Grid
+            container
+            sx={{
+              padding: '15px 0',
+
+              '@media(max-width: 715px)': {
+                flexDirection: 'column'
+              }
+            }}
+          >
+            <Grid
+              item
+              xs={6}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                '@media(max-width: 715px)': {
+                  maxWidth: '95%'
+                }
+              }}
+            >
               <TextField
                 onBlur={handleInputChange}
                 size="small"
@@ -234,48 +280,51 @@ function BitacoraForm() {
                   }}
                   renderInput={params => <TextField size="small" {...params} />}
                 />
-                <DatePicker
-                  readOnly
-                  label="siete"
-                  name="siete"
-                  views={['year', 'month', 'day']}
-                  value={values.siete}
-                  renderInput={params => <TextField size="small" {...params} />}
-                  onChange={newValue => {}}
-                />
-                <DatePicker
-                  readOnly
-                  label="catorce"
-                  name="catorce"
-                  views={['year', 'month', 'day']}
-                  value={values.catorce}
-                  renderInput={params => <TextField size="small" {...params} />}
-                  onChange={newValue => {}}
-                />
+                <Box>
+                  <Grid container sx={{ justifyContent: 'center' }}>
+                    <Grid item xs={5}>
+                      <DatePicker
+                        readOnly
+                        label="siete"
+                        name="siete"
+                        views={['year', 'month', 'day']}
+                        value={values.fechas[0]}
+                        renderInput={params => <TextField size="small" {...params} />}
+                        onChange={newValue => {}}
+                      />
+                      <DatePicker
+                        readOnly
+                        label="catorce"
+                        name="catorce"
+                        views={['year', 'month', 'day']}
+                        value={values.fechas[1]}
+                        renderInput={params => <TextField size="small" {...params} />}
+                        onChange={newValue => {}}
+                      />
+                    </Grid>
+                    <Grid item xs={5}>
+                      <DatePicker
+                        readOnly
+                        label="veintiOcho"
+                        name="veintiOcho"
+                        views={['year', 'month', 'day']}
+                        value={values.fechas[2]}
+                        renderInput={params => <TextField size="small" {...params} />}
+                        onChange={newValue => {}}
+                      />
+                      <DatePicker
+                        readOnly
+                        label="veintiOchoDos"
+                        name="veintiOchoDos"
+                        views={['year', 'month', 'day']}
+                        value={values.fechas[3]}
+                        renderInput={params => <TextField size="small" {...params} />}
+                        onChange={newValue => {}}
+                      />
+                    </Grid>
+                  </Grid>
+                </Box>
               </LocalizationProvider>
-            </Grid>
-            <Grid item xs={6}>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  readOnly
-                  label="veintiOcho"
-                  name="veintiOcho"
-                  views={['year', 'month', 'day']}
-                  value={values.veintiOcho}
-                  renderInput={params => <TextField size="small" {...params} />}
-                  onChange={newValue => {}}
-                />
-                <DatePicker
-                  readOnly
-                  label="veintiOchoDos"
-                  name="veintiOchoDos"
-                  views={['year', 'month', 'day']}
-                  value={values.veintiOchoDos}
-                  renderInput={params => <TextField size="small" {...params} />}
-                  onChange={newValue => {}}
-                />
-              </LocalizationProvider>
-
               <TextField
                 onBlur={handleInputChange}
                 size="small"
@@ -303,83 +352,398 @@ function BitacoraForm() {
                 error={!!errors.concretera}
                 helperText={errors.concretera ? errors.concretera : ''}
               ></TextField>
+            </Grid>
+            <Grid
+              item
+              xs={6}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
 
-              <TextField
-                onBlur={handleInputChange}
-                size="small"
-                variant="outlined"
-                label="altura"
-                name="altura"
-                error={!!errors.altura}
-                helperText={errors.altura ? errors.altura : ''}
-              ></TextField>
-
-              <TextField
-                onBlur={handleInputChange}
-                size="small"
-                variant="outlined"
-                label="diametro"
-                name="diametro"
-                error={!!errors.diametro}
-                helperText={errors.diametro ? errors.diametro : ''}
-              ></TextField>
-
-              <TextField
-                onBlur={handleInputChange}
-                size="small"
-                variant="outlined"
-                label="area"
-                name="area"
-                error={!!errors.area}
-                helperText={errors.area ? errors.area : ''}
-              ></TextField>
-
-              <TextField
-                onBlur={handleInputChange}
-                size="small"
-                variant="outlined"
-                label="carga"
-                name="carga"
-                error={!!errors.carga}
-                helperText={errors.carga ? errors.carga : ''}
-              ></TextField>
-
-              <TextField
-                onBlur={handleInputChange}
-                size="small"
-                variant="outlined"
-                label="calculoResistenciaCompresion"
-                name="calculoResistenciaCompresion"
-                error={!!errors.calculoResistenciaCompresion}
-                helperText={
-                  errors.calculoResistenciaCompresion ? errors.calculoResistenciaCompresion : ''
+                '@media(max-width: 715px)': {
+                  maxWidth: '95%'
                 }
-              ></TextField>
+              }}
+            >
+              <Box>
+                <Grid container sx={{ justifyContent: 'center' }}>
+                  <Grid xs={9}>
+                    <FormLabel>Alturas cm</FormLabel>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.altura, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="altura"
+                      name="0"
+                      error={!!errors.altura}
+                      helperText={errors.altura ? errors.altura : ''}
+                    ></TextField>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.altura, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="altura"
+                      name="1"
+                      error={!!errors.altura}
+                      helperText={errors.altura ? errors.altura : ''}
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.altura, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="altura"
+                      name="2"
+                      error={!!errors.altura}
+                      helperText={errors.altura ? errors.altura : ''}
+                    ></TextField>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.altura, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="altura"
+                      name="3"
+                      error={!!errors.altura}
+                      helperText={errors.altura ? errors.altura : ''}
+                    ></TextField>
+                  </Grid>
+                </Grid>
+              </Box>
+              <Box>
+                <Grid container sx={{ justifyContent: 'center' }}>
+                  <Grid xs={9}>
+                    <FormLabel>Diametros cm</FormLabel>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.diametro, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="diametro"
+                      name="0"
+                      error={!!errors.diametro}
+                      helperText={errors.diametro ? errors.diametro : ''}
+                    ></TextField>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.diametro, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="diametro"
+                      name="1"
+                      error={!!errors.diametro}
+                      helperText={errors.diametro ? errors.diametro : ''}
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.diametro, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="diametro"
+                      name="2"
+                      error={!!errors.diametro}
+                      helperText={errors.diametro ? errors.diametro : ''}
+                    ></TextField>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.diametro, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="diametro"
+                      name="3"
+                      error={!!errors.diametro}
+                      helperText={errors.diametro ? errors.diametro : ''}
+                    ></TextField>
+                  </Grid>
+                </Grid>
+              </Box>
+              <Box>
+                <Grid container sx={{ justifyContent: 'center' }}>
+                  {' '}
+                  <Grid xs={9}>
+                    <FormLabel>Areas cm</FormLabel>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.area, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="area"
+                      name="0"
+                      error={!!errors.area}
+                      helperText={errors.area ? errors.area : ''}
+                    ></TextField>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.area, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="area"
+                      name="1"
+                      error={!!errors.area}
+                      helperText={errors.area ? errors.area : ''}
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.area, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="area"
+                      name="2"
+                      error={!!errors.area}
+                      helperText={errors.area ? errors.area : ''}
+                    ></TextField>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.area, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="area"
+                      name="3"
+                      error={!!errors.area}
+                      helperText={errors.area ? errors.area : ''}
+                    ></TextField>
+                  </Grid>
+                </Grid>
+              </Box>
+              <Box>
+                <Grid container sx={{ justifyContent: 'center' }}>
+                  <Grid xs={9}>
+                    <FormLabel>Cargas</FormLabel>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.carga, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="carga"
+                      name="0"
+                      error={!!errors.carga}
+                      helperText={errors.carga ? errors.carga : ''}
+                    ></TextField>
+                    <TextField
+                      o
+                      onBlur={e => {
+                        handleArrays(values.carga, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="carga"
+                      name="1"
+                      error={!!errors.carga}
+                      helperText={errors.carga ? errors.carga : ''}
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.carga, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="carga"
+                      name="2"
+                      error={!!errors.carga}
+                      helperText={errors.carga ? errors.carga : ''}
+                    ></TextField>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.carga, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="carga"
+                      name="3"
+                      error={!!errors.carga}
+                      helperText={errors.carga ? errors.carga : ''}
+                    ></TextField>
+                  </Grid>
+                </Grid>
+              </Box>
+              <Box>
+                <Grid container sx={{ justifyContent: 'center' }}>
+                  {' '}
+                  <Grid xs={9}>
+                    <FormLabel>Resistencias kgf/cm2</FormLabel>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.calculoResistenciaCompresion, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="calculoResistenciaCompresion"
+                      name="0"
+                      error={!!errors.calculoResistenciaCompresion}
+                      helperText={
+                        errors.calculoResistenciaCompresion
+                          ? errors.calculoResistenciaCompresion
+                          : ''
+                      }
+                    ></TextField>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.calculoResistenciaCompresion, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="calculoResistenciaCompresion"
+                      name="1"
+                      error={!!errors.calculoResistenciaCompresion}
+                      helperText={
+                        errors.calculoResistenciaCompresion
+                          ? errors.calculoResistenciaCompresion
+                          : ''
+                      }
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.calculoResistenciaCompresion, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="calculoResistenciaCompresion"
+                      name="2"
+                      error={!!errors.calculoResistenciaCompresion}
+                      helperText={
+                        errors.calculoResistenciaCompresion
+                          ? errors.calculoResistenciaCompresion
+                          : ''
+                      }
+                    ></TextField>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.calculoResistenciaCompresion, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="calculoResistenciaCompresion"
+                      name="3"
+                      error={!!errors.calculoResistenciaCompresion}
+                      helperText={
+                        errors.calculoResistenciaCompresion
+                          ? errors.calculoResistenciaCompresion
+                          : ''
+                      }
+                    ></TextField>
+                  </Grid>
+                </Grid>
+              </Box>
+              <Box>
+                <Grid container sx={{ justifyContent: 'center' }}>
+                  <Grid xs={9}>
+                    <FormLabel>Porcentajes</FormLabel>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.porcentajeResistenciaCompresion, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="porcentajeResistenciaCompresion"
+                      name="0"
+                      error={!!errors.porcentajeResistenciaCompresion}
+                      helperText={
+                        errors.porcentajeResistenciaCompresion
+                          ? errors.porcentajeResistenciaCompresion
+                          : ''
+                      }
+                    ></TextField>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.porcentajeResistenciaCompresion, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="porcentajeResistenciaCompresion"
+                      name="1"
+                      error={!!errors.porcentajeResistenciaCompresion}
+                      helperText={
+                        errors.porcentajeResistenciaCompresion
+                          ? errors.porcentajeResistenciaCompresion
+                          : ''
+                      }
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.porcentajeResistenciaCompresion, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="porcentajeResistenciaCompresion"
+                      name="2"
+                      error={!!errors.porcentajeResistenciaCompresion}
+                      helperText={
+                        errors.porcentajeResistenciaCompresion
+                          ? errors.porcentajeResistenciaCompresion
+                          : ''
+                      }
+                    ></TextField>
+                    <TextField
+                      onBlur={e => {
+                        handleArrays(values.porcentajeResistenciaCompresion, e)
+                      }}
+                      size="small"
+                      variant="outlined"
+                      label="porcentajeResistenciaCompresion"
+                      name="3"
+                      error={!!errors.porcentajeResistenciaCompresion}
+                      helperText={
+                        errors.porcentajeResistenciaCompresion
+                          ? errors.porcentajeResistenciaCompresion
+                          : ''
+                      }
+                    ></TextField>
+                  </Grid>
+                </Grid>
+              </Box>
 
-              <TextField
-                onBlur={handleInputChange}
-                size="small"
-                variant="outlined"
-                label="porcentajeResistenciaCompresion"
-                name="porcentajeResistenciaCompresion"
-                error={!!errors.porcentajeResistenciaCompresion}
-                helperText={
-                  errors.porcentajeResistenciaCompresion
-                    ? errors.porcentajeResistenciaCompresion
-                    : ''
-                }
-              ></TextField>
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-evenly',
-                  alignItems: 'center'
-                }}
-              >
-                <Button type="submit" variant="contained" sx={{ backgroundColor: '#008433' }}>
+              <Box sx={{ alignSelf: 'end', margin: '25px 0' }}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{ backgroundColor: '#008433', marginRight: '20px' }}
+                >
                   Aceptar
                 </Button>
-                <Button variant="contained" sx={{ backgroundColor: '#008433' }}>
+                <Button
+                  variant="contained"
+                  sx={{ backgroundColor: '#e80000', marginLeft: '20px', marginRight: '20px' }}
+                >
                   Cancelar
                 </Button>
               </Box>

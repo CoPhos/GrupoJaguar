@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Web site created using create-react-app" />
@@ -26,7 +27,6 @@
     <style>
       html {
         box-sizing: border-box;
-        touch-action: manipulation;
       }
 
       *,
@@ -48,12 +48,16 @@
         line-height: 1.43;
         letter-spacing: 0.01071rem;
         background-color: #fafafa;
+        overflow-x: hidden;
       }
+
       .App {
         display: flex;
         flex-direction: column;
         height: 100vh;
+        position: relative;
         max-height: max-content;
+        overflow-x: hidden;
       }
       @media print {
         body {
