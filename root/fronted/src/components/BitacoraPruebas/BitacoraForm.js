@@ -185,13 +185,12 @@ function BitacoraForm() {
 
   return (
     <ThemeProvider theme={theme}>
-      <form onSubmit={handleSumbit}>
+      <form onSubmit={handleSumbit} style={{ overflowX: 'hidden' }}>
         <FormControl className={classes.root}>
           <Grid
             container
             sx={{
               padding: '15px 0',
-
               '@media(max-width: 715px)': {
                 flexDirection: 'column'
               }
@@ -760,7 +759,7 @@ function BitacoraForm() {
                 </Grid>
               </Box>
 
-              <Box sx={{ alignSelf: 'end', margin: '25px 0' }}>
+              {/* <Box sx={{ alignSelf: 'end', margin: '25px 0' }}>
                 <Button
                   type="submit"
                   variant="contained"
@@ -774,7 +773,7 @@ function BitacoraForm() {
                 >
                   Cancelar
                 </Button>
-              </Box>
+              </Box> */}
             </Grid>
           </Grid>
         </FormControl>

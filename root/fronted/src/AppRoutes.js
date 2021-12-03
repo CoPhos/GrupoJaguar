@@ -11,9 +11,9 @@ const AppRoutes = () => (
   <App>
     <Header />
     <Switch>
-      <Route path="/" render={Login} exact />
-      <Route path="/home" render={Home} exact />
-      <Route path="/bitacorePruebas" render={Bitacora} exact />
+      <Route path="/" component={Login} exact />
+      <Route path="/home" component={Home} exact />
+      <Route path="/bitacorePruebas" component={Bitacora} exact />
     </Switch>
     <Footer />
   </App>
