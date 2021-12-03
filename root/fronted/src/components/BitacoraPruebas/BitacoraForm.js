@@ -106,15 +106,16 @@ function BitacoraForm() {
     equipoMezclado: '',
     resistenciaTipo: '',
     concretera: '',
-    altura: [0, 0, 0, 0], //number
-    diametro: [0, 0, 0, 0], //number
+    altura: ['', '', '', ''], //number
+    diametro: ['', '', '', ''], //number
     area: [0, 0, 0, 0], //number
-    carga: [0, 0, 0, 0], //number
+    carga: ['', '', '', ''], //number
     calculoResistenciaCompresion: [0, 0, 0, 0], //number
     porcentajeResistenciaCompresion: [0, 0, 0, 0]
   }
 
   const validate = () => {
+    const numberPattern = /^[0-9]+$/
     let temp = {}
     temp.lab = values.lab ? '' : 'Debe llenar este campo.'
     temp.numObra = values.numObra ? '' : 'Debe llenar este campo.'
@@ -125,9 +126,7 @@ function BitacoraForm() {
     temp.equipoMezclado = values.equipoMezclado ? '' : 'Debe llenar este campo.'
     temp.resistenciaTipo = values.resistenciaTipo ? '' : 'Debe llenar este campo.'
     temp.concretera = values.concretera ? '' : 'Debe llenar este campo.'
-    temp.porcentajeResistenciaCompresion = values.porcentajeResistenciaCompresion
-      ? ''
-      : 'Debe llenar este campo.'
+
     temp.valorResistenciaCompresion = /^\d+$/.test(values.valorResistenciaCompresion)
       ? ''
       : 'Debe contener solo numeros'
@@ -135,13 +134,38 @@ function BitacoraForm() {
     temp.revenimientoObtenido = /^[0-9]+$/.test(values.revenimientoObtenido)
       ? ''
       : 'Debe contener solo numeros'
-    temp.altura = /^[0-9]+$/.test(values.altura) ? '' : 'Debe contener solo numeros'
-    temp.diametro = /^[0-9]+$/.test(values.diametro) ? '' : 'Debe contener solo numeros'
-    temp.area = /^[0-9]+$/.test(values.area) ? '' : 'Debe contener solo numeros'
-    temp.carga = /^[0-9]+$/.test(values.carga) ? '' : 'Debe contener solo numeros'
-    temp.calculoResistenciaCompresion = /^[0-9]+$/.test(values.calculoResistenciaCompresion)
-      ? ''
-      : 'Debe contener solo numeros'
+    if (
+      numberPattern.test(values.altura[0]) &&
+      numberPattern.test(values.altura[1]) &&
+      numberPattern.test(values.altura[2]) &&
+      numberPattern.test(values.altura[3])
+    ) {
+      temp.altura = ''
+    } else {
+      temp.altura = 'Debe contener solo numeros'
+    }
+
+    if (
+      numberPattern.test(values.diametro[0]) &&
+      numberPattern.test(values.diametro[1]) &&
+      numberPattern.test(values.diametro[2]) &&
+      numberPattern.test(values.diametro[3])
+    ) {
+      temp.diametro = ''
+    } else {
+      temp.diametro = 'Todos los campos debe contener solo numeros'
+    }
+    if (
+      numberPattern.test(values.carga[0]) &&
+      numberPattern.test(values.carga[1]) &&
+      numberPattern.test(values.carga[2]) &&
+      numberPattern.test(values.carga[3])
+    ) {
+      temp.carga = ''
+    } else {
+      temp.carga = 'Todos los campos debe contener solo numeros'
+    }
+
     seterrors({
       ...temp
     })
@@ -243,7 +267,10 @@ function BitacoraForm() {
               ></TextField>
 
               <TextField
-                onBlur={handleInputChange}
+                onChange={handleInputChange}
+                onBlur={e => {
+                  handleArrays(values.altura, e)
+                }}
                 size="small"
                 variant="outlined"
                 label="valorResistenciaCompresion"
