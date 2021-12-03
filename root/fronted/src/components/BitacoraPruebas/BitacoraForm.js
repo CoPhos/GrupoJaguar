@@ -43,38 +43,45 @@ function BitacoraForm() {
 
   const handleArrays = (arg, e) => {
     const { name, value } = e.target
-    switch (name) {
-      case '0':
-        setvalues({
-          ...values,
-          arg: arg.splice(name, 1, parseInt(value))
-        })
-        break
-      case '1':
-        setvalues({
-          ...values,
-          arg: arg.splice(name, 1, parseInt(value))
-        })
-        break
-      case '2':
-        setvalues({
-          ...values,
-          arg: arg.splice(name, 1, parseInt(value))
-        })
-        break
-      case '3':
-        setvalues({
-          ...values,
-          arg: arg.splice(name, 1, parseInt(value))
-        })
-        break
-    }
+    setvalues({
+      ...values,
+      arg: arg.splice(name, 1, parseFloat(value))
+    })
+    let area1 = calcularArea(0),
+      area2 = calcularArea(1),
+      area3 = calcularArea(2),
+      area4 = calcularArea(3)
+
+    let [resisitencia1, porcentaje1] = calcularResistenciaComprension(0),
+      [resisitencia2, porcentaje2] = calcularResistenciaComprension(1),
+      [resisitencia3, porcentaje3] = calcularResistenciaComprension(2),
+      [resisitencia4, porcentaje4] = calcularResistenciaComprension(3)
+
+    setvalues({
+      ...values,
+      area: [area1, area2, area3, area4],
+      calculoResistenciaCompresion: [resisitencia1, resisitencia2, resisitencia3, resisitencia4],
+      porcentajeResistenciaCompresion: [porcentaje1, porcentaje2, porcentaje3, porcentaje4]
+    })
+  }
+
+  const calcularResistenciaComprension = index => {
+    const area = parseFloat(values.area[index])
+    const carga = parseFloat(values.carga[index])
+    return [String(carga / area), String((carga / area / values.valorResistenciaCompresion) * 1000)]
+  }
+
+  const calcularArea = index => {
+    const radio = parseFloat(values.diametro[index] / 2)
+    const altura = parseFloat(values.altura[index])
+    const area = 2 * Math.PI * radio * (radio + altura)
+
+    return String(area)
   }
   const handleDates = date => {
     if (!date) {
       date = new Date()
     }
-    console.log(typeof date)
     setvalues({
       ...values,
       fechaColado: date,
@@ -144,8 +151,7 @@ function BitacoraForm() {
 
   const handleSumbit = e => {
     e.preventDefault()
-    console.log(validate())
-    console.log(values)
+
     if (validate()) {
       window.alert('testing...')
     }
@@ -478,54 +484,50 @@ function BitacoraForm() {
               </Box>
               <Box>
                 <Grid container sx={{ justifyContent: 'center' }}>
-                  {' '}
                   <Grid xs={9}>
                     <FormLabel>Areas cm</FormLabel>
                   </Grid>
                   <Grid item xs={5}>
                     <TextField
-                      onBlur={e => {
-                        handleArrays(values.area, e)
-                      }}
                       size="small"
                       variant="outlined"
-                      label="area"
-                      name="0"
+                      InputProps={{
+                        readOnly: true
+                      }}
+                      value={values.area[0]}
                       error={!!errors.area}
                       helperText={errors.area ? errors.area : ''}
                     ></TextField>
                     <TextField
-                      onBlur={e => {
-                        handleArrays(values.area, e)
-                      }}
                       size="small"
                       variant="outlined"
-                      label="area"
-                      name="1"
+                      InputProps={{
+                        readOnly: true
+                      }}
+                      value={values.area[1]}
                       error={!!errors.area}
                       helperText={errors.area ? errors.area : ''}
                     ></TextField>
                   </Grid>
                   <Grid item xs={5}>
                     <TextField
-                      onBlur={e => {
-                        handleArrays(values.area, e)
-                      }}
                       size="small"
                       variant="outlined"
-                      label="area"
-                      name="2"
+                      InputProps={{
+                        readOnly: true
+                      }}
+                      value={values.area[2]}
                       error={!!errors.area}
                       helperText={errors.area ? errors.area : ''}
                     ></TextField>
                     <TextField
-                      onBlur={e => {
-                        handleArrays(values.area, e)
-                      }}
                       size="small"
                       variant="outlined"
                       label="area"
-                      name="3"
+                      InputProps={{
+                        readOnly: true
+                      }}
+                      value={values.area[3]}
                       error={!!errors.area}
                       helperText={errors.area ? errors.area : ''}
                     ></TextField>
@@ -590,19 +592,18 @@ function BitacoraForm() {
               </Box>
               <Box>
                 <Grid container sx={{ justifyContent: 'center' }}>
-                  {' '}
                   <Grid xs={9}>
                     <FormLabel>Resistencias kgf/cm2</FormLabel>
                   </Grid>
                   <Grid item xs={5}>
                     <TextField
-                      onBlur={e => {
-                        handleArrays(values.calculoResistenciaCompresion, e)
-                      }}
                       size="small"
                       variant="outlined"
                       label="calculoResistenciaCompresion"
-                      name="0"
+                      InputProps={{
+                        readOnly: true
+                      }}
+                      value={values.calculoResistenciaCompresion[0]}
                       error={!!errors.calculoResistenciaCompresion}
                       helperText={
                         errors.calculoResistenciaCompresion
@@ -611,13 +612,13 @@ function BitacoraForm() {
                       }
                     ></TextField>
                     <TextField
-                      onBlur={e => {
-                        handleArrays(values.calculoResistenciaCompresion, e)
-                      }}
                       size="small"
                       variant="outlined"
                       label="calculoResistenciaCompresion"
-                      name="1"
+                      InputProps={{
+                        readOnly: true
+                      }}
+                      value={values.calculoResistenciaCompresion[1]}
                       error={!!errors.calculoResistenciaCompresion}
                       helperText={
                         errors.calculoResistenciaCompresion
@@ -628,13 +629,13 @@ function BitacoraForm() {
                   </Grid>
                   <Grid item xs={5}>
                     <TextField
-                      onBlur={e => {
-                        handleArrays(values.calculoResistenciaCompresion, e)
-                      }}
                       size="small"
                       variant="outlined"
                       label="calculoResistenciaCompresion"
-                      name="2"
+                      InputProps={{
+                        readOnly: true
+                      }}
+                      value={values.calculoResistenciaCompresion[2]}
                       error={!!errors.calculoResistenciaCompresion}
                       helperText={
                         errors.calculoResistenciaCompresion
@@ -643,13 +644,13 @@ function BitacoraForm() {
                       }
                     ></TextField>
                     <TextField
-                      onBlur={e => {
-                        handleArrays(values.calculoResistenciaCompresion, e)
-                      }}
                       size="small"
                       variant="outlined"
                       label="calculoResistenciaCompresion"
-                      name="3"
+                      InputProps={{
+                        readOnly: true
+                      }}
+                      value={values.calculoResistenciaCompresion[3]}
                       error={!!errors.calculoResistenciaCompresion}
                       helperText={
                         errors.calculoResistenciaCompresion
@@ -667,13 +668,13 @@ function BitacoraForm() {
                   </Grid>
                   <Grid item xs={5}>
                     <TextField
-                      onBlur={e => {
-                        handleArrays(values.porcentajeResistenciaCompresion, e)
-                      }}
                       size="small"
                       variant="outlined"
                       label="porcentajeResistenciaCompresion"
-                      name="0"
+                      InputProps={{
+                        readOnly: true
+                      }}
+                      value={values.porcentajeResistenciaCompresion[0]}
                       error={!!errors.porcentajeResistenciaCompresion}
                       helperText={
                         errors.porcentajeResistenciaCompresion
@@ -682,13 +683,13 @@ function BitacoraForm() {
                       }
                     ></TextField>
                     <TextField
-                      onBlur={e => {
-                        handleArrays(values.porcentajeResistenciaCompresion, e)
-                      }}
                       size="small"
                       variant="outlined"
                       label="porcentajeResistenciaCompresion"
-                      name="1"
+                      InputProps={{
+                        readOnly: true
+                      }}
+                      value={values.porcentajeResistenciaCompresion[1]}
                       error={!!errors.porcentajeResistenciaCompresion}
                       helperText={
                         errors.porcentajeResistenciaCompresion
@@ -699,13 +700,13 @@ function BitacoraForm() {
                   </Grid>
                   <Grid item xs={5}>
                     <TextField
-                      onBlur={e => {
-                        handleArrays(values.porcentajeResistenciaCompresion, e)
-                      }}
                       size="small"
                       variant="outlined"
                       label="porcentajeResistenciaCompresion"
-                      name="2"
+                      InputProps={{
+                        readOnly: true
+                      }}
+                      value={values.porcentajeResistenciaCompresion[2]}
                       error={!!errors.porcentajeResistenciaCompresion}
                       helperText={
                         errors.porcentajeResistenciaCompresion
@@ -714,13 +715,13 @@ function BitacoraForm() {
                       }
                     ></TextField>
                     <TextField
-                      onBlur={e => {
-                        handleArrays(values.porcentajeResistenciaCompresion, e)
-                      }}
                       size="small"
                       variant="outlined"
                       label="porcentajeResistenciaCompresion"
-                      name="3"
+                      InputProps={{
+                        readOnly: true
+                      }}
+                      value={values.porcentajeResistenciaCompresion[3]}
                       error={!!errors.porcentajeResistenciaCompresion}
                       helperText={
                         errors.porcentajeResistenciaCompresion
