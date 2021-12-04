@@ -15,18 +15,38 @@ export const onCreateBitacoraDePruebasComprension = /* GraphQL */ `
       revenimientoProyecto
       revenimientoObtenido
       fechaColado
-      edadDias
-      fechaEnsaye
+      siete
+      catorce
+      veintiocho
+      veintiochoDos
       equipoMezclado
       resistenciaTipo
       concretera
       observaciones
-      altura
-      diametro
-      area
-      carga
-      resistenciaComprension
-      porcentajeResistenciaComprension
+      altura1
+      altura2
+      altura3
+      altura4
+      diametro1
+      diametro2
+      diametro3
+      diametro4
+      area1
+      area2
+      area3
+      area4
+      carga1
+      carga2
+      carga3
+      carga4
+      resistenciaComprension1
+      resistenciaComprension2
+      resistenciaComprension3
+      resistenciaComprension4
+      porcentajeResistenciaComprension1
+      porcentajeResistenciaComprension2
+      porcentajeResistenciaComprension3
+      porcentajeResistenciaComprension4
       tipoFalla
       laboratorista
       createdAt
@@ -48,18 +68,38 @@ export const onUpdateBitacoraDePruebasComprension = /* GraphQL */ `
       revenimientoProyecto
       revenimientoObtenido
       fechaColado
-      edadDias
-      fechaEnsaye
+      siete
+      catorce
+      veintiocho
+      veintiochoDos
       equipoMezclado
       resistenciaTipo
       concretera
       observaciones
-      altura
-      diametro
-      area
-      carga
-      resistenciaComprension
-      porcentajeResistenciaComprension
+      altura1
+      altura2
+      altura3
+      altura4
+      diametro1
+      diametro2
+      diametro3
+      diametro4
+      area1
+      area2
+      area3
+      area4
+      carga1
+      carga2
+      carga3
+      carga4
+      resistenciaComprension1
+      resistenciaComprension2
+      resistenciaComprension3
+      resistenciaComprension4
+      porcentajeResistenciaComprension1
+      porcentajeResistenciaComprension2
+      porcentajeResistenciaComprension3
+      porcentajeResistenciaComprension4
       tipoFalla
       laboratorista
       createdAt
@@ -81,20 +121,127 @@ export const onDeleteBitacoraDePruebasComprension = /* GraphQL */ `
       revenimientoProyecto
       revenimientoObtenido
       fechaColado
-      edadDias
-      fechaEnsaye
+      siete
+      catorce
+      veintiocho
+      veintiochoDos
       equipoMezclado
       resistenciaTipo
       concretera
       observaciones
-      altura
-      diametro
+      altura1
+      altura2
+      altura3
+      altura4
+      diametro1
+      diametro2
+      diametro3
+      diametro4
+      area1
+      area2
+      area3
+      area4
+      carga1
+      carga2
+      carga3
+      carga4
+      resistenciaComprension1
+      resistenciaComprension2
+      resistenciaComprension3
+      resistenciaComprension4
+      porcentajeResistenciaComprension1
+      porcentajeResistenciaComprension2
+      porcentajeResistenciaComprension3
+      porcentajeResistenciaComprension4
+      tipoFalla
+      laboratorista
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateDiarioDePruebasComprension = /* GraphQL */ `
+  subscription OnCreateDiarioDePruebasComprension {
+    onCreateDiarioDePruebasComprension {
+      id
+      equipoEL
+      fecha
+      ensayeNum
+      muestraNum
+      resistenciaProyecto
+      altura1
+      altura2
+      promedioAltura
+      diametro1
+      diametro2
+      promedioRadio
       area
-      carga
+      planicidad
+      perpendicularidad
+      cargaMaxima
       resistenciaComprension
       porcentajeResistenciaComprension
       tipoFalla
-      laboratorista
+      horaEnsaye
+      observaciones
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateDiarioDePruebasComprension = /* GraphQL */ `
+  subscription OnUpdateDiarioDePruebasComprension {
+    onUpdateDiarioDePruebasComprension {
+      id
+      equipoEL
+      fecha
+      ensayeNum
+      muestraNum
+      resistenciaProyecto
+      altura1
+      altura2
+      promedioAltura
+      diametro1
+      diametro2
+      promedioRadio
+      area
+      planicidad
+      perpendicularidad
+      cargaMaxima
+      resistenciaComprension
+      porcentajeResistenciaComprension
+      tipoFalla
+      horaEnsaye
+      observaciones
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteDiarioDePruebasComprension = /* GraphQL */ `
+  subscription OnDeleteDiarioDePruebasComprension {
+    onDeleteDiarioDePruebasComprension {
+      id
+      equipoEL
+      fecha
+      ensayeNum
+      muestraNum
+      resistenciaProyecto
+      altura1
+      altura2
+      promedioAltura
+      diametro1
+      diametro2
+      promedioRadio
+      area
+      planicidad
+      perpendicularidad
+      cargaMaxima
+      resistenciaComprension
+      porcentajeResistenciaComprension
+      tipoFalla
+      horaEnsaye
+      observaciones
       createdAt
       updatedAt
     }

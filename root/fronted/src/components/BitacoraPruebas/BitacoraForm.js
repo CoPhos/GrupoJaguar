@@ -10,7 +10,6 @@ import Grid from '@mui/material/Grid'
 import { FormControl } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import DatePicker from '@mui/lab/DatePicker'
-import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import FormLabel from '@mui/material/FormLabel'
 
@@ -98,6 +97,7 @@ function BitacoraForm() {
     ubicacion: '',
     solicitadoPor: '',
     elementoColado: '',
+    laboratorista: '',
     valorResistenciaCompresion: '', //number
     revenimiento: '', //number
     revenimientoObtenido: '', //number
@@ -123,6 +123,7 @@ function BitacoraForm() {
     temp.ubicacion = values.ubicacion ? '' : 'Debe llenar este campo.'
     temp.solicitadoPor = values.solicitadoPor ? '' : 'Debe llenar este campo.'
     temp.elementoColado = values.elementoColado ? '' : 'Debe llenar este campo.'
+    temp.laboratorista = values.laboratorista ? '' : 'Debe llenar este campo.'
     temp.equipoMezclado = values.equipoMezclado ? '' : 'Debe llenar este campo.'
     temp.resistenciaTipo = values.resistenciaTipo ? '' : 'Debe llenar este campo.'
     temp.concretera = values.concretera ? '' : 'Debe llenar este campo.'
@@ -264,7 +265,15 @@ function BitacoraForm() {
                 error={!!errors.elementoColado}
                 helperText={errors.elementoColado ? errors.elementoColado : ''}
               ></TextField>
-
+              <TextField
+                onBlur={handleInputChange}
+                size="small"
+                variant="outlined"
+                label="laboratorista"
+                name="laboratorista"
+                error={!!errors.laboratorista}
+                helperText={errors.laboratorista ? errors.laboratorista : ''}
+              ></TextField>
               <TextField
                 onChange={handleInputChange}
                 onBlur={e => {

@@ -15,18 +15,62 @@ type BitacoraDePruebasComprension @model {
   revenimientoProyecto: String!
   revenimientoObtenido: String!
   fechaColado: String!
-  edadDias: [String!]!
-  fechaEnsaye: [String!]!
+  siete: String!
+  catorce: String!
+  veintiocho: String!
+  veintiochoDos: String!
   equipoMezclado: String!
   resistenciaTipo: String!
   concretera: String!
   observaciones: String
-  altura: [Float!]!
-  diametro: [Float!]!
-  area: [Float!]!
-  carga: [Float!]!
-  resistenciaComprension: [Float!]!
-  porcentajeResistenciaComprension: [String!]!
+  altura1: Float!
+  altura2: Float!
+  altura3: Float!
+  altura4: Float!
+  diametro1: Float!
+  diametro2: Float!
+  diametro3: Float!
+  diametro4: Float!
+  area1: Float!
+  area2: Float!
+  area3: Float!
+  area4: Float!
+  carga1: Float!
+  carga2: Float!
+  carga3: Float!
+  carga4: Float!
+  resistenciaComprension1: Float!
+  resistenciaComprension2: Float!
+  resistenciaComprension3: Float!
+  resistenciaComprension4: Float!
+  porcentajeResistenciaComprension1: String!
+  porcentajeResistenciaComprension2: String!
+  porcentajeResistenciaComprension3: String!
+  porcentajeResistenciaComprension4: String!
   tipoFalla: String
   laboratorista: String!
+}
+
+type DiarioDePruebasComprension @model {
+  id: ID!
+  equipoEL: String!
+  fecha: String!
+  ensayeNum: String!
+  muestraNum: String!
+  resistenciaProyecto: Float!
+  altura1: Float!
+  altura2: Float!
+  promedioAltura: Float!
+  diametro1: Float!
+  diametro2: Float!
+  promedioRadio: Float!
+  area: Float!
+  planicidad: String
+  perpendicularidad: String
+  cargaMaxima: Float
+  resistenciaComprension: Float
+  porcentajeResistenciaComprension: String
+  tipoFalla: String
+  horaEnsaye: String
+  observaciones: String
 }

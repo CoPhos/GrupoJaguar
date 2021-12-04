@@ -15,36 +15,52 @@ export const getBitacoraDePruebasComprension = /* GraphQL */ `
       revenimientoProyecto
       revenimientoObtenido
       fechaColado
-      edadDias
-      fechaEnsaye
+      siete
+      catorce
+      veintiocho
+      veintiochoDos
       equipoMezclado
       resistenciaTipo
       concretera
       observaciones
-      altura
-      diametro
-      area
-      carga
-      resistenciaComprension
-      porcentajeResistenciaComprension
+      altura1
+      altura2
+      altura3
+      altura4
+      diametro1
+      diametro2
+      diametro3
+      diametro4
+      area1
+      area2
+      area3
+      area4
+      carga1
+      carga2
+      carga3
+      carga4
+      resistenciaComprension1
+      resistenciaComprension2
+      resistenciaComprension3
+      resistenciaComprension4
+      porcentajeResistenciaComprension1
+      porcentajeResistenciaComprension2
+      porcentajeResistenciaComprension3
+      porcentajeResistenciaComprension4
       tipoFalla
       laboratorista
       createdAt
       updatedAt
     }
   }
-`;
+`
 export const listBitacoraDePruebasComprensions = /* GraphQL */ `
   query ListBitacoraDePruebasComprensions(
     $filter: ModelBitacoraDePruebasComprensionFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listBitacoraDePruebasComprensions(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
+    listBitacoraDePruebasComprensions(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         numMuestra
@@ -57,18 +73,38 @@ export const listBitacoraDePruebasComprensions = /* GraphQL */ `
         revenimientoProyecto
         revenimientoObtenido
         fechaColado
-        edadDias
-        fechaEnsaye
+        siete
+        catorce
+        veintiocho
+        veintiochoDos
         equipoMezclado
         resistenciaTipo
         concretera
         observaciones
-        altura
-        diametro
-        area
-        carga
-        resistenciaComprension
-        porcentajeResistenciaComprension
+        altura1
+        altura2
+        altura3
+        altura4
+        diametro1
+        diametro2
+        diametro3
+        diametro4
+        area1
+        area2
+        area3
+        area4
+        carga1
+        carga2
+        carga3
+        carga4
+        resistenciaComprension1
+        resistenciaComprension2
+        resistenciaComprension3
+        resistenciaComprension4
+        porcentajeResistenciaComprension1
+        porcentajeResistenciaComprension2
+        porcentajeResistenciaComprension3
+        porcentajeResistenciaComprension4
         tipoFalla
         laboratorista
         createdAt
@@ -77,4 +113,69 @@ export const listBitacoraDePruebasComprensions = /* GraphQL */ `
       nextToken
     }
   }
-`;
+`
+export const getDiarioDePruebasComprension = /* GraphQL */ `
+  query GetDiarioDePruebasComprension($id: ID!) {
+    getDiarioDePruebasComprension(id: $id) {
+      id
+      equipoEL
+      fecha
+      ensayeNum
+      muestraNum
+      resistenciaProyecto
+      altura1
+      altura2
+      promedioAltura
+      diametro1
+      diametro2
+      promedioRadio
+      area
+      planicidad
+      perpendicularidad
+      cargaMaxima
+      resistenciaComprension
+      porcentajeResistenciaComprension
+      tipoFalla
+      horaEnsaye
+      observaciones
+      createdAt
+      updatedAt
+    }
+  }
+`
+export const listDiarioDePruebasComprensions = /* GraphQL */ `
+  query ListDiarioDePruebasComprensions(
+    $filter: ModelDiarioDePruebasComprensionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listDiarioDePruebasComprensions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        equipoEL
+        fecha
+        ensayeNum
+        muestraNum
+        resistenciaProyecto
+        altura1
+        altura2
+        promedioAltura
+        diametro1
+        diametro2
+        promedioRadio
+        area
+        planicidad
+        perpendicularidad
+        cargaMaxima
+        resistenciaComprension
+        porcentajeResistenciaComprension
+        tipoFalla
+        horaEnsaye
+        observaciones
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`
