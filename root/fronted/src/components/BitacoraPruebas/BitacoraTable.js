@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme =>
       '& .MuiDataGrid-cell': {
         maxHeight: 'fit-content !important',
         overflow: 'auto',
-        maxHeight: 'inherit',
         whiteSpace: 'initial !important',
         lineHeight: '16px !important',
         display: 'flex !important',

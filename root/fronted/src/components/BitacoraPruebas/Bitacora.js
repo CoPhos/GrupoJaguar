@@ -49,7 +49,7 @@ function Bitacora() {
           alignItems: 'center'
         }}
       >
-        <Typography variant="h4" component="div" sx={{ marginBottom: '30px' }}>
+        {/* <Typography variant="h4" component="div" sx={{ marginBottom: '30px' }}>
           Bitacora de pruebas
         </Typography>
         <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
@@ -92,9 +92,10 @@ function Bitacora() {
             >
               Añadir
             </Button>
-          </Toolbar>
-        </Box>
-        <BitacoraContainer></BitacoraContainer>
+          </Toolbar> 
+        </Box>*/}
+        {/* <BitacoraContainer></BitacoraContainer> */}
+        <BitacoraForm></BitacoraForm>
       </Container>
     </>
   )

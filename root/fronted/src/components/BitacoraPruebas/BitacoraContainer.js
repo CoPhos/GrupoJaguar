@@ -1,10 +1,12 @@
 import React, { useEffect, useReducer } from 'react'
 import API, { graphqlOperation } from '@aws-amplify/api'
-import { List } from 'antd'
-import 'antd/dist/antd.css'
 import { listBitacoraDePruebasComprensions } from '../../graphql/queries'
+import { createBitacoraDePruebasComprension as createBitacora } from '../../graphql/mutations'
+import { v4 as uuidv4 } from 'uuid'
 
 import BitacoraTable from './BitacoraTable'
+
+const CLIENT_ID = uuidv4()
 
 function reducer(state, action) {
   switch (action.type) {
@@ -15,7 +17,7 @@ function reducer(state, action) {
     case 'RESET_FORM':
       return { ...state, form: initialState.form }
     case 'SET_INPUT':
-      return { ...state, form: { ...state.form, [action.name]: action.value } }
+      return { ...state, form: {} }
     case 'ERROR':
       return { ...state, loading: false, error: true }
     default:
@@ -27,7 +29,7 @@ const initialState = {
   notes: [],
   loading: true,
   error: false,
-  form: { ubicacion: '', nombreObra: '' }
+  form: {}
 }
 
 function BitacoraContainer() {
@@ -43,6 +45,19 @@ function BitacoraContainer() {
     } catch (err) {
       console.log('error: ', err)
       dispatch({ type: 'ERROR' })
+    }
+  }
+
+  async function createNote() {
+    const { form } = state
+    const note = { ...form, clientId: CLIENT_ID, completed: false }
+    dispatch({ type: 'ADD_NOTE', note })
+    dispatch({ type: 'RESET_FORM' })
+    try {
+      await API.graphql(graphqlOperation(createBitacora, { input: note }))
+      console.log('successfully created note!')
+    } catch (err) {
+      console.log('error: ', err)
     }
   }
 
