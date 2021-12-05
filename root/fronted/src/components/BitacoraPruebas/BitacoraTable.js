@@ -1,10 +1,10 @@
-import * as React from 'react'
-import { DataGrid } from '@mui/x-data-grid'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Popover from '@mui/material/Popover'
-import { createStyles, makeStyles } from '@mui/styles'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
+import * as React from 'react';
+import { DataGrid } from '@mui/x-data-grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Popover from '@mui/material/Popover';
+import { createStyles, makeStyles } from '@mui/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme =>
       }
     }
   })
-)
+);
 
 const columns = [
   { field: 'numMuestra', headerName: 'Num Muestra', width: 120, wrapText: true },
@@ -123,28 +123,28 @@ const columns = [
   { field: 'laboratorista', headerName: 'Laboratorista', width: 140 },
   { field: 'observaciones', headerName: 'Observaciones', width: 180 },
   { field: 'tipoFalla', headerName: 'Tipo Falla', width: 140 }
-]
+];
 
 function BitacoraTable(props) {
-  const rows = props.data.notes
-  const [anchorEl, setAnchorEl] = React.useState(null)
-  const [value, setValue] = React.useState('')
+  const rows = props.data.notes;
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [value, setValue] = React.useState('');
 
   const handlePopoverOpen = event => {
-    const field = event.currentTarget.dataset.field
-    const id = event.currentTarget.parentElement.dataset.id
-    const row = rows.find(r => r.id === id)
-    setValue(row[field])
-    setAnchorEl(event.currentTarget)
-  }
+    const field = event.currentTarget.dataset.field;
+    const id = event.currentTarget.parentElement.dataset.id;
+    const row = rows.find(r => r.id === id);
+    setValue(row[field]);
+    setAnchorEl(event.currentTarget);
+  };
 
   const handlePopoverClose = () => {
-    setAnchorEl(null)
-  }
+    setAnchorEl(null);
+  };
 
-  const open = Boolean(anchorEl)
-  const theme = createTheme()
-  const classes = useStyles()
+  const open = Boolean(anchorEl);
+  const theme = createTheme();
+  const classes = useStyles();
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ height: '100%', width: '100%' }}>
@@ -184,7 +184,7 @@ function BitacoraTable(props) {
         </Popover>
       </Box>
     </ThemeProvider>
-  )
+  );
 }
 
-export default BitacoraTable
+export default BitacoraTable;
