@@ -14,17 +14,17 @@ const useStyles = makeStyles(theme =>
       },
       '& .MuiDataGrid-cell': {
         maxHeight: 'fit-content !important',
-        overflow: 'auto',
+        overflow: 'auto !important',
         whiteSpace: 'initial !important',
-        lineHeight: '16px !important',
+        lineHeight: '14px !important',
         display: 'flex !important',
         alignItems: 'center',
         paddingTop: '10px !important',
-        paddingBottom: '10px !important',
+        paddingBottom: '5px !important',
         '>': {
           maxHeight: 'inherit',
           whiteSpace: 'initial !important',
-          lineHeight: '16px !important'
+          lineHeight: '14px !important'
         }
       },
       '& .MuiDataGrid-row': {

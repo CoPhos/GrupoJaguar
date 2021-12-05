@@ -36,7 +36,12 @@ function reducer(state, action) {
     case 'ADD_NOTE':
       return { ...state, notes: [action.note, ...state.notes] };
     case 'RESET_FORM':
-      return { ...state, form: initialState.form };
+      return {
+        ...state,
+        form: initialState.form,
+        formErrors: initialState.formErrors,
+        saveSend: false
+      };
     case 'SET_INPUT':
       return { ...state, form: {} };
     case 'ERROR':
@@ -48,7 +53,6 @@ function reducer(state, action) {
         form: { ...state.form, [name]: value }
       };
     case 'AREA_CALC':
-      console.log(state);
       return {
         ...state,
         form: {
@@ -63,24 +67,23 @@ function reducer(state, action) {
       let [resisitencia1, porcentaje1] = calcularResistenciaComprension(
           state.form.area1,
           state.form.carga1,
-          state.form.valorResistenciaCompresion
+          state.form.resistenciaComprensionProyecto
         ),
         [resisitencia2, porcentaje2] = calcularResistenciaComprension(
           state.form.area2,
           state.form.carga2,
-          state.form.valorResistenciaCompresion
+          state.form.resistenciaComprensionProyecto
         ),
         [resisitencia3, porcentaje3] = calcularResistenciaComprension(
           state.form.area3,
           state.form.carga3,
-          state.form.valorResistenciaCompresion
+          state.form.resistenciaComprensionProyecto
         ),
         [resisitencia4, porcentaje4] = calcularResistenciaComprension(
           state.form.area4,
           state.form.carga4,
-          state.form.valorResistenciaCompresion
+          state.form.resistenciaComprensionProyecto
         );
-      console.log(state);
       return {
         ...state,
         form: {
@@ -97,11 +100,9 @@ function reducer(state, action) {
       };
     case 'DATES':
       const date = action.payload;
-      console.log(date);
       if (!date) {
         date = new Date();
       }
-      console.log(state);
       return {
         ...state,
         form: {
@@ -113,11 +114,60 @@ function reducer(state, action) {
           veintiochoDos: date.addDays(28)
         }
       };
+    case 'VALIDATE_FORM':
+      const temp = validate(state.form);
+      return {
+        ...state,
+        formErrors: temp
+      };
+    case 'VALIDATE_SEND':
+      return {
+        ...state,
+        saveSend: Object.values(state.formErrors).every(x => x === '')
+      };
     default:
       return state;
   }
 }
+const validate = values => {
+  const numberPattern = /^[0-9]+$/;
+  let temp = {};
+  temp.lab = values.numMuestra ? '' : 'Debe llenar este campo.';
+  temp.numObra = values.numObra ? '' : 'Debe llenar este campo.';
+  temp.nombreObra = values.nombreObra ? '' : 'Debe llenar este campo.';
+  temp.ubicacion = values.ubicacion ? '' : 'Debe llenar este campo.';
+  temp.solicitadoPor = values.solicitadoPor ? '' : 'Debe llenar este campo.';
+  temp.elementoColado = values.elementoColado ? '' : 'Debe llenar este campo.';
+  temp.laboratorista = values.laboratorista ? '' : 'Debe llenar este campo.';
+  temp.equipoMezclado = values.equipoMezclado ? '' : 'Debe llenar este campo.';
+  temp.resistenciaTipo = values.resistenciaTipo ? '' : 'Debe llenar este campo.';
+  temp.concretera = values.concretera ? '' : 'Debe llenar este campo.';
+  temp.laboratorista = values.laboratorista ? '' : 'Debe llenar este campo.';
+  temp.resistenciaComprensionProyecto = /^\d+$/.test(values.resistenciaComprensionProyecto)
+    ? ''
+    : 'Debe contener solo numeros';
+  temp.revenimientoProyecto = numberPattern.test(values.revenimientoProyecto)
+    ? ''
+    : 'Debe contener solo numeros';
+  temp.revenimientoObtenido = numberPattern.test(values.revenimientoObtenido)
+    ? ''
+    : 'Debe contener solo numeros';
 
+  temp.altura1 = numberPattern.test(values.altura1) ? '' : 'Debe contener solo numeros';
+  temp.altura2 = numberPattern.test(values.altura1) ? '' : 'Debe contener solo numeros';
+  temp.altura3 = numberPattern.test(values.altura1) ? '' : 'Debe contener solo numeros';
+  temp.altura4 = numberPattern.test(values.altura1) ? '' : 'Debe contener solo numeros';
+  temp.diametro1 = numberPattern.test(values.diametro1) ? '' : 'Debe contener solo numeros';
+  temp.diametro2 = numberPattern.test(values.diametro1) ? '' : 'Debe contener solo numeros';
+  temp.diametro3 = numberPattern.test(values.diametro1) ? '' : 'Debe contener solo numeros';
+  temp.diametro4 = numberPattern.test(values.diametro1) ? '' : 'Debe contener solo numeros';
+  temp.carga1 = numberPattern.test(values.carga1) ? '' : 'Debe contener solo numeros';
+  temp.carga2 = numberPattern.test(values.carga1) ? '' : 'Debe contener solo numeros';
+  temp.carga3 = numberPattern.test(values.carga1) ? '' : 'Debe contener solo numeros';
+  temp.carga4 = numberPattern.test(values.carga1) ? '' : 'Debe contener solo numeros';
+
+  return temp;
+};
 const calcularResistenciaComprension = (valorArea, valorCarga, valorResistenciaCompresion) => {
   const area = parseFloat(valorArea);
   const carga = parseFloat(valorCarga);
@@ -137,21 +187,25 @@ Date.prototype.addDays = function (days) {
   return date;
 };
 
+const handleSumbit = e => {};
+
 const initialState = {
   notes: [],
   loading: true,
   error: false,
   form: {
-    id: '1',
-    lab: '',
+    id: '',
+    numMuestra: '',
     numObra: '',
-    obra: '',
+    nombreObra: '',
+    laboratorista: '',
+    tipoFalla: '',
     ubicacion: '',
     solicitadoPor: '',
     elementoColado: '',
-    laboratorista: '',
-    valorResistenciaCompresion: '', //number
-    revenimiento: '', //number
+    observaciones: '',
+    resistenciaComprensionProyecto: '', //number
+    revenimientoProyecto: '', //number
     revenimientoObtenido: '', //number
     fechaColado: new Date(),
     equipoMezclado: '',
@@ -185,14 +239,15 @@ const initialState = {
     porcentajeResistenciaComprension2: '',
     porcentajeResistenciaComprension3: '',
     porcentajeResistenciaComprension4: ''
-  }
+  },
+  formErrors: {},
+  saveSend: false
 };
 
 function BitacoraContainer() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [records, setrecords] = useState([{ header: 'heaader', name: 'holaMundo' }]);
-
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -204,9 +259,10 @@ function BitacoraContainer() {
       type: 'RESET_FORM'
     });
   };
-  // useEffect(() => {
-  //   fetchNotes()
-  // }, [])
+
+  useEffect(() => {
+    fetchNotes();
+  }, []);
 
   async function fetchNotes() {
     try {
@@ -222,15 +278,17 @@ function BitacoraContainer() {
   }
 
   async function createNote() {
-    const { form } = state;
-    const note = { ...form, clientId: CLIENT_ID, completed: false };
-    dispatch({ type: 'ADD_NOTE', note });
-    dispatch({ type: 'RESET_FORM' });
-    try {
-      await API.graphql(graphqlOperation(createBitacora, { input: note }));
-      console.log('successfully created note!');
-    } catch (err) {
-      console.log('error: ', err);
+    const { form, saveSend } = state;
+    if (saveSend) {
+      const note = { ...form, id: CLIENT_ID };
+      dispatch({ type: 'ADD_NOTE', note });
+      dispatch({ type: 'RESET_FORM' });
+      try {
+        await API.graphql(graphqlOperation(createBitacora, { input: note }));
+        console.log('successfully created note!');
+      } catch (err) {
+        console.log('error: ', err);
+      }
     }
   }
 
@@ -252,20 +310,40 @@ function BitacoraContainer() {
             Bitacora de pruebas
           </Typography>
           <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-            <AppBar sx={{ position: 'relative', backgroundColor: '#008433' }}>
-              <Toolbar>
-                <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-                  <CloseIcon />
-                </IconButton>
-                <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                  Bitacora de pruebas
-                </Typography>
-                <Button autoFocus color="inherit" onClick={handleClose}>
-                  save
-                </Button>
-              </Toolbar>
-            </AppBar>
-            <BitacoraForm></BitacoraForm>
+            <form
+              style={{ overflowX: 'hidden' }}
+              onSubmit={e => {
+                e.preventDefault();
+                createNote();
+              }}
+            >
+              <AppBar sx={{ position: 'relative', backgroundColor: '#008433' }}>
+                <Toolbar>
+                  <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+                    <CloseIcon />
+                  </IconButton>
+                  <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                    Bitacora de pruebas
+                  </Typography>
+                  <Button
+                    autoFocus
+                    color="inherit"
+                    type="submit"
+                    onClick={() => {
+                      dispatch({
+                        type: 'VALIDATE_FORM'
+                      });
+                      dispatch({
+                        type: 'VALIDATE_SEND'
+                      });
+                    }}
+                  >
+                    save
+                  </Button>
+                </Toolbar>
+              </AppBar>
+              <BitacoraForm></BitacoraForm>
+            </form>
           </Dialog>
           <Box sx={{ width: '100%', marginBottom: '30px' }}>
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -292,7 +370,7 @@ function BitacoraContainer() {
               </Button>
             </Toolbar>
           </Box>
-          <BitacoraTable data={state.notes}></BitacoraTable>
+          <BitacoraTable data={state}></BitacoraTable>
         </Container>
       </>
     </MyContext.Provider>
