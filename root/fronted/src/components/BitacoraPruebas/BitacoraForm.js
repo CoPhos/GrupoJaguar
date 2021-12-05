@@ -67,6 +67,7 @@ function BitacoraForm(props) {
                       payload: e
                     })
                   }
+                  defaultValue={state.form.numMuestra}
                   size="small"
                   variant="outlined"
                   label="lab"
@@ -81,6 +82,7 @@ function BitacoraForm(props) {
                       payload: e
                     })
                   }
+                  defaultValue={state.form.numObra}
                   size="small"
                   variant="outlined"
                   label="numObra"
@@ -95,6 +97,7 @@ function BitacoraForm(props) {
                       payload: e
                     })
                   }
+                  defaultValue={state.form.nombreObra}
                   size="small"
                   variant="outlined"
                   label="Nombre Obra"
@@ -110,6 +113,7 @@ function BitacoraForm(props) {
                       payload: e
                     })
                   }
+                  defaultValue={state.form.ubicacion}
                   size="small"
                   variant="outlined"
                   label="ubicacion"
@@ -125,6 +129,7 @@ function BitacoraForm(props) {
                       payload: e
                     })
                   }
+                  defaultValue={state.form.solicitadoPor}
                   size="small"
                   variant="outlined"
                   label="solicitadoPor"
@@ -139,6 +144,7 @@ function BitacoraForm(props) {
                       payload: e
                     })
                   }
+                  defaultValue={state.form.elementoColado}
                   size="small"
                   variant="outlined"
                   label="elementoColado"
@@ -162,6 +168,7 @@ function BitacoraForm(props) {
                       payload: ''
                     })
                   }
+                  defaultValue={state.form.resistenciaComprensionProyecto}
                   size="small"
                   variant="outlined"
                   label="valorResistenciaCompresion"
@@ -181,6 +188,7 @@ function BitacoraForm(props) {
                       payload: e
                     })
                   }
+                  defaultValue={state.form.revenimientoProyecto}
                   size="small"
                   variant="outlined"
                   label="revenimiento Proyecto"
@@ -200,6 +208,7 @@ function BitacoraForm(props) {
                       payload: e
                     })
                   }
+                  defaultValue={state.form.revenimientoObtenido}
                   size="small"
                   variant="outlined"
                   label="revenimientoObtenido"
@@ -279,6 +288,7 @@ function BitacoraForm(props) {
                       payload: e
                     })
                   }
+                  defaultValue={state.form.equipoMezclado}
                   size="small"
                   variant="outlined"
                   label="equipoMezclado"
@@ -295,6 +305,7 @@ function BitacoraForm(props) {
                       payload: e
                     })
                   }
+                  defaultValue={state.form.resistenciaTipo}
                   size="small"
                   variant="outlined"
                   label="resistenciaTipo"
@@ -303,6 +314,7 @@ function BitacoraForm(props) {
                   helperText={
                     state.formErrors.resistenciaTipo ? state.formErrors.resistenciaTipo : ''
                   }
+                  defaultValue={state.form.revenimientoProyecto}
                 ></TextField>
                 <TextField
                   onBlur={e =>
@@ -311,6 +323,7 @@ function BitacoraForm(props) {
                       payload: e
                     })
                   }
+                  defaultValue={state.form.concretera}
                   size="small"
                   variant="outlined"
                   label="concretera"
@@ -325,13 +338,13 @@ function BitacoraForm(props) {
                       payload: e
                     })
                   }
+                  defaultValue={state.form.observaciones}
                   size="small"
                   variant="outlined"
                   label="Observaciones"
                   name="observaciones"
                   multiline
                   rows={4}
-                  defaultValue="Sin observaciones"
                 ></TextField>
               </Grid>
               <Grid
@@ -366,6 +379,7 @@ function BitacoraForm(props) {
                             payload: ''
                           })
                         }
+                        defaultValue={state.form.altura1}
                         size="small"
                         variant="outlined"
                         label="altura"
@@ -386,6 +400,7 @@ function BitacoraForm(props) {
                             payload: ''
                           })
                         }
+                        defaultValue={state.form.altura2}
                         size="small"
                         variant="outlined"
                         label="altura"
@@ -408,6 +423,7 @@ function BitacoraForm(props) {
                             payload: ''
                           })
                         }
+                        defaultValue={state.form.altura3}
                         size="small"
                         variant="outlined"
                         label="altura"
@@ -428,6 +444,7 @@ function BitacoraForm(props) {
                             payload: e
                           })
                         }
+                        defaultValue={state.form.altura4}
                         size="small"
                         variant="outlined"
                         label="altura"
@@ -457,6 +474,7 @@ function BitacoraForm(props) {
                             payload: e
                           })
                         }
+                        defaultValue={state.form.diametro1}
                         size="small"
                         variant="outlined"
                         label="diametro"
@@ -477,6 +495,7 @@ function BitacoraForm(props) {
                             payload: ''
                           })
                         }
+                        defaultValue={state.form.diametro2}
                         size="small"
                         variant="outlined"
                         label="diametro"
@@ -499,6 +518,7 @@ function BitacoraForm(props) {
                             payload: ''
                           })
                         }
+                        defaultValue={state.form.diametro3}
                         size="small"
                         variant="outlined"
                         label="diametro"
@@ -519,6 +539,7 @@ function BitacoraForm(props) {
                             payload: ''
                           })
                         }
+                        defaultValue={state.form.diametro4}
                         size="small"
                         variant="outlined"
                         label="diametro"
@@ -595,6 +616,7 @@ function BitacoraForm(props) {
                             payload: ''
                           })
                         }
+                        defaultValue={state.form.carga1}
                         size="small"
                         variant="outlined"
                         label="carga"
@@ -615,6 +637,7 @@ function BitacoraForm(props) {
                             payload: ''
                           })
                         }
+                        defaultValue={state.form.carga2}
                         size="small"
                         variant="outlined"
                         label="carga"
@@ -637,6 +660,7 @@ function BitacoraForm(props) {
                             payload: ''
                           })
                         }
+                        defaultValue={state.form.carga3}
                         size="small"
                         variant="outlined"
                         label="carga"
@@ -657,6 +681,7 @@ function BitacoraForm(props) {
                             payload: ''
                           })
                         }
+                        defaultValue={state.form.carga4}
                         size="small"
                         variant="outlined"
                         label="carga"
@@ -766,6 +791,7 @@ function BitacoraForm(props) {
                           payload: e
                         })
                       }
+                      defaultValue={state.form.laboratorista}
                       size="small"
                       variant="outlined"
                       label="Laboratorista"
@@ -782,6 +808,7 @@ function BitacoraForm(props) {
                           payload: e
                         })
                       }
+                      defaultValue={state.form.tipoFalla}
                       size="small"
                       variant="outlined"
                       label="Tipo Falla"

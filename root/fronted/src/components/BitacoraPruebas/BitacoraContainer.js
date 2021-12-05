@@ -2,6 +2,7 @@ import React, { useState, useEffect, useReducer } from 'react';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import { listBitacoraDePruebasComprensions } from '../../graphql/queries';
 import { createBitacoraDePruebasComprension as createBitacora } from '../../graphql/mutations';
+import { updateBitacoraDePruebasComprension as updateBitacora } from '../../graphql/mutations';
 import { v4 as uuidv4 } from 'uuid';
 
 import BitacoraForm from './BitacoraForm';
@@ -125,6 +126,11 @@ function reducer(state, action) {
         ...state,
         saveSend: Object.values(state.formErrors).every(x => x === '')
       };
+    case 'SET_FORM':
+      return {
+        ...state,
+        form: action.payload
+      };
     default:
       return state;
   }
@@ -187,8 +193,6 @@ Date.prototype.addDays = function (days) {
   return date;
 };
 
-const handleSumbit = e => {};
-
 const initialState = {
   notes: [],
   loading: true,
@@ -247,22 +251,38 @@ const initialState = {
 function BitacoraContainer() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [records, setrecords] = useState([{ header: 'heaader', name: 'holaMundo' }]);
-  const [open, setOpen] = useState(false);
+  const [openCreate, setOpenCreate] = useState(false);
+  const [openUpdate, setOpenUpdate] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpenCreate = () => {
+    setOpenCreate(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseCreate = () => {
+    setOpenCreate(false);
     dispatch({
       type: 'RESET_FORM'
     });
   };
 
-  useEffect(() => {
-    fetchNotes();
-  }, []);
+  const handleClickOpenUpdate = arg => {
+    dispatch({
+      type: 'SET_FORM',
+      payload: arg
+    });
+    setOpenUpdate(true);
+  };
+
+  const handleCloseUpdate = () => {
+    setOpenUpdate(false);
+    dispatch({
+      type: 'RESET_FORM'
+    });
+  };
+
+  // useEffect(() => {
+  //   fetchNotes();
+  // }, []);
 
   async function fetchNotes() {
     try {
@@ -280,12 +300,24 @@ function BitacoraContainer() {
   async function createNote() {
     const { form, saveSend } = state;
     if (saveSend) {
-      const note = { ...form, id: CLIENT_ID };
-      dispatch({ type: 'ADD_NOTE', note });
-      dispatch({ type: 'RESET_FORM' });
+      // const note = { ...form, id: CLIENT_ID };
+      // dispatch({ type: 'ADD_NOTE', note });
+      // dispatch({ type: 'RESET_FORM' });
+      // try {
+      //   await API.graphql(graphqlOperation(createBitacora, { input: note }));
+      //   console.log('successfully created note!');
+      // } catch (err) {
+      //   console.log('error: ', err);
+      // }
+    }
+  }
+
+  async function updateNote(note) {
+    const { form, saveSend } = state;
+    if (saveSend) {
       try {
-        await API.graphql(graphqlOperation(createBitacora, { input: note }));
-        console.log('successfully created note!');
+        await API.graphql(graphqlOperation(updateBitacora, { input: form }));
+        console.log('note successfully updated!');
       } catch (err) {
         console.log('error: ', err);
       }
@@ -309,7 +341,12 @@ function BitacoraContainer() {
           <Typography variant="h4" component="div" sx={{ marginBottom: '30px' }}>
             Bitacora de pruebas
           </Typography>
-          <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+          <Dialog
+            fullScreen
+            open={openCreate}
+            onClose={handleCloseCreate}
+            TransitionComponent={Transition}
+          >
             <form
               style={{ overflowX: 'hidden' }}
               onSubmit={e => {
@@ -319,7 +356,12 @@ function BitacoraContainer() {
             >
               <AppBar sx={{ position: 'relative', backgroundColor: '#008433' }}>
                 <Toolbar>
-                  <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+                  <IconButton
+                    edge="start"
+                    color="inherit"
+                    onClick={handleCloseCreate}
+                    aria-label="close"
+                  >
                     <CloseIcon />
                   </IconButton>
                   <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
@@ -338,7 +380,53 @@ function BitacoraContainer() {
                       });
                     }}
                   >
-                    save
+                    Guardar
+                  </Button>
+                </Toolbar>
+              </AppBar>
+              <BitacoraForm></BitacoraForm>
+            </form>
+          </Dialog>
+          <Dialog
+            fullScreen
+            open={openUpdate}
+            onClose={handleCloseUpdate}
+            TransitionComponent={Transition}
+          >
+            <form
+              style={{ overflowX: 'hidden' }}
+              onSubmit={e => {
+                e.preventDefault();
+                updateNote();
+              }}
+            >
+              <AppBar sx={{ position: 'relative', backgroundColor: '#008433' }}>
+                <Toolbar>
+                  <IconButton
+                    edge="start"
+                    color="inherit"
+                    onClick={handleCloseUpdate}
+                    aria-label="close"
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                  <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                    Bitacora de pruebas
+                  </Typography>
+                  <Button
+                    autoFocus
+                    color="inherit"
+                    type="submit"
+                    onClick={() => {
+                      dispatch({
+                        type: 'VALIDATE_FORM'
+                      });
+                      dispatch({
+                        type: 'VALIDATE_SEND'
+                      });
+                    }}
+                  >
+                    Actualizar
                   </Button>
                 </Toolbar>
               </AppBar>
@@ -362,7 +450,7 @@ function BitacoraContainer() {
               />
               <Button
                 variant="outlined"
-                onClick={handleClickOpen}
+                onClick={handleClickOpenCreate}
                 startIcon={<AddCircle />}
                 sx={{ marginLeft: '10px', color: '#008433', borderColor: '#008433' }}
               >
@@ -370,7 +458,7 @@ function BitacoraContainer() {
               </Button>
             </Toolbar>
           </Box>
-          <BitacoraTable data={state}></BitacoraTable>
+          <BitacoraTable data={state} a={handleClickOpenUpdate}></BitacoraTable>
         </Container>
       </>
     </MyContext.Provider>
