@@ -53,8 +53,8 @@ export const getBitacoraDePruebasComprension = /* GraphQL */ `
       updatedAt
     }
   }
-`
-export const listBitacoraDePruebasComprensions = /* GraphQL */ `
+`;
+export const listDetailsBitacoraDePruebasComprensions = /* GraphQL */ `
   query ListBitacoraDePruebasComprensions(
     $filter: ModelBitacoraDePruebasComprensionFilterInput
     $limit: Int
@@ -113,7 +113,29 @@ export const listBitacoraDePruebasComprensions = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
+export const listBitacoraDePruebasComprensions = /* GraphQL */ `
+  query ListBitacoraDePruebasComprensions(
+    $filter: ModelBitacoraDePruebasComprensionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBitacoraDePruebasComprensions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        numMuestra
+        numObra
+        nombreObra
+        ubicacion
+        solicitadoPor
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+
 export const getDiarioDePruebasComprension = /* GraphQL */ `
   query GetDiarioDePruebasComprension($id: ID!) {
     getDiarioDePruebasComprension(id: $id) {
@@ -142,7 +164,7 @@ export const getDiarioDePruebasComprension = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const listDiarioDePruebasComprensions = /* GraphQL */ `
   query ListDiarioDePruebasComprensions(
     $filter: ModelDiarioDePruebasComprensionFilterInput
@@ -178,4 +200,4 @@ export const listDiarioDePruebasComprensions = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;

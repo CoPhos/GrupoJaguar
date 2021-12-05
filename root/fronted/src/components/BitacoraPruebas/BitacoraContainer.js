@@ -33,7 +33,21 @@ const CLIENT_ID = uuidv4();
 function reducer(state, action) {
   switch (action.type) {
     case 'SET_NOTES':
-      return { ...state, notes: action.notes, loading: false };
+      return {
+        ...state,
+        notes: action.notes,
+        loading: false
+      };
+    case 'SET_NEXT':
+      return {
+        ...state,
+        next: action.payload
+      };
+    case 'SET_LOADING':
+      return {
+        ...state,
+        loading: true
+      };
     case 'ADD_NOTE':
       return { ...state, notes: [action.note, ...state.notes] };
     case 'RESET_FORM':
@@ -245,7 +259,8 @@ const initialState = {
     porcentajeResistenciaComprension4: ''
   },
   formErrors: {},
-  saveSend: false
+  saveSend: false,
+  next: ''
 };
 
 function BitacoraContainer() {
@@ -280,17 +295,42 @@ function BitacoraContainer() {
     });
   };
 
-  // useEffect(() => {
-  //   fetchNotes();
-  // }, []);
+  useEffect(() => {
+    fetchNotes();
+  }, []);
 
   async function fetchNotes() {
     try {
-      const notesData = await API.graphql(graphqlOperation(listBitacoraDePruebasComprensions));
+      const notesData = await API.graphql(
+        graphqlOperation(listBitacoraDePruebasComprensions, { limit: 2 })
+      );
       dispatch({
         type: 'SET_NOTES',
         notes: notesData.data.listBitacoraDePruebasComprensions.items
       });
+      dispatch({
+        type: 'SET_NEXT',
+        payload: notesData.data.listBitacoraDePruebasComprensions.nextToken
+      });
+    } catch (err) {
+      console.log('error: ', err);
+      dispatch({ type: 'ERROR' });
+    }
+  }
+  async function fetchNextNotes(nextToken) {
+    try {
+      const notesData = await API.graphql(
+        graphqlOperation(listBitacoraDePruebasComprensions, { limit: 2, nextToken })
+      );
+      dispatch({
+        type: 'SET_NOTES',
+        notes: notesData.data.listBitacoraDePruebasComprensions.items
+      });
+      dispatch({
+        type: 'SET_NEXT',
+        payload: notesData.data.listBitacoraDePruebasComprensions.nextToken
+      });
+      console.log(notesData);
     } catch (err) {
       console.log('error: ', err);
       dispatch({ type: 'ERROR' });
@@ -300,19 +340,19 @@ function BitacoraContainer() {
   async function createNote() {
     const { form, saveSend } = state;
     if (saveSend) {
-      // const note = { ...form, id: CLIENT_ID };
-      // dispatch({ type: 'ADD_NOTE', note });
-      // dispatch({ type: 'RESET_FORM' });
-      // try {
-      //   await API.graphql(graphqlOperation(createBitacora, { input: note }));
-      //   console.log('successfully created note!');
-      // } catch (err) {
-      //   console.log('error: ', err);
-      // }
+      const note = { ...form, id: CLIENT_ID };
+      dispatch({ type: 'ADD_NOTE', note });
+      dispatch({ type: 'RESET_FORM' });
+      try {
+        await API.graphql(graphqlOperation(createBitacora, { input: note }));
+        console.log('successfully created note!');
+      } catch (err) {
+        console.log('error: ', err);
+      }
     }
   }
 
-  async function updateNote(note) {
+  async function updateNote() {
     const { form, saveSend } = state;
     if (saveSend) {
       try {
@@ -458,7 +498,12 @@ function BitacoraContainer() {
               </Button>
             </Toolbar>
           </Box>
-          <BitacoraTable data={state} a={handleClickOpenUpdate}></BitacoraTable>
+          <BitacoraTable
+            data={state}
+            handleOpenUpdate={handleClickOpenUpdate}
+            loading={state.loading}
+            next={fetchNextNotes}
+          ></BitacoraTable>
         </Container>
       </>
     </MyContext.Provider>
