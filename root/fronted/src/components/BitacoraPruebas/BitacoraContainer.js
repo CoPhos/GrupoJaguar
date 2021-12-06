@@ -1,13 +1,19 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import { listBitacoraDePruebasComprensions } from '../../graphql/queries';
+import { getBitacoraDePruebasComprension } from '../../graphql/queries';
 import { createBitacoraDePruebasComprension as createBitacora } from '../../graphql/mutations';
 import { updateBitacoraDePruebasComprension as updateBitacora } from '../../graphql/mutations';
+import { prettyPrint } from '@base2/pretty-print-object';
 import { v4 as uuidv4 } from 'uuid';
 
 import BitacoraForm from './BitacoraForm';
 import BitacoraTable from './BitacoraTable';
 
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Toolbar from '@mui/material/Toolbar';
@@ -21,7 +27,6 @@ import Slide from '@mui/material/Slide';
 import Dialog from '@mui/material/Dialog';
 import AppBar from '@mui/material/AppBar';
 import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 import Snackbar from '@mui/material/Snackbar';
 import Search from '@mui/icons-material/Search';
 import AddCircle from '@mui/icons-material/AddCircle';
@@ -39,6 +44,11 @@ function reducer(state, action) {
         ...state,
         notes: action.notes,
         loading: false
+      };
+    case 'SET_NOTE_DETAIL':
+      return {
+        ...state,
+        detailNote: action.note
       };
     case 'SET_NEXT':
       return {
@@ -262,16 +272,25 @@ const initialState = {
   },
   formErrors: {},
   saveSend: false,
-  next: ''
+  next: '',
+  detailNote: { 'cargando...': '' }
 };
 
 function BitacoraContainer() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [records, setrecords] = useState([{ header: 'heaader', name: 'holaMundo' }]);
   const [openCreate, setOpenCreate] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [snackbar, setSnackbar] = useState(false);
-
+  const [open, setOpen] = useState(false);
+  const descriptionElementRef = React.useRef(null);
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -305,9 +324,15 @@ function BitacoraContainer() {
     });
   };
 
-  // useEffect(() => {
-  //   fetchNotes();
-  // }, []);
+  const handleCloseDialog = () => {
+    setOpen(false);
+  };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  useEffect(() => {
+    fetchNotes();
+  }, []);
 
   async function fetchNotes() {
     try {
@@ -346,7 +371,6 @@ function BitacoraContainer() {
       dispatch({ type: 'ERROR' });
     }
   }
-
   async function createNote() {
     const { form, saveSend } = state;
     if (saveSend) {
@@ -362,7 +386,6 @@ function BitacoraContainer() {
       }
     }
   }
-
   async function updateNote() {
     const { form, saveSend } = state;
     if (saveSend) {
@@ -377,7 +400,20 @@ function BitacoraContainer() {
       }
     }
   }
-
+  async function getNote(id) {
+    try {
+      const noteDetial = await API.graphql(
+        graphqlOperation(getBitacoraDePruebasComprension, { id: id })
+      );
+      dispatch({
+        type: 'SET_NOTE_DETAIL',
+        note: noteDetial.data.getBitacoraDePruebasComprension
+      });
+    } catch (err) {
+      console.log('error: ', err);
+      dispatch({ type: 'ERROR' });
+    }
+  }
   return (
     <MyContext.Provider value={{ state: state, dispatch: dispatch }}>
       <>
@@ -498,6 +534,27 @@ function BitacoraContainer() {
               <BitacoraForm></BitacoraForm>
             </form>
           </Dialog>
+          <Dialog
+            open={open}
+            onClose={handleCloseDialog}
+            scroll={'paper'}
+            aria-labelledby="scroll-dialog-title"
+            aria-describedby="scroll-dialog-description"
+          >
+            <DialogTitle id="scroll-dialog-title">Detalles</DialogTitle>
+            <DialogContent dividers={true}>
+              <pre>
+                {prettyPrint(state.detailNote, {
+                  indent: '   ',
+                  singleQuotes: false,
+                  inlineCharacterLimit: 12
+                })}
+              </pre>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDialog}>Cerrar</Button>
+            </DialogActions>
+          </Dialog>
           <Box sx={{ width: '100%', marginBottom: '30px' }}>
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <TextField
@@ -528,6 +585,8 @@ function BitacoraContainer() {
             handleOpenUpdate={handleClickOpenUpdate}
             loading={state.loading}
             next={fetchNextNotes}
+            detail={getNote}
+            dialog={handleClickOpen}
           ></BitacoraTable>
         </Container>
       </>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -36,12 +36,20 @@ const useStyles = makeStyles(theme =>
 );
 
 function BitacoraTable(props) {
+  const [detail, setdetail] = useState('');
+  const [click, setclick] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [value, setValue] = React.useState('');
+  const [page, setPage] = React.useState(0);
+  const open = Boolean(anchorEl);
+  const theme = createTheme();
+  const classes = useStyles();
   const rows = props.data.notes;
   const columns = [
     { field: 'id', headerName: '', width: 1, hide: true },
     {
-      field: 'action',
-      headerName: 'Editar',
+      field: 'action2',
+      headerName: 'Detalles',
       sortable: false,
       renderCell: params => {
         return (
@@ -55,7 +63,10 @@ function BitacoraTable(props) {
                 .getAllColumns()
                 .filter(c => c.field !== '__check__' && !!c)
                 .forEach(c => (thisRow[c.field] = params.getValue(params.id, c.field)));
-              props.handleOpenUpdate(thisRow);
+
+              setdetail(thisRow.id);
+              setclick(!click);
+              props.dialog();
             }}
           >
             Detalles
@@ -308,12 +319,7 @@ function BitacoraTable(props) {
   //     updatedAt: '2021-12-05T03:20:38.192Z'
   //   }
   // ];
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [value, setValue] = React.useState('');
-  const [page, setPage] = React.useState(0);
-  const open = Boolean(anchorEl);
-  const theme = createTheme();
-  const classes = useStyles();
+
   const handlePopoverOpen = event => {
     const field = event.currentTarget.dataset.field;
     const id = event.currentTarget.parentElement.dataset.id;
@@ -329,6 +335,9 @@ function BitacoraTable(props) {
   //   props.next(props.data.next);
   // }, [page]);
 
+  useEffect(() => {
+    props.detail(detail);
+  }, [click]);
   return (
     <MyContext.Consumer>
       {({ state, dispatch }) => (
@@ -337,7 +346,6 @@ function BitacoraTable(props) {
             <DataGrid
               className={classes.root}
               pagination
-              autoHeight={true}
               paginationMode="server"
               onPageChange={newPage => setPage(newPage)}
               rows={rows}
