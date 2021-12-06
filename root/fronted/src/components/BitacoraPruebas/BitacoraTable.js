@@ -325,9 +325,9 @@ function BitacoraTable(props) {
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
-  useEffect(() => {
-    props.next(props.data.next);
-  }, [page]);
+  // useEffect(() => {
+  //   props.next(props.data.next);
+  // }, [page]);
 
   return (
     <MyContext.Consumer>

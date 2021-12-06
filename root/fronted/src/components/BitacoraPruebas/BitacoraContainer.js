@@ -20,7 +20,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import Dialog from '@mui/material/Dialog';
 import AppBar from '@mui/material/AppBar';
-
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Snackbar from '@mui/material/Snackbar';
 import Search from '@mui/icons-material/Search';
 import AddCircle from '@mui/icons-material/AddCircle';
 
@@ -268,6 +270,14 @@ function BitacoraContainer() {
   const [records, setrecords] = useState([{ header: 'heaader', name: 'holaMundo' }]);
   const [openCreate, setOpenCreate] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
+  const [snackbar, setSnackbar] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbar(false);
+  };
 
   const handleClickOpenCreate = () => {
     setOpenCreate(true);
@@ -295,9 +305,9 @@ function BitacoraContainer() {
     });
   };
 
-  useEffect(() => {
-    fetchNotes();
-  }, []);
+  // useEffect(() => {
+  //   fetchNotes();
+  // }, []);
 
   async function fetchNotes() {
     try {
@@ -345,7 +355,8 @@ function BitacoraContainer() {
       dispatch({ type: 'RESET_FORM' });
       try {
         await API.graphql(graphqlOperation(createBitacora, { input: note }));
-        console.log('successfully created note!');
+        setSnackbar(true);
+        handleCloseCreate();
       } catch (err) {
         console.log('error: ', err);
       }
@@ -357,7 +368,10 @@ function BitacoraContainer() {
     if (saveSend) {
       try {
         await API.graphql(graphqlOperation(updateBitacora, { input: form }));
+        dispatch({ type: 'RESET_FORM' });
         console.log('note successfully updated!');
+        setSnackbar(true);
+        handleCloseUpdate();
       } catch (err) {
         console.log('error: ', err);
       }
@@ -367,6 +381,17 @@ function BitacoraContainer() {
   return (
     <MyContext.Provider value={{ state: state, dispatch: dispatch }}>
       <>
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={snackbar}
+          autoHideDuration={6000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+            Registro guardado con exito!
+          </Alert>
+        </Snackbar>
+
         <Container
           maxWidth="xl"
           sx={{
