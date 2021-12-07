@@ -1,14 +1,14 @@
-import React from 'react'
+import React from 'react';
 
-import MenuItem from './MenuItem'
-import { itemList } from './ItemList'
+import MenuItem from './MenuItem';
+import { itemList } from './ItemList';
 
-import Container from '@mui/material/Container'
-import Paper from '@mui/material/Paper'
-import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
-
-function Home() {
+import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import protectedRoute from '../../protectedRoute';
+function Protected() {
   return (
     <Container
       maxWidth="sm"
@@ -33,13 +33,13 @@ function Home() {
           </Typography>
           <Paper sx={{ padding: '30px 0' }}>
             {itemList.map((item, index) => {
-              return <MenuItem key={index} text={item.text} link={item.link} />
+              return <MenuItem key={index} text={item.text} link={item.link} />;
             })}
           </Paper>
         </Box>
       </Box>
     </Container>
-  )
+  );
 }
 
-export default Home
+export default protectedRoute(Protected);

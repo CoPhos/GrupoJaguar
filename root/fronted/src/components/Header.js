@@ -1,13 +1,13 @@
-import React from 'react'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
-import logotipo from '../assets/images/jaguaresLogo.jpg'
-
+import React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import logotipo from '../assets/images/jaguaresLogo.jpg';
+import { Auth, Hub } from 'aws-amplify';
 function Header() {
-  const isLoggedIn = false
+  const isLoggedIn = false;
 
   return (
     <Box sx={{ height: '64px', flexShrink: '0' }}>
@@ -29,7 +29,7 @@ function Header() {
         </Toolbar>
       </AppBar>
     </Box>
-  )
+  );
 }
 
-export default Header
+export default Header;

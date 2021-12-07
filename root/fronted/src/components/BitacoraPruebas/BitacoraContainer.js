@@ -7,7 +7,7 @@ import { createBitacoraDePruebasComprension as createBitacora } from '../../grap
 import { updateBitacoraDePruebasComprension as updateBitacora } from '../../graphql/mutations';
 import { prettyPrint } from '@base2/pretty-print-object';
 import { v4 as uuidv4 } from 'uuid';
-
+import protectedRoute from '../../protectedRoute';
 import BitacoraForm from './BitacoraForm';
 import BitacoraTable from './BitacoraTable';
 
@@ -731,4 +731,4 @@ function BitacoraContainer() {
   );
 }
 
-export default BitacoraContainer;
+export default protectedRoute(BitacoraContainer);
