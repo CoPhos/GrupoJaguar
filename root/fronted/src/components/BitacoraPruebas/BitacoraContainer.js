@@ -12,7 +12,6 @@ import BitacoraTable from './BitacoraTable';
 
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -45,11 +44,6 @@ function reducer(state, action) {
         notes: action.notes,
         loading: false
       };
-    case 'SET_NOTE_DETAIL':
-      return {
-        ...state,
-        detailNote: action.note
-      };
     case 'SET_NEXT':
       return {
         ...state,
@@ -60,6 +54,12 @@ function reducer(state, action) {
         ...state,
         loading: true
       };
+    case 'SET_ERROR':
+      return {
+        ...state,
+        error: action.payload,
+        loading: false
+      };
     case 'ADD_NOTE':
       return { ...state, notes: [action.note, ...state.notes] };
     case 'RESET_FORM':
@@ -69,10 +69,15 @@ function reducer(state, action) {
         formErrors: initialState.formErrors,
         saveSend: false
       };
+    case 'SET_FORM_UPDATE':
+      const [note, update] = action.payload;
+      return {
+        ...state,
+        form: note,
+        update: update
+      };
     case 'SET_INPUT':
       return { ...state, form: {} };
-    case 'ERROR':
-      return { ...state, loading: false, error: true };
     case 'INPUT_CHANGE':
       const { name, value } = action.payload.target;
       return {
@@ -203,7 +208,10 @@ const validate = values => {
 const calcularResistenciaComprension = (valorArea, valorCarga, valorResistenciaCompresion) => {
   const area = parseFloat(valorArea);
   const carga = parseFloat(valorCarga);
-  return [String(carga / area), String((carga / area / valorResistenciaCompresion) * 1000)];
+  return [
+    String((carga / area).toFixed(2)),
+    String(((carga / area / valorResistenciaCompresion) * 1000).toFixed(2))
+  ];
 };
 
 const calcularArea = (valorDiametro, valorAltura) => {
@@ -211,7 +219,7 @@ const calcularArea = (valorDiametro, valorAltura) => {
   const altura = parseFloat(valorAltura);
   const area = 2 * Math.PI * radio * (radio + altura);
 
-  return String(area);
+  return String(area.toFixed(2));
 };
 Date.prototype.addDays = function (days) {
   const date = new Date(this.valueOf());
@@ -273,7 +281,7 @@ const initialState = {
   formErrors: {},
   saveSend: false,
   next: '',
-  detailNote: { 'cargando...': '' }
+  update: false
 };
 
 function BitacoraContainer() {
@@ -282,15 +290,7 @@ function BitacoraContainer() {
   const [openUpdate, setOpenUpdate] = useState(false);
   const [snackbar, setSnackbar] = useState(false);
   const [open, setOpen] = useState(false);
-  const descriptionElementRef = React.useRef(null);
-  React.useEffect(() => {
-    if (open) {
-      const { current: descriptionElement } = descriptionElementRef;
-      if (descriptionElement !== null) {
-        descriptionElement.focus();
-      }
-    }
-  }, [open]);
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -299,6 +299,7 @@ function BitacoraContainer() {
   };
 
   const handleClickOpenCreate = () => {
+    dispatch({ type: 'RESET_FORM' });
     setOpenCreate(true);
   };
 
@@ -309,18 +310,63 @@ function BitacoraContainer() {
     });
   };
 
-  const handleClickOpenUpdate = arg => {
-    dispatch({
-      type: 'SET_FORM',
-      payload: arg
-    });
+  const handleClickOpenUpdate = () => {
     setOpenUpdate(true);
   };
 
   const handleCloseUpdate = () => {
-    setOpenUpdate(false);
     dispatch({
-      type: 'RESET_FORM'
+      type: 'SET_FORM_UPDATE',
+      payload: [
+        {
+          id: '',
+          numMuestra: '',
+          numObra: '',
+          nombreObra: '',
+          laboratorista: '',
+          tipoFalla: '',
+          ubicacion: '',
+          solicitadoPor: '',
+          elementoColado: '',
+          observaciones: '',
+          resistenciaComprensionProyecto: '', //number
+          revenimientoProyecto: '', //number
+          revenimientoObtenido: '', //number
+          fechaColado: new Date(),
+          equipoMezclado: '',
+          resistenciaTipo: '',
+          concretera: '',
+          siete: new Date(),
+          catorce: new Date(),
+          veintiocho: new Date(),
+          veintiochoDos: new Date(),
+          altura1: '',
+          altura2: '',
+          altura3: '',
+          altura4: '',
+          diametro1: '',
+          diametro2: '',
+          diametro3: '',
+          diametro4: '',
+          area1: '',
+          area2: '',
+          area3: '',
+          area4: '',
+          carga1: '',
+          carga2: '',
+          carga3: '',
+          carga4: '',
+          resistenciaComprension1: '',
+          resistenciaComprension2: '',
+          resistenciaComprension3: '',
+          resistenciaComprension4: '',
+          porcentajeResistenciaComprension1: '',
+          porcentajeResistenciaComprension2: '',
+          porcentajeResistenciaComprension3: '',
+          porcentajeResistenciaComprension4: ''
+        },
+        false
+      ]
     });
   };
 
@@ -333,6 +379,10 @@ function BitacoraContainer() {
   useEffect(() => {
     fetchNotes();
   }, []);
+
+  useEffect(() => {
+    setOpenUpdate(state.update);
+  }, [state.update]);
 
   async function fetchNotes() {
     try {
@@ -347,9 +397,11 @@ function BitacoraContainer() {
         type: 'SET_NEXT',
         payload: notesData.data.listBitacoraDePruebasComprensions.nextToken
       });
+      dispatch({ type: 'SET_ERROR', payload: false });
     } catch (err) {
       console.log('error: ', err);
-      dispatch({ type: 'ERROR' });
+      dispatch({ type: 'SET_ERROR', payload: true });
+      setSnackbar(true);
     }
   }
   async function fetchNextNotes(nextToken) {
@@ -365,10 +417,13 @@ function BitacoraContainer() {
         type: 'SET_NEXT',
         payload: notesData.data.listBitacoraDePruebasComprensions.nextToken
       });
+      dispatch({ type: 'SET_ERROR', payload: false });
+      setSnackbar(true);
       console.log(notesData);
     } catch (err) {
       console.log('error: ', err);
-      dispatch({ type: 'ERROR' });
+      dispatch({ type: 'SET_ERROR', payload: true });
+      setSnackbar(true);
     }
   }
   async function createNote() {
@@ -377,12 +432,15 @@ function BitacoraContainer() {
       const note = { ...form, id: CLIENT_ID };
       dispatch({ type: 'ADD_NOTE', note });
       dispatch({ type: 'RESET_FORM' });
+
       try {
         await API.graphql(graphqlOperation(createBitacora, { input: note }));
+        dispatch({ type: 'SET_ERROR', payload: false });
         setSnackbar(true);
         handleCloseCreate();
       } catch (err) {
-        console.log('error: ', err);
+        dispatch({ type: 'SET_ERROR', payload: true });
+        setSnackbar(true);
       }
     }
   }
@@ -392,12 +450,30 @@ function BitacoraContainer() {
       try {
         await API.graphql(graphqlOperation(updateBitacora, { input: form }));
         dispatch({ type: 'RESET_FORM' });
+        dispatch({ type: 'SET_ERROR', payload: false });
         console.log('note successfully updated!');
         setSnackbar(true);
         handleCloseUpdate();
       } catch (err) {
         console.log('error: ', err);
+        dispatch({ type: 'SET_ERROR', payload: true });
+        setSnackbar(true);
       }
+    }
+  }
+  async function getNoteUpdate(id) {
+    try {
+      const noteDetial = await API.graphql(
+        graphqlOperation(getBitacoraDePruebasComprension, { id: id })
+      );
+      dispatch({
+        type: 'SET_FORM_UPDATE',
+        payload: [noteDetial.data.getBitacoraDePruebasComprension, true]
+      });
+      dispatch({ type: 'SET_ERROR', payload: false });
+    } catch (err) {
+      console.log('error: ', err);
+      dispatch({ type: 'SET_ERROR', payload: true });
     }
   }
   async function getNote(id) {
@@ -406,14 +482,16 @@ function BitacoraContainer() {
         graphqlOperation(getBitacoraDePruebasComprension, { id: id })
       );
       dispatch({
-        type: 'SET_NOTE_DETAIL',
-        note: noteDetial.data.getBitacoraDePruebasComprension
+        type: 'SET_FORM',
+        payload: noteDetial.data.getBitacoraDePruebasComprension
       });
+      dispatch({ type: 'SET_ERROR', payload: false });
     } catch (err) {
       console.log('error: ', err);
-      dispatch({ type: 'ERROR' });
+      dispatch({ type: 'SET_ERROR', payload: true });
     }
   }
+
   return (
     <MyContext.Provider value={{ state: state, dispatch: dispatch }}>
       <>
@@ -423,8 +501,12 @@ function BitacoraContainer() {
           autoHideDuration={6000}
           onClose={handleClose}
         >
-          <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-            Registro guardado con exito!
+          <Alert
+            onClose={handleClose}
+            severity={state.error ? 'error' : 'success'}
+            sx={{ width: '100%' }}
+          >
+            {state.error ? 'Hubo un error, intentelo mas tarde' : 'Operación exitosa!'}
           </Alert>
         </Snackbar>
 
@@ -544,7 +626,7 @@ function BitacoraContainer() {
             <DialogTitle id="scroll-dialog-title">Detalles</DialogTitle>
             <DialogContent dividers={true}>
               <pre>
-                {prettyPrint(state.detailNote, {
+                {prettyPrint(state.form, {
                   indent: '   ',
                   singleQuotes: false,
                   inlineCharacterLimit: 12
@@ -582,7 +664,7 @@ function BitacoraContainer() {
           </Box>
           <BitacoraTable
             data={state}
-            handleOpenUpdate={handleClickOpenUpdate}
+            handleOpenUpdate={getNoteUpdate}
             loading={state.loading}
             next={fetchNextNotes}
             detail={getNote}

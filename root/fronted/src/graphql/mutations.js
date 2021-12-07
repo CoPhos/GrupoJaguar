@@ -56,7 +56,7 @@ export const createBitacoraDePruebasComprension = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const updateBitacoraDePruebasComprension = /* GraphQL */ `
   mutation UpdateBitacoraDePruebasComprension(
     $input: UpdateBitacoraDePruebasComprensionInput!
@@ -112,7 +112,7 @@ export const updateBitacoraDePruebasComprension = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const deleteBitacoraDePruebasComprension = /* GraphQL */ `
   mutation DeleteBitacoraDePruebasComprension(
     $input: DeleteBitacoraDePruebasComprensionInput!
@@ -168,7 +168,7 @@ export const deleteBitacoraDePruebasComprension = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const createDiarioDePruebasComprension = /* GraphQL */ `
   mutation CreateDiarioDePruebasComprension(
     $input: CreateDiarioDePruebasComprensionInput!
@@ -200,7 +200,7 @@ export const createDiarioDePruebasComprension = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const updateDiarioDePruebasComprension = /* GraphQL */ `
   mutation UpdateDiarioDePruebasComprension(
     $input: UpdateDiarioDePruebasComprensionInput!
@@ -232,7 +232,7 @@ export const updateDiarioDePruebasComprension = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;
 export const deleteDiarioDePruebasComprension = /* GraphQL */ `
   mutation DeleteDiarioDePruebasComprension(
     $input: DeleteDiarioDePruebasComprensionInput!
@@ -264,4 +264,4 @@ export const deleteDiarioDePruebasComprension = /* GraphQL */ `
       updatedAt
     }
   }
-`
+`;

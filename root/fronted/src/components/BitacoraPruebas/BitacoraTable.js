@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme =>
 function BitacoraTable(props) {
   const [detail, setdetail] = useState('');
   const [click, setclick] = useState(false);
+  const [clickUpdate, setclickUpdate] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [value, setValue] = React.useState('');
   const [page, setPage] = React.useState(0);
@@ -90,7 +91,7 @@ function BitacoraTable(props) {
                 .getAllColumns()
                 .filter(c => c.field !== '__check__' && !!c)
                 .forEach(c => (thisRow[c.field] = params.getValue(params.id, c.field)));
-              props.handleOpenUpdate(thisRow);
+              props.handleOpenUpdate(thisRow.id);
             }}
           >
             Editar
@@ -338,6 +339,7 @@ function BitacoraTable(props) {
   useEffect(() => {
     props.detail(detail);
   }, [click]);
+
   return (
     <MyContext.Consumer>
       {({ state, dispatch }) => (
