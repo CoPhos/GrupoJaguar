@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import { listBitacoraDePruebasComprensions } from '../../graphql/queries';
+import { listBitacoraDePruebasComprensionsByNumMuestra as listBitacoraByMuestra } from '../../graphql/queries';
 import { getBitacoraDePruebasComprension } from '../../graphql/queries';
 import { createBitacoraDePruebasComprension as createBitacora } from '../../graphql/mutations';
 import { updateBitacoraDePruebasComprension as updateBitacora } from '../../graphql/mutations';
@@ -162,6 +163,11 @@ function reducer(state, action) {
         ...state,
         form: action.payload
       };
+    case 'SET_SEARCH_FIELD':
+      return {
+        ...state,
+        searchField: action.payload
+      };
     default:
       return state;
   }
@@ -281,7 +287,8 @@ const initialState = {
   formErrors: {},
   saveSend: false,
   next: '',
-  update: false
+  update: false,
+  searchField: ''
 };
 
 function BitacoraContainer() {
@@ -376,13 +383,13 @@ function BitacoraContainer() {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  useEffect(() => {
-    fetchNotes();
-  }, []);
+  // useEffect(() => {
+  //   fetchNotes();
+  // }, []);
 
-  useEffect(() => {
-    setOpenUpdate(state.update);
-  }, [state.update]);
+  // useEffect(() => {
+  //   setOpenUpdate(state.update);
+  // }, [state.update]);
 
   async function fetchNotes() {
     try {
@@ -424,6 +431,31 @@ function BitacoraContainer() {
       console.log('error: ', err);
       dispatch({ type: 'SET_ERROR', payload: true });
       setSnackbar(true);
+    }
+  }
+  async function fetchBitacoraByMuestra() {
+    if (state.searchField !== '') {
+      try {
+        const notesData = await API.graphql(
+          graphqlOperation(listBitacoraByMuestra, {
+            limit: 100,
+            filter: { numMuestra: { eq: state.searchField } }
+          })
+        );
+        dispatch({
+          type: 'SET_NOTES',
+          notes: notesData.data.listBitacoraDePruebasComprensions.items
+        });
+        dispatch({
+          type: 'SET_NEXT',
+          payload: notesData.data.listBitacoraDePruebasComprensions.nextToken
+        });
+        dispatch({ type: 'SET_ERROR', payload: false });
+      } catch (err) {
+        console.log('error: ', err);
+        dispatch({ type: 'SET_ERROR', payload: true });
+        setSnackbar(true);
+      }
     }
   }
   async function createNote() {
@@ -638,9 +670,12 @@ function BitacoraContainer() {
             </DialogActions>
           </Dialog>
           <Box sx={{ width: '100%', marginBottom: '30px' }}>
-            <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
               <TextField
-                label="Search Employees"
+                onChange={e => {
+                  dispatch({ type: 'SET_SEARCH_FIELD', payload: e.target.value });
+                }}
+                label="Buscar por Numero Muestra"
                 size="small"
                 variant="outlined"
                 sx={{ width: '75%' }}
@@ -652,14 +687,34 @@ function BitacoraContainer() {
                   )
                 }}
               />
-              <Button
-                variant="outlined"
-                onClick={handleClickOpenCreate}
-                startIcon={<AddCircle />}
-                sx={{ marginLeft: '10px', color: '#008433', borderColor: '#008433' }}
-              >
-                Añadir
-              </Button>
+              <Box>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    '@media(max-width: 975px)': {
+                      '> button': { marginTop: '15px' },
+                      width: '65vw'
+                    }
+                  }}
+                >
+                  <Button
+                    variant="outlined"
+                    onClick={fetchBitacoraByMuestra}
+                    sx={{ marginLeft: '10px', color: '#008433', borderColor: '#008433' }}
+                  >
+                    Buscar
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    onClick={handleClickOpenCreate}
+                    startIcon={<AddCircle />}
+                    sx={{ marginLeft: '10px', color: '#008433', borderColor: '#008433' }}
+                  >
+                    Añadir
+                  </Button>
+                </Box>
+              </Box>
             </Toolbar>
           </Box>
           <BitacoraTable

@@ -52,6 +52,7 @@ export const getBitacoraDePruebasComprension = /* GraphQL */ `
     }
   }
 `;
+
 export const listDetailsBitacoraDePruebasComprensions = /* GraphQL */ `
   query ListBitacoraDePruebasComprensions(
     $filter: ModelBitacoraDePruebasComprensionFilterInput
@@ -113,6 +114,28 @@ export const listDetailsBitacoraDePruebasComprensions = /* GraphQL */ `
   }
 `;
 export const listBitacoraDePruebasComprensions = /* GraphQL */ `
+  query ListBitacoraDePruebasComprensions(
+    $filter: ModelBitacoraDePruebasComprensionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBitacoraDePruebasComprensions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        numMuestra
+        numObra
+        nombreObra
+        ubicacion
+        solicitadoPor
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+
+export const listBitacoraDePruebasComprensionsByNumMuestra = /* GraphQL */ `
   query ListBitacoraDePruebasComprensions(
     $filter: ModelBitacoraDePruebasComprensionFilterInput
     $limit: Int
