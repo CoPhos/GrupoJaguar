@@ -1,69 +1,69 @@
-import React, { useReducer, useEffect } from 'react';
-import { listImagenReportColados } from '../../graphql/queries';
-import { onCreateImagenReportColado } from '../../graphql/subscriptions';
-import { API, graphqlOperation, Storage } from 'aws-amplify';
-import { Link } from 'react-router-dom';
+import React from 'react';
 
-function reducer(state, action) {
-  switch (action.type) {
-    case 'SET_POSTS':
-      return action.posts;
-    case 'ADD_POST':
-      return [action.post, ...state];
-    default:
-      return state;
-  }
-}
-async function getSignedPosts(posts = ['']) {
-  const signedPosts = await Promise.all(
-    posts.map(async item => {
-      const signedUrl = await Storage.get(item.imageKey);
-      item.imageUrl = signedUrl;
-      return item;
-    })
-  );
-  console.log(signedPosts);
-  return signedPosts;
-}
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import { Button, CardActionArea, CardActions } from '@mui/material';
 
+import { MyContext } from './ReporteColadoContainer';
 function ReporteColadoImages() {
-  const [posts, dispatch] = useReducer(reducer, []);
-  useEffect(() => {
-    fetchPosts();
-    const subscription = API.graphql(graphqlOperation(onCreateImagenReportColado)).subscribe({
-      next: async post => {
-        const newPost = post.value.data.onCreateImagenReportColado;
-        const signedUrl = await Storage.get(newPost.imageKey);
-        newPost.imageUrl = signedUrl;
-        dispatch({ type: 'ADD_POST', post: newPost });
-      }
-    });
-    return () => subscription.unsubscribe();
-  }, []);
-
-  async function fetchPosts() {
-    const postData = await API.graphql(graphqlOperation(listImagenReportColados));
-    const {
-      data: {
-        listImagenReportColados: { items }
-      }
-    } = postData;
-    const signedPosts = await getSignedPosts(items);
-    dispatch({ type: 'SET_POSTS', posts: signedPosts });
-  }
   return (
-    <div>
-      <h2 style={heading}>Posts</h2>
-      {posts.map(post => (
-        <div key={post.id} style={postContainer}>
-          <img style={postImage} src={post.imageUrl} />
-          <h3 style={postTitle}>{post.title}</h3>
-          <Link to={{ pathname: post.imageUrl }} target="_blank">
-            DOWNLOAD
-          </Link>
-        </div>
-      ))}
-    </div>
+    <MyContext.Consumer>
+      {({ posts, dispatch }) => (
+        <Container
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            marginTop: '10px'
+          }}
+          maxWidth="lg"
+        >
+          <Typography variant="h4" component="div" sx={{ margin: '20px 0' }}>
+            Imagenes
+          </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              justifyContent: 'center'
+            }}
+          >
+            {posts.map(post => (
+              <Card sx={{ width: 250, margin: '12px' }} key={post.id}>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={post.imageUrl}
+                  alt="documento Digitalizado"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {post.title}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    size="small"
+                    color="primary"
+                    onClick={() => {
+                      window.open(post.imageUrl);
+                    }}
+                    sx={{ color: '#008433' }}
+                  >
+                    DESCARGAR
+                  </Button>
+                </CardActions>
+              </Card>
+            ))}
+          </Box>
+        </Container>
+      )}
+    </MyContext.Consumer>
   );
 }
 const postContainer = {

@@ -1,51 +1,102 @@
-import React, { useState } from 'react';
-import { createImagenReportColado } from '../../graphql/mutations';
-import { Button, Input } from 'antd';
-import { v4 as uuidv4 } from 'uuid';
-import { API, graphqlOperation, Storage } from 'aws-amplify';
+import React from 'react';
+import { MyContext } from './ReporteColadoContainer';
 
-const initialFormState = {
-  title: '',
-  image: {}
-};
+import { styled } from '@mui/material/styles';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import AddCircle from '@mui/icons-material/AddCircle';
 
-function CreateImageReporte({ updateViewState }) {
-  const [formState, updateFormState] = useState(initialFormState);
-
-  function onChange(key, value) {
-    updateFormState({ ...formState, [key]: value });
-  }
-  function setPhoto(e) {
-    if (!e.target.files[0]) return;
-    const file = e.target.files[0];
-    updateFormState({ ...formState, image: file });
-  }
-  async function savePhoto() {
-    const { title, image } = formState;
-    if (!title || !image.name) return;
-    const imageKey = uuidv4() + formState.image.name.replace(/\s/g, '-').toLowerCase();
-    await Storage.put(imageKey, formState.image);
-    const post = { title, imageKey };
-    await API.graphql(graphqlOperation(createImagenReportColado, { input: post }));
-    updateViewState('viewPosts');
-  }
+function CreateImageReporte(props) {
+  const Input = styled('input')({
+    display: 'none'
+  });
   return (
-    <div>
-      <h2 style={heading}>Add Photo</h2>
-      <Input
-        onChange={e => onChange('title', e.target.value)}
-        style={withMargin}
-        placeholder="Title"
-      />
-      <input type="file" onChange={setPhoto} style={button} />
-      <Button style={button} type="primary" onClick={savePhoto}>
-        Save Photo
-      </Button>
-    </div>
+    <MyContext.Consumer>
+      {({ posts, dispatch }) => (
+        <>
+          <Snackbar
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            open={props.snackbar}
+            autoHideDuration={6000}
+            onClose={props.handleClose}
+          >
+            <Alert
+              onClose={props.handleClose}
+              severity={props.error ? 'error' : 'success'}
+              sx={{ width: '100%' }}
+            >
+              {props.error ? 'Hubo un error, intentelo mas tarde' : 'Operación exitosa!'}
+            </Alert>
+          </Snackbar>
+          <Box sx={{}}>
+            <Typography variant="h4" component="div" sx={{ margin: '20px' }}>
+              Reporte de Colado - Añadir Imagen
+            </Typography>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+                flexWrap: 'wrap'
+              }}
+            >
+              <TextField
+                onChange={e => props.change('title', e.target.value)}
+                sx={withMargin}
+                label="Nombre de archivo"
+                size="small"
+                variant="outlined"
+                value={props.value.title}
+                sx={{ margin: '0', width: '55%' }}
+              />
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-evenly',
+                  alignItems: 'center',
+
+                  '@media(max-width: 936px)': {
+                    marginTop: '20px'
+                  }
+                }}
+              >
+                <label htmlFor="contained-button-file">
+                  <Input
+                    accept="image/*"
+                    id="contained-button-file"
+                    type="file"
+                    onChange={props.setPhoto}
+                  />
+                  <Button
+                    variant="outlined"
+                    component="span"
+                    sx={{ color: '#008433', borderColor: '#008433', margin: '0 20px' }}
+                  >
+                    Seleccionar Imagen
+                  </Button>
+                </label>
+                <Button
+                  variant="outlined"
+                  startIcon={<AddCircle />}
+                  onClick={props.savePhoto}
+                  type="primary"
+                  sx={{ color: '#008433', borderColor: '#008433' }}
+                >
+                  Subir Imagen
+                </Button>
+              </Box>
+            </Box>
+          </Box>
+        </>
+      )}
+    </MyContext.Consumer>
   );
 }
-const heading = { margin: '20px 0px' };
+
 const withMargin = { marginTop: 10 };
-const button = { marginTop: 10 };
 
 export default CreateImageReporte;
