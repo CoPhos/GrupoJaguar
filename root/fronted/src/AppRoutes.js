@@ -5,6 +5,7 @@ import App from './App';
 import Form from './components/Login/Form';
 import Protected from './components/Home/Protected';
 import BitacoraContainer from './components/BitacoraPruebas/BitacoraContainer';
+import ReporteColadoContainer from './components/ReporteColado/ReporteColadoContainer';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -13,9 +14,10 @@ const AppRoutes = () => {
     <App>
       <Header />
       <Switch>
-        <Route path="/Login" component={Form} exact />
-        <Route path="/" component={Protected} exact />
-        <Route path="/bitacorePruebas" component={BitacoraContainer} exact />
+        <Route exact path="/Login" component={Form} />
+        <Route exact path="/" component={Protected} />
+        <Route exact path="/bitacorePruebas" component={BitacoraContainer} />
+        <Route exact path="/reporteColado" component={ReporteColadoContainer} />
         <Route component={Form} />
       </Switch>
       <Footer />

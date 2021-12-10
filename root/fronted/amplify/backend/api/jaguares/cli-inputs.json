@@ -9,6 +9,25 @@
       "expirationTime": 365,
       "apiKeyExpirationDate": "2022-12-01T21:13:11.553Z",
       "keyDescription": "public"
+    },
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "AUTOMERGE"
+      },
+      "perModelResolutionStrategy": [
+        {
+          "resolutionStrategy": {
+            "type": "AUTOMERGE"
+          },
+          "entityName": "DocumentoBitacora"
+        },
+        {
+          "resolutionStrategy": {
+            "type": "AUTOMERGE"
+          },
+          "entityName": "ImagenReportColado"
+        }
+      ]
     }
   }
 }

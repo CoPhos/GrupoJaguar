@@ -49,10 +49,11 @@ export const getBitacoraDePruebasComprension = /* GraphQL */ `
       porcentajeResistenciaComprension4
       tipoFalla
       laboratorista
+      createdAt
+      updatedAt
     }
   }
 `;
-
 export const listDetailsBitacoraDePruebasComprensions = /* GraphQL */ `
   query ListBitacoraDePruebasComprensions(
     $filter: ModelBitacoraDePruebasComprensionFilterInput
@@ -134,7 +135,6 @@ export const listBitacoraDePruebasComprensions = /* GraphQL */ `
     }
   }
 `;
-
 export const listBitacoraDePruebasComprensionsByNumMuestra = /* GraphQL */ `
   query ListBitacoraDePruebasComprensions(
     $filter: ModelBitacoraDePruebasComprensionFilterInput
@@ -156,7 +156,6 @@ export const listBitacoraDePruebasComprensionsByNumMuestra = /* GraphQL */ `
     }
   }
 `;
-
 export const getDiarioDePruebasComprension = /* GraphQL */ `
   query GetDiarioDePruebasComprension($id: ID!) {
     getDiarioDePruebasComprension(id: $id) {
@@ -215,6 +214,64 @@ export const listDiarioDePruebasComprensions = /* GraphQL */ `
         tipoFalla
         horaEnsaye
         observaciones
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getDocumentoBitacora = /* GraphQL */ `
+  query GetDocumentoBitacora($id: ID!) {
+    getDocumentoBitacora(id: $id) {
+      id
+      title
+      documentKey
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listDocumentoBitacoras = /* GraphQL */ `
+  query ListDocumentoBitacoras(
+    $filter: ModelDocumentoBitacoraFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listDocumentoBitacoras(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        title
+        documentKey
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getImagenReportColado = /* GraphQL */ `
+  query GetImagenReportColado($id: ID!) {
+    getImagenReportColado(id: $id) {
+      id
+      title
+      imageKey
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listImagenReportColados = /* GraphQL */ `
+  query ListImagenReportColados(
+    $filter: ModelImagenReportColadoFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listImagenReportColados(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        title
+        imageKey
         createdAt
         updatedAt
       }

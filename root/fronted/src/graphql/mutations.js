@@ -265,3 +265,87 @@ export const deleteDiarioDePruebasComprension = /* GraphQL */ `
     }
   }
 `;
+export const createDocumentoBitacora = /* GraphQL */ `
+  mutation CreateDocumentoBitacora(
+    $input: CreateDocumentoBitacoraInput!
+    $condition: ModelDocumentoBitacoraConditionInput
+  ) {
+    createDocumentoBitacora(input: $input, condition: $condition) {
+      id
+      title
+      documentKey
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateDocumentoBitacora = /* GraphQL */ `
+  mutation UpdateDocumentoBitacora(
+    $input: UpdateDocumentoBitacoraInput!
+    $condition: ModelDocumentoBitacoraConditionInput
+  ) {
+    updateDocumentoBitacora(input: $input, condition: $condition) {
+      id
+      title
+      documentKey
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteDocumentoBitacora = /* GraphQL */ `
+  mutation DeleteDocumentoBitacora(
+    $input: DeleteDocumentoBitacoraInput!
+    $condition: ModelDocumentoBitacoraConditionInput
+  ) {
+    deleteDocumentoBitacora(input: $input, condition: $condition) {
+      id
+      title
+      documentKey
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createImagenReportColado = /* GraphQL */ `
+  mutation CreateImagenReportColado(
+    $input: CreateImagenReportColadoInput!
+    $condition: ModelImagenReportColadoConditionInput
+  ) {
+    createImagenReportColado(input: $input, condition: $condition) {
+      id
+      title
+      imageKey
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateImagenReportColado = /* GraphQL */ `
+  mutation UpdateImagenReportColado(
+    $input: UpdateImagenReportColadoInput!
+    $condition: ModelImagenReportColadoConditionInput
+  ) {
+    updateImagenReportColado(input: $input, condition: $condition) {
+      id
+      title
+      imageKey
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteImagenReportColado = /* GraphQL */ `
+  mutation DeleteImagenReportColado(
+    $input: DeleteImagenReportColadoInput!
+    $condition: ModelImagenReportColadoConditionInput
+  ) {
+    deleteImagenReportColado(input: $input, condition: $condition) {
+      id
+      title
+      imageKey
+      createdAt
+      updatedAt
+    }
+  }
+`;

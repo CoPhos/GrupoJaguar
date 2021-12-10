@@ -74,3 +74,15 @@ type DiarioDePruebasComprension @model {
   horaEnsaye: String
   observaciones: String
 }
+
+type DocumentoBitacora @model {
+  id: ID!
+  title: String!
+  documentKey: String!
+}
+
+type ImagenReportColado @model {
+  id: ID!
+  title: String!
+  imageKey: String!
+}

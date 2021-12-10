@@ -1,0 +1,13 @@
+{
+  "resourceName": "documents",
+  "policyUUID": "428d2b2f",
+  "bucketName": "jaguares52720bd78b494535a61035c0c50516fa",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

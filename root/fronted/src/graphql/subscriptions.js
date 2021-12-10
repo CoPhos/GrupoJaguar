@@ -247,3 +247,69 @@ export const onDeleteDiarioDePruebasComprension = /* GraphQL */ `
     }
   }
 `;
+export const onCreateDocumentoBitacora = /* GraphQL */ `
+  subscription OnCreateDocumentoBitacora {
+    onCreateDocumentoBitacora {
+      id
+      title
+      documentKey
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateDocumentoBitacora = /* GraphQL */ `
+  subscription OnUpdateDocumentoBitacora {
+    onUpdateDocumentoBitacora {
+      id
+      title
+      documentKey
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteDocumentoBitacora = /* GraphQL */ `
+  subscription OnDeleteDocumentoBitacora {
+    onDeleteDocumentoBitacora {
+      id
+      title
+      documentKey
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateImagenReportColado = /* GraphQL */ `
+  subscription OnCreateImagenReportColado {
+    onCreateImagenReportColado {
+      id
+      title
+      imageKey
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateImagenReportColado = /* GraphQL */ `
+  subscription OnUpdateImagenReportColado {
+    onUpdateImagenReportColado {
+      id
+      title
+      imageKey
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteImagenReportColado = /* GraphQL */ `
+  subscription OnDeleteImagenReportColado {
+    onDeleteImagenReportColado {
+      id
+      title
+      imageKey
+      createdAt
+      updatedAt
+    }
+  }
+`;
