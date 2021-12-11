@@ -10,17 +10,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 
 const AppRoutes = () => {
-  const [current, setCurrent] = useState('home');
-  useEffect(() => {
-    setRoute();
-    window.addEventListener('hashchange', setRoute);
-    return () => window.removeEventListener('hashchange', setRoute);
-  }, []);
-  function setRoute() {
-    const location = window.location.href.split('/');
-    const pathname = location[location.length - 1];
-    setCurrent(pathname ? pathname : 'home');
-  }
   return (
     <App>
       <Header />
@@ -29,6 +18,7 @@ const AppRoutes = () => {
         <Route exact path="/Login" component={Form} />
         <Route exact path="/bitacorePruebas" component={BitacoraContainer} />
         <Route exact path="/reporteColado" component={ReporteColadoContainer} />
+        <Route component={Form} />
       </Switch>
       <Footer />
     </App>

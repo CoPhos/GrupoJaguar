@@ -4,6 +4,7 @@ import Login from './Login';
 import SignUp from './SignUp';
 import ConfirmSignUp from './ConfirmSignUp';
 import Box from '@mui/material/Box';
+import { useHistory } from 'react-router';
 const initialFormState = {
   username: '',
   password: '',
@@ -11,11 +12,15 @@ const initialFormState = {
   confirmationCode: ''
 };
 
-async function signIn({ username, password }, setUser) {
+async function signIn({ username, password }, setUser, history) {
   try {
     const user = await Auth.signIn(username, password);
     const userInfo = { username: user.username, ...user.attributes };
     setUser(userInfo);
+    history.push({
+      pathname: '/home'
+    });
+    history.go(0);
   } catch (err) {
     console.log('error signing up..', err);
   }
@@ -44,6 +49,7 @@ async function confirmSignUp({ username, confirmationCode }, updateFormType) {
 function Form(props) {
   const [formType, updateFormType] = useState('signIn');
   const [formState, updateFormState] = useState(initialFormState);
+  const history = useHistory();
   function updateForm(event) {
     const newFormState = {
       ...formState,
@@ -71,7 +77,7 @@ function Form(props) {
       case 'signIn':
         return (
           <Login
-            signIn={() => signIn(formState, updateFormType)}
+            signIn={() => signIn(formState, updateFormType, history)}
             updateFormState={e => updateForm(e)}
           />
         );
