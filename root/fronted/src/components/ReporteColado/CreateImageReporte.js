@@ -9,6 +9,9 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import AddCircle from '@mui/icons-material/AddCircle';
+import Toolbar from '@mui/material/Toolbar';
+import Search from '@mui/icons-material/Search';
+import InputAdornment from '@mui/material/InputAdornment';
 
 function CreateImageReporte(props) {
   const Input = styled('input')({
@@ -16,7 +19,7 @@ function CreateImageReporte(props) {
   });
   return (
     <MyContext.Consumer>
-      {({ posts, dispatch }) => (
+      {({ posts, dispatch, formState }) => (
         <>
           <Snackbar
             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
@@ -51,17 +54,15 @@ function CreateImageReporte(props) {
                 size="small"
                 variant="outlined"
                 value={props.value.title}
-                sx={{ margin: '0', width: '55%' }}
+                sx={{ marginBottom: '20px', width: '55%' }}
               />
               <Box
                 sx={{
                   display: 'flex',
                   justifyContent: 'space-evenly',
                   alignItems: 'center',
-
-                  '@media(max-width: 936px)': {
-                    marginTop: '20px'
-                  }
+                  marginBottom: '20px',
+                  '@media(max-width: 936px)': {}
                 }}
               >
                 <label htmlFor="contained-button-file">
@@ -70,6 +71,7 @@ function CreateImageReporte(props) {
                     id="contained-button-file"
                     type="file"
                     onChange={props.setPhoto}
+                    multiple={false}
                   />
                   <Button
                     variant="outlined"
@@ -78,17 +80,61 @@ function CreateImageReporte(props) {
                   >
                     Seleccionar Imagen
                   </Button>
+                  {formState.image.name}
                 </label>
                 <Button
                   variant="outlined"
                   startIcon={<AddCircle />}
                   onClick={props.savePhoto}
                   type="primary"
-                  sx={{ color: '#008433', borderColor: '#008433' }}
+                  sx={{ color: '#008433', borderColor: '#008433', marginLeft: '20px' }}
                 >
                   Subir Imagen
                 </Button>
               </Box>
+              <Toolbar
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  width: '85%'
+                }}
+              >
+                <TextField
+                  onBlur={e => {
+                    props.setSearchField(e);
+                  }}
+                  label="Buscar por Numero Muestra"
+                  size="small"
+                  variant="outlined"
+                  sx={{ width: '75%' }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Search />
+                      </InputAdornment>
+                    )
+                  }}
+                />
+                <Box>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between'
+                    }}
+                  >
+                    <Button
+                      variant="outlined"
+                      onClick={() => {
+                        props.fetchBySearchField();
+                      }}
+                      sx={{ marginLeft: '10px', color: '#008433', borderColor: '#008433' }}
+                    >
+                      Buscar
+                    </Button>
+                  </Box>
+                </Box>
+              </Toolbar>
             </Box>
           </Box>
         </>

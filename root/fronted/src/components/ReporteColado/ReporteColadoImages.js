@@ -22,7 +22,7 @@ function ReporteColadoImages() {
           }}
           maxWidth="lg"
         >
-          <Typography variant="h4" component="div" sx={{ margin: '20px 0' }}>
+          <Typography variant="h4" component="div" sx={{ margin: '5px 0' }}>
             Imagenes
           </Typography>
           <Box

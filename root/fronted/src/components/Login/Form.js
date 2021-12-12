@@ -18,7 +18,7 @@ async function signIn({ username, password }, setUser, history) {
     const userInfo = { username: user.username, ...user.attributes };
     setUser(userInfo);
     history.push({
-      pathname: '/home'
+      pathname: '/'
     });
     history.go(0);
   } catch (err) {

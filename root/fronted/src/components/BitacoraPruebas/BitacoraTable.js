@@ -332,14 +332,14 @@ function BitacoraTable(props) {
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
-  // useEffect(() => {
-  //   props.next(props.data.next);
-  // }, [page]);
+  useEffect(() => {
+    props.next(props.data.next);
+  }, [page]);
 
   useEffect(() => {
     props.detail(detail);
   }, [click]);
-
+  let rowCount = 1;
   return (
     <MyContext.Consumer>
       {({ state, dispatch }) => (
@@ -354,7 +354,8 @@ function BitacoraTable(props) {
               columns={columns}
               loading={props.loading}
               pageSize={1}
-              rowCount={2}
+              rowsPerPageOptions={[1]}
+              rowCount={state.next !== null ? ++rowCount : rowCount}
               checkboxSelection={false}
               disableSelectionOnClick
               componentsProps={{

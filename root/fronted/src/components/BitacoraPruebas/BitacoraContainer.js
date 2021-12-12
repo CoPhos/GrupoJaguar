@@ -286,7 +286,7 @@ const initialState = {
   },
   formErrors: {},
   saveSend: false,
-  next: '',
+  next: 'a',
   update: false,
   searchField: ''
 };
@@ -394,7 +394,7 @@ function BitacoraContainer() {
   async function fetchNotes() {
     try {
       const notesData = await API.graphql(
-        graphqlOperation(listBitacoraDePruebasComprensions, { limit: 2 })
+        graphqlOperation(listBitacoraDePruebasComprensions, { limit: 1 })
       );
       dispatch({
         type: 'SET_NOTES',
@@ -408,13 +408,12 @@ function BitacoraContainer() {
     } catch (err) {
       console.log('error: ', err);
       dispatch({ type: 'SET_ERROR', payload: true });
-      setSnackbar(true);
     }
   }
   async function fetchNextNotes(nextToken) {
     try {
       const notesData = await API.graphql(
-        graphqlOperation(listBitacoraDePruebasComprensions, { limit: 2, nextToken })
+        graphqlOperation(listBitacoraDePruebasComprensions, { limit: 1, nextToken })
       );
       dispatch({
         type: 'SET_NOTES',
@@ -425,12 +424,11 @@ function BitacoraContainer() {
         payload: notesData.data.listBitacoraDePruebasComprensions.nextToken
       });
       dispatch({ type: 'SET_ERROR', payload: false });
-      setSnackbar(true);
+
       console.log(notesData);
     } catch (err) {
       console.log('error: ', err);
       dispatch({ type: 'SET_ERROR', payload: true });
-      setSnackbar(true);
     }
   }
   async function fetchBitacoraByMuestra() {
@@ -454,7 +452,6 @@ function BitacoraContainer() {
       } catch (err) {
         console.log('error: ', err);
         dispatch({ type: 'SET_ERROR', payload: true });
-        setSnackbar(true);
       }
     }
   }

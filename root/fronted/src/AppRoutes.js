@@ -14,7 +14,7 @@ const AppRoutes = () => {
     <App>
       <Header />
       <Switch>
-        <Route exact path="/home" component={Protected} />
+        <Route exact path="/" component={Protected} />
         <Route exact path="/Login" component={Form} />
         <Route exact path="/bitacorePruebas" component={BitacoraContainer} />
         <Route exact path="/reporteColado" component={ReporteColadoContainer} />
