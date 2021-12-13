@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Popover from '@mui/material/Popover';
 import { createStyles, makeStyles } from '@mui/styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Button from '@mui/material/Button';
 import { MyContext } from './BitacoraContainer';
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -46,6 +46,16 @@ function BitacoraTable(props) {
   const theme = createTheme();
   const classes = useStyles();
   const rows = props.data.notes;
+  // const rows = [
+  //   {
+  //     id: 'b0e4e66d-3e6f-42e6-ac8f-6d0975cf4ae0',
+  //     nombbreObra: 'asd',
+  //     numMuestra: 'asd',
+  //     numObra: 'asd',
+  //     solicitadoPor: 'asd',
+  //     ubicacion: 'asd'
+  //   }
+  // ];
   const columns = [
     { field: 'id', headerName: '', width: 1, hide: true },
     {
@@ -332,14 +342,11 @@ function BitacoraTable(props) {
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
-  useEffect(() => {
-    props.next(props.data.next);
-  }, [page]);
 
   useEffect(() => {
     props.detail(detail);
   }, [click]);
-  let rowCount = 1;
+
   return (
     <MyContext.Consumer>
       {({ state, dispatch }) => (
@@ -348,14 +355,11 @@ function BitacoraTable(props) {
             <DataGrid
               className={classes.root}
               pagination
-              paginationMode="server"
-              onPageChange={newPage => setPage(newPage)}
               rows={rows}
               columns={columns}
               loading={props.loading}
               pageSize={1}
               rowsPerPageOptions={[1]}
-              rowCount={state.next !== null ? ++rowCount : rowCount}
               checkboxSelection={false}
               disableSelectionOnClick
               componentsProps={{
@@ -365,6 +369,15 @@ function BitacoraTable(props) {
                 }
               }}
             />
+            <Box>
+              <Button
+                onClick={() => {
+                  props.next(props.data.next);
+                }}
+              >
+                Siguiente
+              </Button>
+            </Box>
             <Popover
               sx={{
                 pointerEvents: 'none'

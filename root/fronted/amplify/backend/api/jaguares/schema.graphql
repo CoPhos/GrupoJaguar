@@ -86,3 +86,11 @@ type ImagenReportColado @model {
   title: String!
   imageKey: String!
 }
+
+type countItems @model {
+  id: ID!
+  imagen: Int
+  documento: Int
+  diarioPruebas: Int
+  bitacora: Int
+}

@@ -5,6 +5,8 @@ import { listBitacoraDePruebasComprensionsByNumMuestra as listBitacoraByMuestra 
 import { getBitacoraDePruebasComprension } from '../../graphql/queries';
 import { createBitacoraDePruebasComprension as createBitacora } from '../../graphql/mutations';
 import { updateBitacoraDePruebasComprension as updateBitacora } from '../../graphql/mutations';
+import { updateCountItems } from '../../graphql/mutations';
+import { getCountItems } from '../../graphql/queries';
 import { prettyPrint } from '@base2/pretty-print-object';
 import { v4 as uuidv4 } from 'uuid';
 import protectedRoute from '../../protectedRoute';
@@ -45,15 +47,33 @@ function reducer(state, action) {
         notes: action.notes,
         loading: false
       };
+    case 'SET_MORE_NOTES':
+      return {
+        ...state,
+        notes: [...action.notes, ...state.notes],
+        loading: false
+      };
     case 'SET_NEXT':
       return {
         ...state,
         next: action.payload
       };
+
     case 'SET_LOADING':
       return {
         ...state,
         loading: true
+      };
+    case 'SET_COUNT':
+      return {
+        ...state,
+        count: action.payload
+      };
+    case 'UPDATE_COUNT':
+      let count = ++count.bitacora;
+      return {
+        ...state,
+        count: { bitacora: count }
       };
     case 'SET_ERROR':
       return {
@@ -287,8 +307,10 @@ const initialState = {
   formErrors: {},
   saveSend: false,
   next: 'a',
+
   update: false,
-  searchField: ''
+  searchField: '',
+  count: { id: 1, imagen: 0, documento: 0, diarioPruebas: 0, bitacora: 0 }
 };
 
 function BitacoraContainer() {
@@ -296,6 +318,7 @@ function BitacoraContainer() {
   const [openCreate, setOpenCreate] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [snackbar, setSnackbar] = useState(false);
+  const [snackbarMoreNotes, setSnackbarMoreNotes] = useState(false);
   const [open, setOpen] = useState(false);
 
   const handleClose = (event, reason) => {
@@ -303,6 +326,7 @@ function BitacoraContainer() {
       return;
     }
     setSnackbar(false);
+    setSnackbarMoreNotes(false);
   };
 
   const handleClickOpenCreate = () => {
@@ -385,12 +409,26 @@ function BitacoraContainer() {
   };
   useEffect(() => {
     fetchNotes();
+    fetchCount();
   }, []);
 
   useEffect(() => {
     setOpenUpdate(state.update);
   }, [state.update]);
 
+  async function fetchCount() {
+    try {
+      const itemCount = await API.graphql(graphqlOperation(getCountItems, { id: 1 }));
+      dispatch({
+        type: 'SET_COUNT',
+        payload: itemCount.data.getCountItems
+      });
+      dispatch({ type: 'SET_ERROR', payload: false });
+    } catch (err) {
+      console.log('error: ', err);
+      dispatch({ type: 'SET_ERROR', payload: true });
+    }
+  }
   async function fetchNotes() {
     try {
       const notesData = await API.graphql(
@@ -412,20 +450,27 @@ function BitacoraContainer() {
   }
   async function fetchNextNotes(nextToken) {
     try {
-      const notesData = await API.graphql(
-        graphqlOperation(listBitacoraDePruebasComprensions, { limit: 1, nextToken })
-      );
-      dispatch({
-        type: 'SET_NOTES',
-        notes: notesData.data.listBitacoraDePruebasComprensions.items
-      });
-      dispatch({
-        type: 'SET_NEXT',
-        payload: notesData.data.listBitacoraDePruebasComprensions.nextToken
-      });
-      dispatch({ type: 'SET_ERROR', payload: false });
+      if (nextToken !== null) {
+        const notesData = await API.graphql(
+          graphqlOperation(listBitacoraDePruebasComprensions, { limit: 1, nextToken })
+        );
+        console.log(notesData);
 
-      console.log(notesData);
+        if (notesData !== null) {
+          dispatch({
+            type: 'SET_MORE_NOTES',
+            notes: notesData.data.listBitacoraDePruebasComprensions.items
+          });
+          console.log(state.notes);
+          dispatch({
+            type: 'SET_NEXT',
+            payload: notesData.data.listBitacoraDePruebasComprensions.nextToken
+          });
+          dispatch({ type: 'SET_ERROR', payload: false });
+        }
+      } else {
+        setSnackbarMoreNotes(true);
+      }
     } catch (err) {
       console.log('error: ', err);
       dispatch({ type: 'SET_ERROR', payload: true });
@@ -459,11 +504,13 @@ function BitacoraContainer() {
     const { form, saveSend } = state;
     if (saveSend) {
       const note = { ...form, id: CLIENT_ID };
+      const { count } = state;
       dispatch({ type: 'ADD_NOTE', note });
       dispatch({ type: 'RESET_FORM' });
-
+      dispatch({ type: 'UPDATE_COUNT' });
       try {
         await API.graphql(graphqlOperation(createBitacora, { input: note }));
+        await API.graphql(graphqlOperation(updateCountItems, { input: count }));
         dispatch({ type: 'SET_ERROR', payload: false });
         setSnackbar(true);
         handleCloseCreate();
@@ -536,6 +583,16 @@ function BitacoraContainer() {
             sx={{ width: '100%' }}
           >
             {state.error ? 'Hubo un error, intentelo mas tarde' : 'Operación exitosa!'}
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={snackbarMoreNotes}
+          autoHideDuration={6000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
+            No hay mas informacion que extraer
           </Alert>
         </Snackbar>
 

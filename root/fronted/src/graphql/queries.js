@@ -279,3 +279,17 @@ export const listImagenReportColados = /* GraphQL */ `
     }
   }
 `;
+
+export const getCountItems = /* GraphQL */ `
+  query GetCountItems($id: ID!) {
+    getCountItems(id: $id) {
+      id
+      imagen
+      documento
+      diarioPruebas
+      bitacora
+      createdAt
+      updatedAt
+    }
+  }
+`;

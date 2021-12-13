@@ -349,3 +349,18 @@ export const deleteImagenReportColado = /* GraphQL */ `
     }
   }
 `;
+
+export const updateCountItems = /* GraphQL */ `
+  mutation UpdateCountItems(
+    $input: UpdateCountItemsInput!
+    $condition: ModelCountItemsConditionInput!
+  ) {
+    updateCountItems(input: $input, condition: $condition) {
+      id
+      imagen
+      documento
+      diarioPruebas
+      bitacora
+    }
+  }
+`;
