@@ -49,8 +49,142 @@ export const getBitacoraDePruebasComprension = /* GraphQL */ `
       porcentajeResistenciaComprension4
       tipoFalla
       laboratorista
-      createdAt
-      updatedAt
+
+      _version
+    }
+  }
+`;
+export const listBitacoraDePruebasComprensions = /* GraphQL */ `
+  query ListBitacoraDePruebasComprensions(
+    $filter: ModelBitacoraDePruebasComprensionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBitacoraDePruebasComprensions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        numMuestra
+        numObra
+        nombreObra
+        ubicacion
+        solicitadoPor
+        elementoColado
+        resistenciaComprensionProyecto
+        revenimientoProyecto
+        revenimientoObtenido
+        fechaColado
+        siete
+        catorce
+        veintiocho
+        veintiochoDos
+        equipoMezclado
+        resistenciaTipo
+        concretera
+        observaciones
+        altura1
+        altura2
+        altura3
+        altura4
+        diametro1
+        diametro2
+        diametro3
+        diametro4
+        area1
+        area2
+        area3
+        area4
+        carga1
+        carga2
+        carga3
+        carga4
+        resistenciaComprension1
+        resistenciaComprension2
+        resistenciaComprension3
+        resistenciaComprension4
+        porcentajeResistenciaComprension1
+        porcentajeResistenciaComprension2
+        porcentajeResistenciaComprension3
+        porcentajeResistenciaComprension4
+        tipoFalla
+        laboratorista
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncBitacoraDePruebasComprensions = /* GraphQL */ `
+  query SyncBitacoraDePruebasComprensions(
+    $filter: ModelBitacoraDePruebasComprensionFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncBitacoraDePruebasComprensions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        numMuestra
+        numObra
+        nombreObra
+        ubicacion
+        solicitadoPor
+        elementoColado
+        resistenciaComprensionProyecto
+        revenimientoProyecto
+        revenimientoObtenido
+        fechaColado
+        siete
+        catorce
+        veintiocho
+        veintiochoDos
+        equipoMezclado
+        resistenciaTipo
+        concretera
+        observaciones
+        altura1
+        altura2
+        altura3
+        altura4
+        diametro1
+        diametro2
+        diametro3
+        diametro4
+        area1
+        area2
+        area3
+        area4
+        carga1
+        carga2
+        carga3
+        carga4
+        resistenciaComprension1
+        resistenciaComprension2
+        resistenciaComprension3
+        resistenciaComprension4
+        porcentajeResistenciaComprension1
+        porcentajeResistenciaComprension2
+        porcentajeResistenciaComprension3
+        porcentajeResistenciaComprension4
+        tipoFalla
+        laboratorista
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -114,27 +248,6 @@ export const listDetailsBitacoraDePruebasComprensions = /* GraphQL */ `
     }
   }
 `;
-export const listBitacoraDePruebasComprensions = /* GraphQL */ `
-  query ListBitacoraDePruebasComprensions(
-    $filter: ModelBitacoraDePruebasComprensionFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listBitacoraDePruebasComprensions(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        numMuestra
-        numObra
-        nombreObra
-        ubicacion
-        solicitadoPor
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
 export const listBitacoraDePruebasComprensionsByNumMuestra = /* GraphQL */ `
   query ListBitacoraDePruebasComprensions(
     $filter: ModelBitacoraDePruebasComprensionFilterInput
@@ -182,6 +295,9 @@ export const getDiarioDePruebasComprension = /* GraphQL */ `
       observaciones
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -216,8 +332,58 @@ export const listDiarioDePruebasComprensions = /* GraphQL */ `
         observaciones
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncDiarioDePruebasComprensions = /* GraphQL */ `
+  query SyncDiarioDePruebasComprensions(
+    $filter: ModelDiarioDePruebasComprensionFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncDiarioDePruebasComprensions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        equipoEL
+        fecha
+        ensayeNum
+        muestraNum
+        resistenciaProyecto
+        altura1
+        altura2
+        promedioAltura
+        diametro1
+        diametro2
+        promedioRadio
+        area
+        planicidad
+        perpendicularidad
+        cargaMaxima
+        resistenciaComprension
+        porcentajeResistenciaComprension
+        tipoFalla
+        horaEnsaye
+        observaciones
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -229,6 +395,9 @@ export const getDocumentoBitacora = /* GraphQL */ `
       documentKey
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -245,8 +414,40 @@ export const listDocumentoBitacoras = /* GraphQL */ `
         documentKey
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncDocumentoBitacoras = /* GraphQL */ `
+  query SyncDocumentoBitacoras(
+    $filter: ModelDocumentoBitacoraFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncDocumentoBitacoras(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        title
+        documentKey
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -258,6 +459,9 @@ export const getImagenReportColado = /* GraphQL */ `
       imageKey
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -274,22 +478,40 @@ export const listImagenReportColados = /* GraphQL */ `
         imageKey
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
   }
 `;
-
-export const getCountItems = /* GraphQL */ `
-  query GetCountItems($id: ID!) {
-    getCountItems(id: $id) {
-      id
-      imagen
-      documento
-      diarioPruebas
-      bitacora
-      createdAt
-      updatedAt
+export const syncImagenReportColados = /* GraphQL */ `
+  query SyncImagenReportColados(
+    $filter: ModelImagenReportColadoFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncImagenReportColados(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        title
+        imageKey
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
     }
   }
 `;

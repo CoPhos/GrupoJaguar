@@ -51,6 +51,9 @@ export const onCreateBitacoraDePruebasComprension = /* GraphQL */ `
       laboratorista
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -104,6 +107,9 @@ export const onUpdateBitacoraDePruebasComprension = /* GraphQL */ `
       laboratorista
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -157,6 +163,9 @@ export const onDeleteBitacoraDePruebasComprension = /* GraphQL */ `
       laboratorista
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -186,6 +195,9 @@ export const onCreateDiarioDePruebasComprension = /* GraphQL */ `
       observaciones
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -215,6 +227,9 @@ export const onUpdateDiarioDePruebasComprension = /* GraphQL */ `
       observaciones
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -244,6 +259,9 @@ export const onDeleteDiarioDePruebasComprension = /* GraphQL */ `
       observaciones
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -255,6 +273,9 @@ export const onCreateDocumentoBitacora = /* GraphQL */ `
       documentKey
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -266,6 +287,9 @@ export const onUpdateDocumentoBitacora = /* GraphQL */ `
       documentKey
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -277,6 +301,9 @@ export const onDeleteDocumentoBitacora = /* GraphQL */ `
       documentKey
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -288,6 +315,9 @@ export const onCreateImagenReportColado = /* GraphQL */ `
       imageKey
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -299,6 +329,9 @@ export const onUpdateImagenReportColado = /* GraphQL */ `
       imageKey
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -310,6 +343,9 @@ export const onDeleteImagenReportColado = /* GraphQL */ `
       imageKey
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;

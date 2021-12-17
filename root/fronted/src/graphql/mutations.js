@@ -54,6 +54,9 @@ export const createBitacoraDePruebasComprension = /* GraphQL */ `
       laboratorista
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -110,6 +113,9 @@ export const updateBitacoraDePruebasComprension = /* GraphQL */ `
       laboratorista
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -166,6 +172,9 @@ export const deleteBitacoraDePruebasComprension = /* GraphQL */ `
       laboratorista
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -198,6 +207,9 @@ export const createDiarioDePruebasComprension = /* GraphQL */ `
       observaciones
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -230,6 +242,9 @@ export const updateDiarioDePruebasComprension = /* GraphQL */ `
       observaciones
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -262,6 +277,9 @@ export const deleteDiarioDePruebasComprension = /* GraphQL */ `
       observaciones
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -276,6 +294,9 @@ export const createDocumentoBitacora = /* GraphQL */ `
       documentKey
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -290,6 +311,9 @@ export const updateDocumentoBitacora = /* GraphQL */ `
       documentKey
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -304,6 +328,9 @@ export const deleteDocumentoBitacora = /* GraphQL */ `
       documentKey
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -318,6 +345,9 @@ export const createImagenReportColado = /* GraphQL */ `
       imageKey
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -332,6 +362,9 @@ export const updateImagenReportColado = /* GraphQL */ `
       imageKey
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -346,21 +379,9 @@ export const deleteImagenReportColado = /* GraphQL */ `
       imageKey
       createdAt
       updatedAt
-    }
-  }
-`;
-
-export const updateCountItems = /* GraphQL */ `
-  mutation UpdateCountItems(
-    $input: UpdateCountItemsInput!
-    $condition: ModelCountItemsConditionInput!
-  ) {
-    updateCountItems(input: $input, condition: $condition) {
-      id
-      imagen
-      documento
-      diarioPruebas
-      bitacora
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;

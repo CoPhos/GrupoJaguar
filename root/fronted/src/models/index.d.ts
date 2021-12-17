@@ -20,10 +20,6 @@ type ImagenReportColadoMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-type countItemsMetaData = {
-  readOnlyFields: 'createdAt' | 'updatedAt';
-}
-
 export declare class BitacoraDePruebasComprension {
   readonly id: string;
   readonly numMuestra: string;
@@ -122,16 +118,4 @@ export declare class ImagenReportColado {
   readonly updatedAt?: string;
   constructor(init: ModelInit<ImagenReportColado, ImagenReportColadoMetaData>);
   static copyOf(source: ImagenReportColado, mutator: (draft: MutableModel<ImagenReportColado, ImagenReportColadoMetaData>) => MutableModel<ImagenReportColado, ImagenReportColadoMetaData> | void): ImagenReportColado;
-}
-
-export declare class countItems {
-  readonly id: string;
-  readonly imagen?: number;
-  readonly documento?: number;
-  readonly diarioPruebas?: number;
-  readonly bitacora?: number;
-  readonly createdAt?: string;
-  readonly updatedAt?: string;
-  constructor(init: ModelInit<countItems, countItemsMetaData>);
-  static copyOf(source: countItems, mutator: (draft: MutableModel<countItems, countItemsMetaData>) => MutableModel<countItems, countItemsMetaData> | void): countItems;
 }

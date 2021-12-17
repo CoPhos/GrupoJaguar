@@ -82,19 +82,19 @@ function ReporteColadoContainer() {
     }
   }
 
-  // useEffect(() => {
-  //   fetchPosts();
-  //   const subscription = API.graphql(graphqlOperation(onCreateImagenReportColado)).subscribe({
-  //     next: async post => {
-  //       const newPost = post.value.data.onCreateImagenReportColado;
-  //       const signedUrl = await Storage.get(newPost.imageKey);
-  //       newPost.imageUrl = signedUrl;
-  //       dispatch({ type: 'ADD_POST', post: newPost });
-  //       updateFormState({ title: '', image: {} });
-  //     }
-  //   });
-  //   return () => subscription.unsubscribe();
-  // }, []);
+  useEffect(() => {
+    fetchPosts();
+    const subscription = API.graphql(graphqlOperation(onCreateImagenReportColado)).subscribe({
+      next: async post => {
+        const newPost = post.value.data.onCreateImagenReportColado;
+        const signedUrl = await Storage.get(newPost.imageKey);
+        newPost.imageUrl = signedUrl;
+        dispatch({ type: 'ADD_POST', post: newPost });
+        updateFormState({ title: '', image: {} });
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
   async function fetchReporteByMuestra() {
     if (seachField !== '') {
       try {

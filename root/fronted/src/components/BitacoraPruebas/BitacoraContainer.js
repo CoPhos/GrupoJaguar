@@ -5,8 +5,6 @@ import { listBitacoraDePruebasComprensionsByNumMuestra as listBitacoraByMuestra 
 import { getBitacoraDePruebasComprension } from '../../graphql/queries';
 import { createBitacoraDePruebasComprension as createBitacora } from '../../graphql/mutations';
 import { updateBitacoraDePruebasComprension as updateBitacora } from '../../graphql/mutations';
-import { updateCountItems } from '../../graphql/mutations';
-import { getCountItems } from '../../graphql/queries';
 import { prettyPrint } from '@base2/pretty-print-object';
 import { v4 as uuidv4 } from 'uuid';
 import protectedRoute from '../../protectedRoute';
@@ -63,17 +61,6 @@ function reducer(state, action) {
       return {
         ...state,
         loading: true
-      };
-    case 'SET_COUNT':
-      return {
-        ...state,
-        count: action.payload
-      };
-    case 'UPDATE_COUNT':
-      let count = ++count.bitacora;
-      return {
-        ...state,
-        count: { bitacora: count }
       };
     case 'SET_ERROR':
       return {
@@ -193,7 +180,7 @@ function reducer(state, action) {
   }
 }
 const validate = values => {
-  const numberPattern = /^[0-9]+$/;
+  const numberPattern = /^[1-9]\d*(\.\d+)?$/;
   let temp = {};
   temp.lab = values.numMuestra ? '' : 'Debe llenar este campo.';
   temp.numObra = values.numObra ? '' : 'Debe llenar este campo.';
@@ -307,10 +294,8 @@ const initialState = {
   formErrors: {},
   saveSend: false,
   next: 'a',
-
   update: false,
-  searchField: '',
-  count: { id: 1, imagen: 0, documento: 0, diarioPruebas: 0, bitacora: 0 }
+  searchField: ''
 };
 
 function BitacoraContainer() {
@@ -409,26 +394,12 @@ function BitacoraContainer() {
   };
   useEffect(() => {
     fetchNotes();
-    fetchCount();
   }, []);
 
   useEffect(() => {
     setOpenUpdate(state.update);
   }, [state.update]);
 
-  async function fetchCount() {
-    try {
-      const itemCount = await API.graphql(graphqlOperation(getCountItems, { id: 1 }));
-      dispatch({
-        type: 'SET_COUNT',
-        payload: itemCount.data.getCountItems
-      });
-      dispatch({ type: 'SET_ERROR', payload: false });
-    } catch (err) {
-      console.log('error: ', err);
-      dispatch({ type: 'SET_ERROR', payload: true });
-    }
-  }
   async function fetchNotes() {
     try {
       const notesData = await API.graphql(
@@ -504,13 +475,11 @@ function BitacoraContainer() {
     const { form, saveSend } = state;
     if (saveSend) {
       const note = { ...form, id: CLIENT_ID };
-      const { count } = state;
+
       dispatch({ type: 'ADD_NOTE', note });
       dispatch({ type: 'RESET_FORM' });
-      dispatch({ type: 'UPDATE_COUNT' });
       try {
         await API.graphql(graphqlOperation(createBitacora, { input: note }));
-        await API.graphql(graphqlOperation(updateCountItems, { input: count }));
         dispatch({ type: 'SET_ERROR', payload: false });
         setSnackbar(true);
         handleCloseCreate();
@@ -524,6 +493,7 @@ function BitacoraContainer() {
     const { form, saveSend } = state;
     if (saveSend) {
       try {
+        console.log(form);
         await API.graphql(graphqlOperation(updateBitacora, { input: form }));
         dispatch({ type: 'RESET_FORM' });
         dispatch({ type: 'SET_ERROR', payload: false });

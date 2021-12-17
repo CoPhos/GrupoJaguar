@@ -107,12 +107,12 @@ function Form(props) {
       )}
       {formType === 'signIn' && (
         <>
-          <p style={styles.toggleForm}>
+          {/* <p style={styles.toggleForm}>
             Need an account?{' '}
             <span style={styles.anchor} onClick={() => updateFormType('signUp')}>
               Sign Up
             </span>
-          </p>
+          </p> */}
         </>
       )}
     </Box>
