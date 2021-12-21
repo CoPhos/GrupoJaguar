@@ -20,12 +20,12 @@ const useStyles = makeStyles(theme =>
         lineHeight: '14px !important',
         display: 'flex !important',
         alignItems: 'center',
-        paddingTop: '10px !important',
+        paddingTop: '5px !important',
         paddingBottom: '5px !important',
         '>': {
           maxHeight: 'inherit',
           whiteSpace: 'initial !important',
-          lineHeight: '14px !important'
+          lineHeight: '12px !important'
         }
       },
       '& .MuiDataGrid-row': {
@@ -358,8 +358,8 @@ function BitacoraTable(props) {
               rows={rows}
               columns={columns}
               loading={props.loading}
-              pageSize={1}
-              rowsPerPageOptions={[1]}
+              pageSize={2}
+              rowsPerPageOptions={[2]}
               checkboxSelection={false}
               disableSelectionOnClick
               componentsProps={{

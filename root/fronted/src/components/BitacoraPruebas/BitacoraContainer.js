@@ -56,7 +56,6 @@ function reducer(state, action) {
         ...state,
         next: action.payload
       };
-
     case 'SET_LOADING':
       return {
         ...state,
@@ -90,7 +89,7 @@ function reducer(state, action) {
       const { name, value } = action.payload.target;
       return {
         ...state,
-        form: { ...state.form, [name]: value }
+        form: { ...state.form, [name]: value.toUpperCase() }
       };
     case 'AREA_CALC':
       return {
@@ -173,7 +172,10 @@ function reducer(state, action) {
     case 'SET_SEARCH_FIELD':
       return {
         ...state,
-        searchField: action.payload
+        searchField: {
+          ...state.searchField,
+          [action.payload.target.name]: action.payload.target.value.toUpperCase()
+        }
       };
     default:
       return state;
@@ -226,11 +228,10 @@ const calcularResistenciaComprension = (valorArea, valorCarga, valorResistenciaC
     String(((carga / area / valorResistenciaCompresion) * 1000).toFixed(2))
   ];
 };
-
 const calcularArea = (valorDiametro, valorAltura) => {
   const radio = parseFloat(valorDiametro / 2);
   const altura = parseFloat(valorAltura);
-  const area = 2 * Math.PI * radio * (radio + altura);
+  const area = Math.PI * (radio * radio);
 
   return String(area.toFixed(2));
 };
@@ -239,7 +240,6 @@ Date.prototype.addDays = function (days) {
   date.setDate(date.getDate() + days);
   return date;
 };
-
 const initialState = {
   notes: [],
   loading: true,
@@ -295,7 +295,10 @@ const initialState = {
   saveSend: false,
   next: 'a',
   update: false,
-  searchField: ''
+  searchField: {
+    numeroObra: '',
+    nombreObra: ''
+  }
 };
 
 function BitacoraContainer() {
@@ -392,18 +395,18 @@ function BitacoraContainer() {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  useEffect(() => {
-    fetchNotes();
-  }, []);
+  // useEffect(() => {
+  //   fetchNotes();
+  // }, []);
 
-  useEffect(() => {
-    setOpenUpdate(state.update);
-  }, [state.update]);
+  // useEffect(() => {
+  //   setOpenUpdate(state.update);
+  // }, [state.update]);
 
   async function fetchNotes() {
     try {
       const notesData = await API.graphql(
-        graphqlOperation(listBitacoraDePruebasComprensions, { limit: 1 })
+        graphqlOperation(listBitacoraDePruebasComprensions, { limit: 2 })
       );
       dispatch({
         type: 'SET_NOTES',
@@ -423,7 +426,7 @@ function BitacoraContainer() {
     try {
       if (nextToken !== null) {
         const notesData = await API.graphql(
-          graphqlOperation(listBitacoraDePruebasComprensions, { limit: 1, nextToken })
+          graphqlOperation(listBitacoraDePruebasComprensions, { limit: 2, nextToken })
         );
         console.log(notesData);
 
@@ -448,27 +451,31 @@ function BitacoraContainer() {
     }
   }
   async function fetchBitacoraByMuestra() {
-    if (state.searchField !== '') {
-      try {
-        const notesData = await API.graphql(
-          graphqlOperation(listBitacoraByMuestra, {
-            limit: 100,
-            filter: { numMuestra: { eq: state.searchField } }
-          })
-        );
-        dispatch({
-          type: 'SET_NOTES',
-          notes: notesData.data.listBitacoraDePruebasComprensions.items
-        });
-        dispatch({
-          type: 'SET_NEXT',
-          payload: notesData.data.listBitacoraDePruebasComprensions.nextToken
-        });
-        dispatch({ type: 'SET_ERROR', payload: false });
-      } catch (err) {
-        console.log('error: ', err);
-        dispatch({ type: 'SET_ERROR', payload: true });
-      }
+    console.log(state.searchField);
+    try {
+      const notesData = await API.graphql(
+        graphqlOperation(listBitacoraByMuestra, {
+          limit: 100,
+          filter: {
+            and: [
+              { numMuestra: { eq: state.searchField.numeroObra } },
+              { nombreObra: { contains: state.searchField.nombreObra } }
+            ]
+          }
+        })
+      );
+      dispatch({
+        type: 'SET_NOTES',
+        notes: notesData.data.listBitacoraDePruebasComprensions.items
+      });
+      dispatch({
+        type: 'SET_NEXT',
+        payload: notesData.data.listBitacoraDePruebasComprensions.nextToken
+      });
+      dispatch({ type: 'SET_ERROR', payload: false });
+    } catch (err) {
+      console.log('error: ', err);
+      dispatch({ type: 'SET_ERROR', payload: true });
     }
   }
   async function createNote() {
@@ -694,15 +701,33 @@ function BitacoraContainer() {
             </DialogActions>
           </Dialog>
           <Box sx={{ width: '100%', marginBottom: '30px' }}>
-            <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+            <Toolbar sx={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap' }}>
               <TextField
                 onChange={e => {
-                  dispatch({ type: 'SET_SEARCH_FIELD', payload: e.target.value });
+                  dispatch({ type: 'SET_SEARCH_FIELD', payload: e });
                 }}
                 label="Buscar por Numero Muestra"
                 size="small"
                 variant="outlined"
-                sx={{ width: '75%' }}
+                sx={{ width: '35%' }}
+                name="numeroObra"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Search />
+                    </InputAdornment>
+                  )
+                }}
+              />
+              <TextField
+                onChange={e => {
+                  dispatch({ type: 'SET_SEARCH_FIELD', payload: e });
+                }}
+                label="Buscar por Nombre Obra"
+                size="small"
+                variant="outlined"
+                sx={{ width: '35%' }}
+                name="nombreObra"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">

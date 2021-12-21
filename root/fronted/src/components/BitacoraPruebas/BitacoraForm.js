@@ -226,6 +226,8 @@ function BitacoraForm(props) {
                     disableFuture
                     label="fechaColado"
                     views={['year', 'month', 'day']}
+                    inputFormat="yyyy/MM/dd"
+                    disableMaskedInput={true}
                     value={state.form.fechaColado}
                     name="fechaColado"
                     onChange={newValue => {
@@ -244,6 +246,8 @@ function BitacoraForm(props) {
                           label="siete"
                           name="siete"
                           views={['year', 'month', 'day']}
+                          inputFormat="yyyy/MM/dd"
+                          disableMaskedInput={true}
                           value={state.form.siete}
                           renderInput={params => <TextField size="small" {...params} />}
                           onChange={newValue => {}}
@@ -253,6 +257,8 @@ function BitacoraForm(props) {
                           label="catorce"
                           name="catorce"
                           views={['year', 'month', 'day']}
+                          inputFormat="yyyy/MM/dd"
+                          disableMaskedInput={true}
                           value={state.form.catorce}
                           renderInput={params => <TextField size="small" {...params} />}
                           onChange={newValue => {}}
@@ -264,6 +270,8 @@ function BitacoraForm(props) {
                           label="veintiOcho"
                           name="veintiOcho"
                           views={['year', 'month', 'day']}
+                          inputFormat="yyyy/MM/dd"
+                          disableMaskedInput={true}
                           value={state.form.veintiocho}
                           renderInput={params => <TextField size="small" {...params} />}
                           onChange={newValue => {}}
@@ -273,6 +281,8 @@ function BitacoraForm(props) {
                           label="veintiOchoDos"
                           name="veintiOchoDos"
                           views={['year', 'month', 'day']}
+                          inputFormat="yyyy/MM/dd"
+                          disableMaskedInput={true}
                           value={state.form.veintiochoDos}
                           renderInput={params => <TextField size="small" {...params} />}
                           onChange={newValue => {}}
