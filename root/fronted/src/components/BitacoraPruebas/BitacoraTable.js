@@ -369,15 +369,7 @@ function BitacoraTable(props) {
                 }
               }}
             />
-            <Box>
-              <Button
-                onClick={() => {
-                  props.next(props.data.next);
-                }}
-              >
-                Siguiente
-              </Button>
-            </Box>
+
             <Popover
               sx={{
                 pointerEvents: 'none'

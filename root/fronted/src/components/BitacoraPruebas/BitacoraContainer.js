@@ -139,6 +139,7 @@ function reducer(state, action) {
       };
     case 'DATES':
       const date = action.payload;
+      console.log(state.fechas);
       if (!date) {
         date = new Date();
       }
@@ -147,10 +148,10 @@ function reducer(state, action) {
         form: {
           ...state.form,
           fechaColado: date,
-          siete: date.addDays(7),
-          catorce: date.addDays(14),
-          veintiocho: date.addDays(28),
-          veintiochoDos: date.addDays(28)
+          siete: date.addDays(parseInt(state.fechas.primera)),
+          catorce: date.addDays(parseInt(state.fechas.segunda)),
+          veintiocho: date.addDays(parseInt(state.fechas.tercera)),
+          veintiochoDos: date.addDays(parseInt(state.fechas.cuarta))
         }
       };
     case 'VALIDATE_FORM':
@@ -172,9 +173,14 @@ function reducer(state, action) {
     case 'SET_SEARCH_FIELD':
       return {
         ...state,
-        searchField: {
-          ...state.searchField,
-          [action.payload.target.name]: action.payload.target.value.toUpperCase()
+        searchField: action.payload.target.value.toUpperCase().split(',')
+      };
+    case 'SET_DATE':
+      return {
+        ...state,
+        fechas: {
+          ...state.fechas,
+          [action.payload.target.name]: action.payload.target.value
         }
       };
     default:
@@ -295,9 +301,12 @@ const initialState = {
   saveSend: false,
   next: 'a',
   update: false,
-  searchField: {
-    numeroObra: '',
-    nombreObra: ''
+  searchField: [],
+  fechas: {
+    primera: 7,
+    segunda: 14,
+    tercera: 28,
+    cuarta: 28
   }
 };
 
@@ -395,13 +404,13 @@ function BitacoraContainer() {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  // useEffect(() => {
-  //   fetchNotes();
-  // }, []);
+  useEffect(() => {
+    fetchNotes();
+  }, []);
 
-  // useEffect(() => {
-  //   setOpenUpdate(state.update);
-  // }, [state.update]);
+  useEffect(() => {
+    setOpenUpdate(state.update);
+  }, [state.update]);
 
   async function fetchNotes() {
     try {
@@ -458,8 +467,8 @@ function BitacoraContainer() {
           limit: 100,
           filter: {
             and: [
-              { numMuestra: { eq: state.searchField.numeroObra } },
-              { nombreObra: { contains: state.searchField.nombreObra } }
+              { numMuestra: { eq: state.searchField[0] } },
+              { nombreObra: { contains: state.searchField[1] } }
             ]
           }
         })
@@ -706,11 +715,11 @@ function BitacoraContainer() {
                 onChange={e => {
                   dispatch({ type: 'SET_SEARCH_FIELD', payload: e });
                 }}
-                label="Buscar por Numero Muestra"
+                label="Numero Muestra"
                 size="small"
                 variant="outlined"
-                sx={{ width: '35%' }}
-                name="numeroObra"
+                sx={{ width: '75%' }}
+                name="searchField"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -719,23 +728,7 @@ function BitacoraContainer() {
                   )
                 }}
               />
-              <TextField
-                onChange={e => {
-                  dispatch({ type: 'SET_SEARCH_FIELD', payload: e });
-                }}
-                label="Buscar por Nombre Obra"
-                size="small"
-                variant="outlined"
-                sx={{ width: '35%' }}
-                name="nombreObra"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Search />
-                    </InputAdornment>
-                  )
-                }}
-              />
+
               <Box>
                 <Box
                   sx={{
@@ -774,6 +767,15 @@ function BitacoraContainer() {
             detail={getNote}
             dialog={handleClickOpen}
           ></BitacoraTable>
+          <Box>
+            <Button
+              onClick={() => {
+                fetchNextNotes(state.next);
+              }}
+            >
+              Mas resultados
+            </Button>
+          </Box>
         </Container>
       </>
     </MyContext.Provider>

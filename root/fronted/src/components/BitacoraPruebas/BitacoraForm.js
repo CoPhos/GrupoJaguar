@@ -241,9 +241,21 @@ function BitacoraForm(props) {
                   <Box>
                     <Grid container sx={{ justifyContent: 'center' }}>
                       <Grid item xs={5}>
+                        <TextField
+                          onBlur={e =>
+                            dispatch({
+                              type: 'SET_DATE',
+                              payload: e
+                            })
+                          }
+                          defaultValue={7}
+                          size="small"
+                          variant="outlined"
+                          name="primera"
+                        ></TextField>
                         <DatePicker
                           readOnly
-                          label="siete"
+                          label="Primera"
                           name="siete"
                           views={['year', 'month', 'day']}
                           inputFormat="yyyy/MM/dd"
@@ -252,9 +264,23 @@ function BitacoraForm(props) {
                           renderInput={params => <TextField size="small" {...params} />}
                           onChange={newValue => {}}
                         />
+                      </Grid>
+                      <Grid item xs={5}>
+                        <TextField
+                          onBlur={e =>
+                            dispatch({
+                              type: 'SET_DATE',
+                              payload: e
+                            })
+                          }
+                          defaultValue={14}
+                          size="small"
+                          variant="outlined"
+                          name="segunda"
+                        ></TextField>
                         <DatePicker
                           readOnly
-                          label="catorce"
+                          label="Segunda"
                           name="catorce"
                           views={['year', 'month', 'day']}
                           inputFormat="yyyy/MM/dd"
@@ -265,9 +291,21 @@ function BitacoraForm(props) {
                         />
                       </Grid>
                       <Grid item xs={5}>
+                        <TextField
+                          onBlur={e =>
+                            dispatch({
+                              type: 'SET_DATE',
+                              payload: e
+                            })
+                          }
+                          defaultValue={28}
+                          size="small"
+                          variant="outlined"
+                          name="tercera"
+                        ></TextField>
                         <DatePicker
                           readOnly
-                          label="veintiOcho"
+                          label="Tercera"
                           name="veintiOcho"
                           views={['year', 'month', 'day']}
                           inputFormat="yyyy/MM/dd"
@@ -276,9 +314,23 @@ function BitacoraForm(props) {
                           renderInput={params => <TextField size="small" {...params} />}
                           onChange={newValue => {}}
                         />
+                      </Grid>
+                      <Grid item xs={5}>
+                        <TextField
+                          onBlur={e =>
+                            dispatch({
+                              type: 'SET_DATE',
+                              payload: e
+                            })
+                          }
+                          defaultValue={28}
+                          size="small"
+                          variant="outlined"
+                          name="cuarta"
+                        ></TextField>
                         <DatePicker
                           readOnly
-                          label="veintiOchoDos"
+                          label="Cuarta"
                           name="veintiOchoDos"
                           views={['year', 'month', 'day']}
                           inputFormat="yyyy/MM/dd"
@@ -392,7 +444,7 @@ function BitacoraForm(props) {
                         defaultValue={state.form.altura1}
                         size="small"
                         variant="outlined"
-                        label="altura"
+                        label="altura1"
                         name="altura1"
                         error={!!state.formErrors.altura1}
                         helperText={state.formErrors.altura1 ? state.formErrors.altura1 : ''}
@@ -413,7 +465,7 @@ function BitacoraForm(props) {
                         defaultValue={state.form.altura2}
                         size="small"
                         variant="outlined"
-                        label="altura"
+                        label="altura2"
                         name="altura2"
                         error={!!state.formErrors.altura2}
                         helperText={state.formErrors.altura2 ? state.formErrors.altura2 : ''}
@@ -436,7 +488,7 @@ function BitacoraForm(props) {
                         defaultValue={state.form.altura3}
                         size="small"
                         variant="outlined"
-                        label="altura"
+                        label="altura3"
                         name="altura3"
                         error={!!state.formErrors.altura3}
                         helperText={state.formErrors.altura3 ? state.formErrors.altura3 : ''}
@@ -457,7 +509,7 @@ function BitacoraForm(props) {
                         defaultValue={state.form.altura4}
                         size="small"
                         variant="outlined"
-                        label="altura"
+                        label="altura4"
                         name="altura4"
                         error={!!state.formErrors.altura4}
                         helperText={state.formErrors.altura4 ? state.formErrors.altura4 : ''}
@@ -487,7 +539,7 @@ function BitacoraForm(props) {
                         defaultValue={state.form.diametro1}
                         size="small"
                         variant="outlined"
-                        label="diametro"
+                        label="diametro1"
                         name="diametro1"
                         error={!!state.formErrors.diametro1}
                         helperText={state.formErrors.diametro1 ? state.formErrors.diametro1 : ''}
@@ -508,7 +560,7 @@ function BitacoraForm(props) {
                         defaultValue={state.form.diametro2}
                         size="small"
                         variant="outlined"
-                        label="diametro"
+                        label="diametro2"
                         name="diametro2"
                         error={!!state.formErrors.diametro2}
                         helperText={state.formErrors.diametro2 ? state.formErrors.diametro2 : ''}
@@ -531,7 +583,7 @@ function BitacoraForm(props) {
                         defaultValue={state.form.diametro3}
                         size="small"
                         variant="outlined"
-                        label="diametro"
+                        label="diametro3"
                         name="diametro3"
                         error={!!state.formErrors.diametro3}
                         helperText={state.formErrors.diametro3 ? state.formErrors.diametro3 : ''}
@@ -552,7 +604,7 @@ function BitacoraForm(props) {
                         defaultValue={state.form.diametro4}
                         size="small"
                         variant="outlined"
-                        label="diametro"
+                        label="diametro4"
                         name="diametro4"
                         error={!!state.formErrors.diametro4}
                         helperText={state.formErrors.diametro4 ? state.formErrors.diametro4 : ''}
@@ -569,7 +621,7 @@ function BitacoraForm(props) {
                       <TextField
                         size="small"
                         variant="outlined"
-                        label="area"
+                        label="area1"
                         InputProps={{
                           readOnly: true
                         }}
@@ -578,7 +630,7 @@ function BitacoraForm(props) {
                       <TextField
                         size="small"
                         variant="outlined"
-                        label="area"
+                        label="area2"
                         InputProps={{
                           readOnly: true
                         }}
@@ -589,7 +641,7 @@ function BitacoraForm(props) {
                       <TextField
                         size="small"
                         variant="outlined"
-                        label="area"
+                        label="area3"
                         InputProps={{
                           readOnly: true
                         }}
@@ -598,7 +650,7 @@ function BitacoraForm(props) {
                       <TextField
                         size="small"
                         variant="outlined"
-                        label="area"
+                        label="area4"
                         InputProps={{
                           readOnly: true
                         }}
@@ -629,7 +681,7 @@ function BitacoraForm(props) {
                         defaultValue={state.form.carga1}
                         size="small"
                         variant="outlined"
-                        label="carga"
+                        label="carga1"
                         name="carga1"
                         error={!!state.formErrors.carga1}
                         helperText={state.formErrors.carga1 ? state.formErrors.carga1 : ''}
@@ -650,7 +702,7 @@ function BitacoraForm(props) {
                         defaultValue={state.form.carga2}
                         size="small"
                         variant="outlined"
-                        label="carga"
+                        label="carga2"
                         name="carga2"
                         error={!!state.formErrors.carga2}
                         helperText={state.formErrors.carga2 ? state.formErrors.carga2 : ''}
@@ -673,7 +725,7 @@ function BitacoraForm(props) {
                         defaultValue={state.form.carga3}
                         size="small"
                         variant="outlined"
-                        label="carga"
+                        label="carga3"
                         name="carga3"
                         error={!!state.formErrors.carga3}
                         helperText={state.formErrors.carga3 ? state.formErrors.carga3 : ''}
@@ -694,7 +746,7 @@ function BitacoraForm(props) {
                         defaultValue={state.form.carga4}
                         size="small"
                         variant="outlined"
-                        label="carga"
+                        label="carga4"
                         name="carga4"
                         error={!!state.formErrors.carga4}
                         helperText={state.formErrors.carga4 ? state.formErrors.carga4 : ''}
