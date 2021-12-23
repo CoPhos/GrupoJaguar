@@ -147,11 +147,11 @@ function reducer(state, action) {
         ...state,
         form: {
           ...state.form,
-          fechaColado: date,
-          siete: date.addDays(parseInt(state.fechas.primera)),
-          catorce: date.addDays(parseInt(state.fechas.segunda)),
-          veintiocho: date.addDays(parseInt(state.fechas.tercera)),
-          veintiochoDos: date.addDays(parseInt(state.fechas.cuarta))
+          fechaColado: date.toDateString(),
+          siete: date.addDays(parseInt(state.fechas.primera)).toDateString(),
+          catorce: date.addDays(parseInt(state.fechas.segunda)).toDateString(),
+          veintiocho: date.addDays(parseInt(state.fechas.tercera)).toDateString(),
+          veintiochoDos: date.addDays(parseInt(state.fechas.cuarta)).toDateString()
         }
       };
     case 'VALIDATE_FORM':
@@ -317,6 +317,55 @@ function BitacoraContainer() {
   const [snackbar, setSnackbar] = useState(false);
   const [snackbarMoreNotes, setSnackbarMoreNotes] = useState(false);
   const [open, setOpen] = useState(false);
+  const [edad, setEdad] = useState('');
+
+  const generatePdfData = () => {
+    const pdfData = { ...state.form };
+    const fecha = new Date(pdfData.fechaColado);
+    const siete = new Date(pdfData.siete);
+    const catorce = new Date(pdfData.catorce);
+    const veintiocho = new Date(pdfData.veintiocho);
+    const veintiochoDos = new Date(pdfData.veintiochoDos);
+    const nuevaFecha = fecha.addDays(parseInt(edad));
+
+    if (!(nuevaFecha.getTime() === siete.getTime())) {
+      pdfData.altura1 = '';
+      pdfData.diametro1 = '';
+      pdfData.area1 = '';
+      pdfData.carga1 = '';
+      pdfData.resistenciaComprension1 = '';
+      pdfData.porcentajeResistenciaComprension1 = '';
+    }
+    if (!(nuevaFecha.getTime() === catorce.getTime())) {
+      pdfData.altura2 = '';
+      pdfData.diametro2 = '';
+      pdfData.area2 = '';
+      pdfData.carga2 = '';
+      pdfData.resistenciaComprension2 = '';
+      pdfData.porcentajeResistenciaComprension2 = '';
+    }
+    if (!(nuevaFecha.getTime() === veintiocho.getTime())) {
+      pdfData.altura3 = '';
+      pdfData.diametro3 = '';
+      pdfData.area3 = '';
+      pdfData.carga3 = '';
+      pdfData.resistenciaComprension3 = '';
+      pdfData.porcentajeResistenciaComprension3 = '';
+    }
+    if (!(nuevaFecha.getTime() === veintiochoDos.getTime())) {
+      pdfData.altura4 = '';
+      pdfData.diametro4 = '';
+      pdfData.area4 = '';
+      pdfData.carga4 = '';
+      pdfData.resistenciaComprension4 = '';
+      pdfData.porcentajeResistenciaComprension4 = '';
+    }
+    console.log(pdfData);
+  };
+
+  const handleEdad = e => {
+    setEdad(e.target.value);
+  };
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -766,6 +815,8 @@ function BitacoraContainer() {
             next={fetchNextNotes}
             detail={getNote}
             dialog={handleClickOpen}
+            setEdad={handleEdad}
+            PdfData={generatePdfData}
           ></BitacoraTable>
           <Box>
             <Button

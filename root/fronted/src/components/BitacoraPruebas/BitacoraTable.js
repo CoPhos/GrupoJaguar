@@ -4,6 +4,12 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Popover from '@mui/material/Popover';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import { createStyles, makeStyles } from '@mui/styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { MyContext } from './BitacoraContainer';
@@ -42,10 +48,12 @@ function BitacoraTable(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [value, setValue] = React.useState('');
   const [page, setPage] = React.useState(0);
+  const [openPDF, setOpenPDF] = React.useState(false);
   const open = Boolean(anchorEl);
   const theme = createTheme();
   const classes = useStyles();
   const rows = props.data.notes;
+
   // const rows = [
   //   {
   //     id: 'b0e4e66d-3e6f-42e6-ac8f-6d0975cf4ae0',
@@ -58,6 +66,35 @@ function BitacoraTable(props) {
   // ];
   const columns = [
     { field: 'id', headerName: '', width: 1, hide: true },
+    {
+      field: 'action3',
+      headerName: 'Reporte PDF',
+      sortable: false,
+      width: 120,
+      renderCell: params => {
+        return (
+          <Button
+            sx={{ padding: '3px' }}
+            onClick={e => {
+              e.stopPropagation();
+              const api = params.api;
+              const thisRow = {};
+
+              api
+                .getAllColumns()
+                .filter(c => c.field !== '__check__' && !!c)
+                .forEach(c => (thisRow[c.field] = params.getValue(params.id, c.field)));
+
+              setdetail(thisRow.id);
+              setclick(!click);
+              handleClickOpen();
+            }}
+          >
+            Generar PDF
+          </Button>
+        );
+      }
+    },
     {
       field: 'action2',
       headerName: 'Detalles',
@@ -330,7 +367,13 @@ function BitacoraTable(props) {
   //     updatedAt: '2021-12-05T03:20:38.192Z'
   //   }
   // ];
+  const handleClickOpen = () => {
+    setOpenPDF(true);
+  };
 
+  const handleClose = () => {
+    setOpenPDF(false);
+  };
   const handlePopoverOpen = event => {
     const field = event.currentTarget.dataset.field;
     const id = event.currentTarget.parentElement.dataset.id;
@@ -338,11 +381,9 @@ function BitacoraTable(props) {
     setValue(row[field]);
     setAnchorEl(event.currentTarget);
   };
-
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
-
   useEffect(() => {
     props.detail(detail);
   }, [click]);
@@ -389,6 +430,34 @@ function BitacoraTable(props) {
             >
               <Typography sx={{ p: 1 }}>{`${value}`}</Typography>
             </Popover>
+            <Dialog open={openPDF} onClose={handleClose}>
+              <DialogTitle>Generar Informe de pruebas</DialogTitle>
+              <DialogContent>
+                <DialogContentText>Ingresar Edad en dias</DialogContentText>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Edad, dias"
+                  fullWidth
+                  variant="standard"
+                  type="number"
+                  onBlur={e => {
+                    props.setEdad(e);
+                  }}
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>Cancelar</Button>
+                <Button
+                  onClick={() => {
+                    props.PdfData();
+                  }}
+                >
+                  Aceptar
+                </Button>
+              </DialogActions>
+            </Dialog>
           </Box>
         </ThemeProvider>
       )}

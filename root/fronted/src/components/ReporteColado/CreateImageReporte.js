@@ -50,7 +50,7 @@ function CreateImageReporte(props) {
               <TextField
                 onChange={e => props.change('title', e.target.value)}
                 sx={withMargin}
-                label="Nombre de archivo"
+                label="Nombre"
                 size="small"
                 variant="outlined"
                 value={props.value.title}
