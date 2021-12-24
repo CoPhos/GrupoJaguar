@@ -360,6 +360,8 @@ function BitacoraContainer() {
       pdfData.resistenciaComprension4 = '';
       pdfData.porcentajeResistenciaComprension4 = '';
     }
+    pdfData.fechaRuptura = nuevaFecha;
+    pdfData.edadDias = edad;
     console.log(pdfData);
   };
 
