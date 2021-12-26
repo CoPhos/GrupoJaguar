@@ -1,7 +1,6 @@
 import React from 'react';
 
 import MenuItem from './MenuItem';
-import Pdf from '../PDF/Pdf';
 import { itemList } from './ItemList';
 
 import Container from '@mui/material/Container';

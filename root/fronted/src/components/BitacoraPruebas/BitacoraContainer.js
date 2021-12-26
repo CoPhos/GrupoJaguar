@@ -3,7 +3,6 @@ import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { listBitacoraDePruebasComprensions } from '../../graphql/queries';
 import { listBitacoraDePruebasComprensionsByNumMuestra as listBitacoraByMuestra } from '../../graphql/queries';
 import { getBitacoraDePruebasComprension } from '../../graphql/queries';
-import { listDocumentoBitacoras } from '../../graphql/queries';
 import { createBitacoraDePruebasComprension as createBitacora } from '../../graphql/mutations';
 import { updateBitacoraDePruebasComprension as updateBitacora } from '../../graphql/mutations';
 import { createDocumentoBitacora } from '../../graphql/mutations';
@@ -391,30 +390,6 @@ function BitacoraContainer() {
       console.log('error: ', err);
     }
   }
-  async function getSignedPosts(posts) {
-    const signedPosts = await Promise.all(
-      posts.map(async item => {
-        const signedUrl = await Storage.get(item.documentKey);
-        item.imageUrl = signedUrl;
-        return item;
-      })
-    );
-    return signedPosts;
-  }
-  async function fetchPosts() {
-    try {
-      const postData = await API.graphql(graphqlOperation(listDocumentoBitacoras));
-      const {
-        data: {
-          listDocumentoBitacoras: { items }
-        }
-      } = postData;
-      const signedPosts = await getSignedPosts(items);
-      console.log(signedPosts);
-    } catch (err) {
-      console.log('error: ', err);
-    }
-  }
 
   const handleEdad = e => {
     setEdad(e.target.value);
@@ -508,7 +483,6 @@ function BitacoraContainer() {
   };
   useEffect(() => {
     fetchNotes();
-    fetchPosts();
   }, []);
 
   useEffect(() => {
