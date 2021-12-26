@@ -21,7 +21,7 @@ function Protected() {
         alignItems: 'center'
       }}
     >
-      {/* <Box sx={{ width: '100%' }}>
+      <Box sx={{ width: '100%' }}>
         <Box
           sx={{
             display: 'flex',
@@ -38,8 +38,7 @@ function Protected() {
             })}
           </Paper>
         </Box>
-      </Box> */}
-      <Pdf></Pdf>
+      </Box>
     </Container>
   );
 }

@@ -1,15 +1,20 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import API, { graphqlOperation } from '@aws-amplify/api';
+import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { listBitacoraDePruebasComprensions } from '../../graphql/queries';
 import { listBitacoraDePruebasComprensionsByNumMuestra as listBitacoraByMuestra } from '../../graphql/queries';
 import { getBitacoraDePruebasComprension } from '../../graphql/queries';
+import { listDocumentoBitacoras } from '../../graphql/queries';
 import { createBitacoraDePruebasComprension as createBitacora } from '../../graphql/mutations';
 import { updateBitacoraDePruebasComprension as updateBitacora } from '../../graphql/mutations';
+import { createDocumentoBitacora } from '../../graphql/mutations';
 import { prettyPrint } from '@base2/pretty-print-object';
 import { v4 as uuidv4 } from 'uuid';
 import protectedRoute from '../../protectedRoute';
 import BitacoraForm from './BitacoraForm';
 import BitacoraTable from './BitacoraTable';
+import Pdf from '../PDF/Pdf';
+
+import { pdf, PDFDownloadLink } from '@react-pdf/renderer';
 
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -326,44 +331,90 @@ function BitacoraContainer() {
     const catorce = new Date(pdfData.catorce);
     const veintiocho = new Date(pdfData.veintiocho);
     const veintiochoDos = new Date(pdfData.veintiochoDos);
-    const nuevaFecha = fecha.addDays(parseInt(edad));
+    const nuevaFecha = new Date(fecha.addDays(parseInt(edad)));
 
     if (!(nuevaFecha.getTime() === siete.getTime())) {
-      pdfData.altura1 = '';
-      pdfData.diametro1 = '';
-      pdfData.area1 = '';
-      pdfData.carga1 = '';
-      pdfData.resistenciaComprension1 = '';
-      pdfData.porcentajeResistenciaComprension1 = '';
+      pdfData.altura1 = ' ';
+      pdfData.diametro1 = ' ';
+      pdfData.area1 = ' ';
+      pdfData.carga1 = ' ';
+      pdfData.resistenciaComprension1 = ' ';
+      pdfData.porcentajeResistenciaComprension1 = ' ';
     }
     if (!(nuevaFecha.getTime() === catorce.getTime())) {
-      pdfData.altura2 = '';
-      pdfData.diametro2 = '';
-      pdfData.area2 = '';
-      pdfData.carga2 = '';
-      pdfData.resistenciaComprension2 = '';
-      pdfData.porcentajeResistenciaComprension2 = '';
+      pdfData.altura2 = ' ';
+      pdfData.diametro2 = ' ';
+      pdfData.area2 = ' ';
+      pdfData.carga2 = ' ';
+      pdfData.resistenciaComprension2 = ' ';
+      pdfData.porcentajeResistenciaComprension2 = ' ';
     }
     if (!(nuevaFecha.getTime() === veintiocho.getTime())) {
-      pdfData.altura3 = '';
-      pdfData.diametro3 = '';
-      pdfData.area3 = '';
-      pdfData.carga3 = '';
-      pdfData.resistenciaComprension3 = '';
-      pdfData.porcentajeResistenciaComprension3 = '';
+      pdfData.altura3 = ' ';
+      pdfData.diametro3 = ' ';
+      pdfData.area3 = ' ';
+      pdfData.carga3 = ' ';
+      pdfData.resistenciaComprension3 = ' ';
+      pdfData.porcentajeResistenciaComprension3 = ' ';
     }
     if (!(nuevaFecha.getTime() === veintiochoDos.getTime())) {
-      pdfData.altura4 = '';
-      pdfData.diametro4 = '';
-      pdfData.area4 = '';
-      pdfData.carga4 = '';
-      pdfData.resistenciaComprension4 = '';
-      pdfData.porcentajeResistenciaComprension4 = '';
+      pdfData.altura4 = ' ';
+      pdfData.diametro4 = ' ';
+      pdfData.area4 = ' ';
+      pdfData.carga4 = ' ';
+      pdfData.resistenciaComprension4 = ' ';
+      pdfData.porcentajeResistenciaComprension4 = ' ';
     }
     pdfData.fechaRuptura = nuevaFecha;
     pdfData.edadDias = edad;
+    pdfData.fechaRecibo = new Date();
+    pdfData.fechaColado = fecha;
     console.log(pdfData);
+    return pdfData;
   };
+
+  async function savePdf() {
+    const pdfData = generatePdfData();
+    const blob = await pdf(<Pdf info={pdfData}></Pdf>).toBlob();
+    console.log(blob);
+    const numEnsaye = pdfData.numObra;
+    const numMuestra = pdfData.numMuestra;
+    const nombreObra = pdfData.nombreObra;
+    try {
+      const documentKey = uuidv4() + '.pdf'.toLowerCase();
+      var file = new Blob([blob], { type: 'application/pdf' });
+      await Storage.put(documentKey, file);
+      const post = { numEnsaye, numMuestra, nombreObra, documentKey };
+      await API.graphql(graphqlOperation(createDocumentoBitacora, { input: post }));
+      setSnackbar(true);
+    } catch (err) {
+      console.log('error: ', err);
+    }
+  }
+  async function getSignedPosts(posts) {
+    const signedPosts = await Promise.all(
+      posts.map(async item => {
+        const signedUrl = await Storage.get(item.documentKey);
+        item.imageUrl = signedUrl;
+        return item;
+      })
+    );
+    return signedPosts;
+  }
+  async function fetchPosts() {
+    try {
+      const postData = await API.graphql(graphqlOperation(listDocumentoBitacoras));
+      const {
+        data: {
+          listDocumentoBitacoras: { items }
+        }
+      } = postData;
+      const signedPosts = await getSignedPosts(items);
+      console.log(signedPosts);
+    } catch (err) {
+      console.log('error: ', err);
+    }
+  }
 
   const handleEdad = e => {
     setEdad(e.target.value);
@@ -455,13 +506,14 @@ function BitacoraContainer() {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  // useEffect(() => {
-  //   fetchNotes();
-  // }, []);
+  useEffect(() => {
+    fetchNotes();
+    fetchPosts();
+  }, []);
 
-  // useEffect(() => {
-  //   setOpenUpdate(state.update);
-  // }, [state.update]);
+  useEffect(() => {
+    setOpenUpdate(state.update);
+  }, [state.update]);
 
   async function fetchNotes() {
     try {
@@ -818,7 +870,7 @@ function BitacoraContainer() {
             detail={getNote}
             dialog={handleClickOpen}
             setEdad={handleEdad}
-            PdfData={generatePdfData}
+            PdfData={savePdf}
           ></BitacoraTable>
           <Box>
             <Button
