@@ -290,7 +290,9 @@ export const createDocumentoBitacora = /* GraphQL */ `
   ) {
     createDocumentoBitacora(input: $input, condition: $condition) {
       id
-      title
+      numEnsaye
+      numMuestra
+      nombreObra
       documentKey
       createdAt
       updatedAt
@@ -307,7 +309,9 @@ export const updateDocumentoBitacora = /* GraphQL */ `
   ) {
     updateDocumentoBitacora(input: $input, condition: $condition) {
       id
-      title
+      numEnsaye
+      numMuestra
+      nombreObra
       documentKey
       createdAt
       updatedAt
@@ -324,7 +328,9 @@ export const deleteDocumentoBitacora = /* GraphQL */ `
   ) {
     deleteDocumentoBitacora(input: $input, condition: $condition) {
       id
-      title
+      numEnsaye
+      numMuestra
+      nombreObra
       documentKey
       createdAt
       updatedAt
@@ -341,7 +347,8 @@ export const createImagenReportColado = /* GraphQL */ `
   ) {
     createImagenReportColado(input: $input, condition: $condition) {
       id
-      title
+      numEnsaye
+      numMuestra
       imageKey
       createdAt
       updatedAt
@@ -358,7 +365,8 @@ export const updateImagenReportColado = /* GraphQL */ `
   ) {
     updateImagenReportColado(input: $input, condition: $condition) {
       id
-      title
+      numEnsaye
+      numMuestra
       imageKey
       createdAt
       updatedAt
@@ -375,7 +383,8 @@ export const deleteImagenReportColado = /* GraphQL */ `
   ) {
     deleteImagenReportColado(input: $input, condition: $condition) {
       id
-      title
+      numEnsaye
+      numMuestra
       imageKey
       createdAt
       updatedAt

@@ -49,8 +49,11 @@ export const getBitacoraDePruebasComprension = /* GraphQL */ `
       porcentajeResistenciaComprension4
       tipoFalla
       laboratorista
-
+      createdAt
+      updatedAt
       _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -391,7 +394,9 @@ export const getDocumentoBitacora = /* GraphQL */ `
   query GetDocumentoBitacora($id: ID!) {
     getDocumentoBitacora(id: $id) {
       id
-      title
+      numEnsaye
+      numMuestra
+      nombreObra
       documentKey
       createdAt
       updatedAt
@@ -410,7 +415,9 @@ export const listDocumentoBitacoras = /* GraphQL */ `
     listDocumentoBitacoras(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        title
+        numEnsaye
+        numMuestra
+        nombreObra
         documentKey
         createdAt
         updatedAt
@@ -438,7 +445,9 @@ export const syncDocumentoBitacoras = /* GraphQL */ `
     ) {
       items {
         id
-        title
+        numEnsaye
+        numMuestra
+        nombreObra
         documentKey
         createdAt
         updatedAt
@@ -455,7 +464,8 @@ export const getImagenReportColado = /* GraphQL */ `
   query GetImagenReportColado($id: ID!) {
     getImagenReportColado(id: $id) {
       id
-      title
+      numEnsaye
+      numMuestra
       imageKey
       createdAt
       updatedAt
@@ -474,7 +484,8 @@ export const listImagenReportColados = /* GraphQL */ `
     listImagenReportColados(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        title
+        numEnsaye
+        numMuestra
         imageKey
         createdAt
         updatedAt
@@ -502,7 +513,8 @@ export const syncImagenReportColados = /* GraphQL */ `
     ) {
       items {
         id
-        title
+        numEnsaye
+        numMuestra
         imageKey
         createdAt
         updatedAt

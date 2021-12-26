@@ -42,26 +42,52 @@ function CreateImageReporte(props) {
             <Box
               sx={{
                 display: 'flex',
-                justifyContent: 'space-evenly',
+                justifyContent: 'space-around',
                 alignItems: 'center',
+                width: '100%',
                 flexWrap: 'wrap'
               }}
             >
               <TextField
-                onChange={e => props.change('title', e.target.value)}
+                onChange={e => props.change('numEnsaye', e.target.value)}
                 sx={withMargin}
-                label="Nombre"
+                label="num Ensaye"
                 size="small"
                 variant="outlined"
-                value={props.value.title}
-                sx={{ marginBottom: '20px', width: '55%' }}
+                value={props.value.numEnsaye}
+                sx={{ marginBottom: '20px', width: '35%', marginLeft: '20px' }}
               />
+              <TextField
+                onChange={e => props.change('numMuestra', e.target.value)}
+                sx={withMargin}
+                label="num Muestra"
+                size="small"
+                variant="outlined"
+                value={props.value.numMuestra}
+                sx={{ marginBottom: '20px', width: '35%', marginLeft: '20px' }}
+              />
+              <Button
+                variant="outlined"
+                startIcon={<AddCircle />}
+                onClick={props.savePhoto}
+                type="primary"
+                sx={{
+                  color: '#008433',
+                  borderColor: '#008433',
+                  marginLeft: '20px',
+                  marginBottom: '20px'
+                }}
+              >
+                Subir Imagen
+              </Button>
               <Box
                 sx={{
                   display: 'flex',
-                  justifyContent: 'space-evenly',
+                  justifyContent: 'center',
                   alignItems: 'center',
                   marginBottom: '20px',
+                  width: '100%',
+                  flexWrap: 'wrap',
                   '@media(max-width: 936px)': {}
                 }}
               >
@@ -80,17 +106,10 @@ function CreateImageReporte(props) {
                   >
                     Seleccionar Imagen
                   </Button>
-                  {formState.image.name}
                 </label>
-                <Button
-                  variant="outlined"
-                  startIcon={<AddCircle />}
-                  onClick={props.savePhoto}
-                  type="primary"
-                  sx={{ color: '#008433', borderColor: '#008433', marginLeft: '20px' }}
-                >
-                  Subir Imagen
-                </Button>
+                <Typography variant="h8" component="div" sx={{ margin: '20px' }}>
+                  {formState.image.name}
+                </Typography>
               </Box>
               <Toolbar
                 sx={{

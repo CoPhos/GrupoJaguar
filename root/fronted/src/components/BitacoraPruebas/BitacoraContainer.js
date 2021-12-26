@@ -455,13 +455,13 @@ function BitacoraContainer() {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  useEffect(() => {
-    fetchNotes();
-  }, []);
+  // useEffect(() => {
+  //   fetchNotes();
+  // }, []);
 
-  useEffect(() => {
-    setOpenUpdate(state.update);
-  }, [state.update]);
+  // useEffect(() => {
+  //   setOpenUpdate(state.update);
+  // }, [state.update]);
 
   async function fetchNotes() {
     try {

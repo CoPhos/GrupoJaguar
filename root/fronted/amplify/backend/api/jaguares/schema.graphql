@@ -77,12 +77,15 @@ type DiarioDePruebasComprension @model {
 
 type DocumentoBitacora @model {
   id: ID!
-  title: String!
+  numEnsaye: String!
+  numMuestra: String!
+  nombreObra: String!
   documentKey: String!
 }
 
 type ImagenReportColado @model {
   id: ID!
-  title: String!
+  numEnsaye: String!
+  numMuestra: String!
   imageKey: String!
 }

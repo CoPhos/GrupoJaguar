@@ -102,7 +102,9 @@ export declare class DiarioDePruebasComprension {
 
 export declare class DocumentoBitacora {
   readonly id: string;
-  readonly title: string;
+  readonly numEnsaye: string;
+  readonly numMuestra: string;
+  readonly nombreObra: string;
   readonly documentKey: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
@@ -112,7 +114,8 @@ export declare class DocumentoBitacora {
 
 export declare class ImagenReportColado {
   readonly id: string;
-  readonly title: string;
+  readonly numEnsaye: string;
+  readonly numMuestra: string;
   readonly imageKey: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;

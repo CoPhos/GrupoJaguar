@@ -37,7 +37,8 @@ async function getSignedPosts(posts) {
   return signedPosts;
 }
 const initialFormState = {
-  title: '',
+  numEnsaye: '',
+  numMuestra: '',
   image: {}
 };
 
@@ -67,15 +68,15 @@ function ReporteColadoContainer() {
   }
   async function savePhoto() {
     try {
-      const { title, image } = formState;
-      if (!title || !image.name) return;
+      const { numEnsaye, numMuestra, image } = formState;
+      if (!numEnsaye || !image.name || !numMuestra) return;
       const imageKey = uuidv4() + formState.image.name.replace(/\s/g, '-').toLowerCase();
       await Storage.put(imageKey, formState.image);
-      const post = { title, imageKey };
+      const post = { numEnsaye, numMuestra, imageKey };
       await API.graphql(graphqlOperation(createImagenReportColado, { input: post }));
       setSnackbar(true);
       setError(false);
-      updateFormState({ title: '', image: {} });
+      updateFormState({ numEnsaye: '', numMuestra: '', image: {} });
     } catch (err) {
       console.log('error: ', err);
       setError(true);
@@ -90,18 +91,21 @@ function ReporteColadoContainer() {
         const signedUrl = await Storage.get(newPost.imageKey);
         newPost.imageUrl = signedUrl;
         dispatch({ type: 'ADD_POST', post: newPost });
-        updateFormState({ title: '', image: {} });
+        updateFormState({ numEnsaye: '', numMuestra: '', image: {} });
       }
     });
     return () => subscription.unsubscribe();
   }, []);
   async function fetchReporteByMuestra() {
     if (seachField !== '') {
+      const input = seachField.toUpperCase().split(',');
       try {
         const postData = await API.graphql(
           graphqlOperation(listImagenReportColados, {
             limit: 5,
-            filter: { title: { eq: seachField } }
+            filter: {
+              and: [{ numEnsaye: { eq: input[0] } }, { numMuestra: { eq: input[1] } }]
+            }
           })
         );
         const {
@@ -111,6 +115,7 @@ function ReporteColadoContainer() {
         } = postData;
         const signedPosts = await getSignedPosts(items);
         dispatch({ type: 'SET_POSTS', posts: signedPosts });
+        console.log(posts);
       } catch (err) {
         console.log('error: ', err);
       }

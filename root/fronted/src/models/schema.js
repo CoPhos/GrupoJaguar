@@ -530,8 +530,22 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "title": {
-                    "name": "title",
+                "numEnsaye": {
+                    "name": "numEnsaye",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "numMuestra": {
+                    "name": "numMuestra",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "nombreObra": {
+                    "name": "nombreObra",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -580,8 +594,15 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "title": {
-                    "name": "title",
+                "numEnsaye": {
+                    "name": "numEnsaye",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "numMuestra": {
+                    "name": "numMuestra",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -623,5 +644,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "fa209382b9a7f4e02c3ff4d54e572bc1"
+    "version": "8ceed03b6403e4c34f2fddabdfcbab35"
 };

@@ -269,7 +269,9 @@ export const onCreateDocumentoBitacora = /* GraphQL */ `
   subscription OnCreateDocumentoBitacora {
     onCreateDocumentoBitacora {
       id
-      title
+      numEnsaye
+      numMuestra
+      nombreObra
       documentKey
       createdAt
       updatedAt
@@ -283,7 +285,9 @@ export const onUpdateDocumentoBitacora = /* GraphQL */ `
   subscription OnUpdateDocumentoBitacora {
     onUpdateDocumentoBitacora {
       id
-      title
+      numEnsaye
+      numMuestra
+      nombreObra
       documentKey
       createdAt
       updatedAt
@@ -297,7 +301,9 @@ export const onDeleteDocumentoBitacora = /* GraphQL */ `
   subscription OnDeleteDocumentoBitacora {
     onDeleteDocumentoBitacora {
       id
-      title
+      numEnsaye
+      numMuestra
+      nombreObra
       documentKey
       createdAt
       updatedAt
@@ -311,7 +317,8 @@ export const onCreateImagenReportColado = /* GraphQL */ `
   subscription OnCreateImagenReportColado {
     onCreateImagenReportColado {
       id
-      title
+      numEnsaye
+      numMuestra
       imageKey
       createdAt
       updatedAt
@@ -325,7 +332,8 @@ export const onUpdateImagenReportColado = /* GraphQL */ `
   subscription OnUpdateImagenReportColado {
     onUpdateImagenReportColado {
       id
-      title
+      numEnsaye
+      numMuestra
       imageKey
       createdAt
       updatedAt
@@ -339,7 +347,8 @@ export const onDeleteImagenReportColado = /* GraphQL */ `
   subscription OnDeleteImagenReportColado {
     onDeleteImagenReportColado {
       id
-      title
+      numEnsaye
+      numMuestra
       imageKey
       createdAt
       updatedAt
