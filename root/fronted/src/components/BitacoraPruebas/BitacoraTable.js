@@ -13,30 +13,24 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { createStyles, makeStyles } from '@mui/styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { MyContext } from './BitacoraContainer';
+
 const useStyles = makeStyles(theme =>
   createStyles({
     root: {
-      '& .MuiDataGrid-renderingZone': {
-        maxHeight: 'fit-content !important'
-      },
+      '& .MuiDataGrid-renderingZone': {},
       '& .MuiDataGrid-cell': {
-        maxHeight: 'fit-content !important',
         overflow: 'auto !important',
         whiteSpace: 'initial !important',
-        lineHeight: '14px !important',
+        lineHeight: '12px !important',
         display: 'flex !important',
         alignItems: 'center',
-        paddingTop: '5px !important',
-        paddingBottom: '5px !important',
+
         '>': {
-          maxHeight: 'inherit',
           whiteSpace: 'initial !important',
           lineHeight: '12px !important'
         }
       },
-      '& .MuiDataGrid-row': {
-        maxHeight: 'fit-content !important'
-      }
+      '& .MuiDataGrid-row': {}
     }
   })
 );
@@ -74,7 +68,7 @@ function BitacoraTable(props) {
       renderCell: params => {
         return (
           <Button
-            sx={{ padding: '3px' }}
+            sx={{ lineHeight: '12px' }}
             onClick={e => {
               e.stopPropagation();
               const api = params.api;
@@ -148,9 +142,9 @@ function BitacoraTable(props) {
     },
     { field: 'numMuestra', headerName: 'Num Muestra', width: 120, wrapText: true },
     { field: 'numObra', headerName: 'Num Obra', width: 120 },
-    { field: 'nombreObra', headerName: 'Nombre obra', width: 240 },
-    { field: 'ubicacion', headerName: 'Ubicacion', width: 140 },
-    { field: 'solicitadoPor', headerName: 'Solicitado por', width: 140, wrapText: true }
+    { field: 'nombreObra', headerName: 'Nombre obra', width: 260 },
+    { field: 'ubicacion', headerName: 'Ubicacion', width: 160 },
+    { field: 'solicitadoPor', headerName: 'Solicitado por', width: 180, wrapText: true }
   ];
   // const columns = [
   //   { field: 'id', headerName: '', width: 1, hide: true },
@@ -430,7 +424,12 @@ function BitacoraTable(props) {
             >
               <Typography sx={{ p: 1 }}>{`${value}`}</Typography>
             </Popover>
-            <Dialog open={openPDF} onClose={handleClose}>
+            <Dialog
+              open={openPDF}
+              onClose={() => {
+                handleClose();
+              }}
+            >
               <DialogTitle>Generar Informe de pruebas</DialogTitle>
               <DialogContent>
                 <DialogContentText>Ingresar Edad en dias</DialogContentText>
@@ -448,10 +447,17 @@ function BitacoraTable(props) {
                 />
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleClose}>Cancelar</Button>
+                <Button
+                  onClick={() => {
+                    handleClose();
+                  }}
+                >
+                  Cancelar
+                </Button>
                 <Button
                   onClick={() => {
                     props.PdfData();
+                    handleClose();
                   }}
                 >
                   Aceptar

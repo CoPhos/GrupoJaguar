@@ -216,17 +216,17 @@ const validate = values => {
     : 'Debe contener solo numeros';
 
   temp.altura1 = numberPattern.test(values.altura1) ? '' : 'Debe contener solo numeros';
-  temp.altura2 = numberPattern.test(values.altura1) ? '' : 'Debe contener solo numeros';
-  temp.altura3 = numberPattern.test(values.altura1) ? '' : 'Debe contener solo numeros';
-  temp.altura4 = numberPattern.test(values.altura1) ? '' : 'Debe contener solo numeros';
+  temp.altura2 = numberPattern.test(values.altura2) ? '' : 'Debe contener solo numeros';
+  temp.altura3 = numberPattern.test(values.altura3) ? '' : 'Debe contener solo numeros';
+  temp.altura4 = numberPattern.test(values.altura4) ? '' : 'Debe contener solo numeros';
   temp.diametro1 = numberPattern.test(values.diametro1) ? '' : 'Debe contener solo numeros';
-  temp.diametro2 = numberPattern.test(values.diametro1) ? '' : 'Debe contener solo numeros';
-  temp.diametro3 = numberPattern.test(values.diametro1) ? '' : 'Debe contener solo numeros';
-  temp.diametro4 = numberPattern.test(values.diametro1) ? '' : 'Debe contener solo numeros';
+  temp.diametro2 = numberPattern.test(values.diametro2) ? '' : 'Debe contener solo numeros';
+  temp.diametro3 = numberPattern.test(values.diametro3) ? '' : 'Debe contener solo numeros';
+  temp.diametro4 = numberPattern.test(values.diametro4) ? '' : 'Debe contener solo numeros';
   temp.carga1 = numberPattern.test(values.carga1) ? '' : 'Debe contener solo numeros';
-  temp.carga2 = numberPattern.test(values.carga1) ? '' : 'Debe contener solo numeros';
-  temp.carga3 = numberPattern.test(values.carga1) ? '' : 'Debe contener solo numeros';
-  temp.carga4 = numberPattern.test(values.carga1) ? '' : 'Debe contener solo numeros';
+  temp.carga2 = numberPattern.test(values.carga2) ? '' : 'Debe contener solo numeros';
+  temp.carga3 = numberPattern.test(values.carga3) ? '' : 'Debe contener solo numeros';
+  temp.carga4 = numberPattern.test(values.carga4) ? '' : 'Debe contener solo numeros';
 
   return temp;
 };
@@ -584,6 +584,7 @@ function BitacoraContainer() {
   }
   async function updateNote() {
     const { form, saveSend } = state;
+
     if (saveSend) {
       try {
         console.log(form);

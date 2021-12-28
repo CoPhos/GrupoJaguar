@@ -49,11 +49,7 @@ export const getBitacoraDePruebasComprension = /* GraphQL */ `
       porcentajeResistenciaComprension4
       tipoFalla
       laboratorista
-      createdAt
-      updatedAt
       _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
