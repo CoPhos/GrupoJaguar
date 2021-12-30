@@ -54,7 +54,8 @@ function Identificacion(props) {
         style={{
           display: 'flex',
           flexDirection: 'row',
-          width: '100%'
+          width: '100%',
+          height: '52px'
         }}
       >
         <Text
@@ -68,9 +69,7 @@ function Identificacion(props) {
           TOMADA DE
         </Text>
         <Text style={{ padding: '2', flex: 2, display: 'flex', flexDirection: 'row' }}>
-          ZAPATAS Y DADOS DE CED 14ZAPATAS Y DADOS DE CED 14 ZAPATAS Y DADOS DE CED 14 ZAPATAS Y
-          DADOS DE CED 14 ZAPATAS Y DADOS DE CED 14 ZAPATAS Y DADOS DE CED 14 ZAPATAS Y DADOS DE CED
-          14 ZAPATAS Y DADOS DE CED 14
+          {props.data.elementoColado}
         </Text>
       </View>
     </>

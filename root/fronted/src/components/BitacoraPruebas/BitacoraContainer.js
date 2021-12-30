@@ -329,10 +329,13 @@ function BitacoraContainer() {
   const [snackbarMoreNotes, setSnackbarMoreNotes] = useState(false);
   const [open, setOpen] = useState(false);
   const [edad, setEdad] = useState('');
+  const [logo, setlogo] = useState('1');
   const [count, setcount] = useState(0);
   const history = useHistory();
+
   const generatePdfData = () => {
     const pdfData = { ...state.form };
+    const logotipo = logo;
     const fecha = new Date(pdfData.fechaColado);
     const siete = new Date(pdfData.siete);
     const catorce = new Date(pdfData.catorce);
@@ -376,6 +379,7 @@ function BitacoraContainer() {
     pdfData.edadDias = edad;
     pdfData.fechaRecibo = new Date();
     pdfData.fechaColado = fecha;
+    pdfData.logotipo = logotipo;
     console.log(pdfData);
     return pdfData;
   };
@@ -401,6 +405,9 @@ function BitacoraContainer() {
 
   const handleEdad = e => {
     setEdad(e.target.value);
+  };
+  const handleLogo = e => {
+    setlogo(e.target.value);
   };
 
   const handleClose = (event, reason) => {
@@ -923,6 +930,7 @@ function BitacoraContainer() {
             detail={getNote}
             dialog={handleClickOpen}
             setEdad={handleEdad}
+            setLogo={handleLogo}
             PdfData={savePdf}
           ></BitacoraTable>
           <Box>

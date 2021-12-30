@@ -37,6 +37,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row'
   },
+  noBorderFlex: {
+    display: 'flex',
+    flexDirection: 'row'
+  },
   borderFlexWidht: {
     borderBottom: '1px solid #000',
     display: 'flex',
@@ -326,7 +330,7 @@ function DatosObtenidos(props) {
             })}
           </View>
           {/* tipo falla */}
-          <View style={styles.borderFlex}>
+          <View style={styles.noBorderFlex}>
             <Text style={styles.subNopadding}>TIPO DE FALLA DE RUPTURA</Text>
             {fields(
               props.data.tipoFalla,

@@ -40,11 +40,11 @@ function InfoGeneral(props) {
           <View style={{ display: 'flex', flexDirection: 'row' }}>
             <Text style={{ margin: 2 }}>FECHA DE RECIBO:</Text>
             <Text style={{ borderBottom: '1px solid #000', margin: 2, flex: '1 1 auto' }}>
-              {props.data.fechaRecibo.toLocaleDateString('es-ES', { year: 'numeric' }) +
+              {props.data.fechaColado.toLocaleDateString('es-ES', { year: 'numeric' }) +
                 '-' +
-                props.data.fechaRecibo.toLocaleDateString('es-ES', { month: 'long' }) +
+                props.data.fechaColado.toLocaleDateString('es-ES', { month: 'long' }) +
                 '-' +
-                props.data.fechaRecibo.toLocaleDateString('es-ES', { day: 'numeric' })}
+                props.data.fechaColado.toLocaleDateString('es-ES', { day: 'numeric' })}
             </Text>
           </View>
         </View>

@@ -36,11 +36,10 @@ function Notas(props) {
           1 kgf = 9,81 N
         </Text>
       </View>
-      <View style={{ display: 'flex', flexDirection: 'row' }}>
+      <View style={{ display: 'flex', flexDirection: 'row', height: '64px' }}>
         <Text
           style={{
             padding: '2',
-            paddingRight: '100',
             fontWeight: 700
           }}
         >
@@ -52,9 +51,7 @@ function Notas(props) {
             flex: 1
           }}
         >
-          ZAPATAS Y DADOS DE CED 14ZAPATAS Y DADOS DE CED 14 ZAPATAS Y DADOS DE CED 14 ZAPATAS Y
-          ZAPATAS Y DADOS DE CED 14ZAPATAS Y DADOS DE CED 14 ZAPATAS Y DADOS DE CED 14 ZAPATAS Y
-          ZAPATAS Y DADOS DE CED 14ZAPATAS Y DADOS DE CED 14 ZAPATAS Y DADOS DE CED 14 ZAPATAS Y
+          {props.data.observaciones}
         </Text>
       </View>
       <View

@@ -25,9 +25,7 @@ function Footer() {
             fontWeight: 700,
             fontSize: 6
           }}
-        >
-          xxx-xxxx-xxx
-        </Text>
+        ></Text>
       </View>
       <View
         style={{
@@ -51,9 +49,7 @@ function Footer() {
             fontWeight: 700,
             fontSize: 6
           }}
-        >
-          xxx-xxxx-xxx
-        </Text>
+        ></Text>
       </View>
     </>
   );

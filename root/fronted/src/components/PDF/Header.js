@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 import logo from '../../assets/images/logo.png';
+import logo2 from '../../assets/images/logo1.png';
 
 const styles = StyleSheet.create({
   section: {
@@ -13,11 +14,14 @@ const styles = StyleSheet.create({
   }
 });
 
-function Header() {
+function Header(props) {
   return (
     <View style={styles.flex}>
       <View style={styles.section}>
-        <Image src={logo} styles={{}}></Image>
+        <Image
+          src={props.data.logotipo === '1' ? logo : logo2}
+          styles={{ width: '75px', height: '80px' }}
+        ></Image>
       </View>
       <View
         style={{

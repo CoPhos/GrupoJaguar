@@ -1,6 +1,7 @@
 import React from 'react';
 import { Page, View, Document, StyleSheet, Image, Font } from '@react-pdf/renderer';
 import logo from '../../assets/images/logo3.png';
+import logo2 from '../../assets/images/logo2.png';
 import Header from './Header';
 import InfoGeneral from './InfoGeneral';
 import Identificacion from './Identificacion';
@@ -9,7 +10,7 @@ import DatosObtenidos from './DatosObtenidos';
 import Notas from './Notas';
 import Firmas from './Firmas';
 import Footer from './Footer';
-
+import { PDFViewer } from '@react-pdf/renderer';
 import PTSerif from '../../assets/fonts/PT_Serif/PTSerif-Regular.ttf';
 import PTSerifBold from '../../assets/fonts/PT_Serif/PTSerif-Bold.ttf';
 
@@ -31,10 +32,10 @@ const styles = StyleSheet.create({
   page: {
     fontFamily: 'Playfair Display',
     fontSize: 8,
-    paddingTop: 20,
+    paddingTop: 10,
     paddingLeft: 20,
     paddingRight: 20,
-    paddingBottom: 20,
+    paddingBottom: 10,
     lineHeight: 1.5,
     flexDirection: 'column',
     boxSizing: 'border-box',
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
 //   laboratorista: 'Luis Ramón Sánchez C',
 //   fechaRuptura: new Date(2021, 11, 29),
 //   edadDias: 28,
-//   fechaRecibo: new Date()
+//   logotipo: '1'
 // };
 
 function Pdf(props) {
@@ -114,18 +115,19 @@ function Pdf(props) {
         {/* image base water mark */}
         <Image
           fixed
-          src={logo}
-          style={{ position: 'relative', top: 230, left: 10, width: 450, height: 100 }}
+          src={data.logotipo === '1' ? logo : logo2}
+          style={{ position: 'relative', top: 260, left: 75, width: 420, height: 230 }}
         ></Image>
         {/* header */}
         <View style={styles.cell}>
-          <Header></Header>
+          <Header data={data}></Header>
           <InfoGeneral data={data}></InfoGeneral>
           {/* cuerpo */}
           <View
             style={{
               border: '1px solid #000',
-              borderRadius: '1%'
+              borderRadius: '1%',
+              marginTop: '2px'
             }}
           >
             <Identificacion data={data}></Identificacion>
@@ -134,9 +136,10 @@ function Pdf(props) {
           </View>
           <View
             style={{
-              border: '1px solid #000',
-              borderRadius: '10%',
-              marginTop: 2
+              borderBottom: '1px solid #000',
+              borderLeft: '1px solid #000',
+              borderRight: '1px solid #000',
+              borderRadius: '5%'
             }}
           >
             <Notas data={data}></Notas>
