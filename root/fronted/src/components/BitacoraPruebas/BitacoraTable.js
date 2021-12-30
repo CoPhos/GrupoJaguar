@@ -145,7 +145,7 @@ function BitacoraTable(props) {
         );
       }
     },
-    { field: 'numMuestra', headerName: 'Num Muestra', width: 120, wrapText: true },
+    { field: 'numMuestra', headerName: 'Num Ensaye', width: 120, wrapText: true },
     { field: 'numObra', headerName: 'Num Obra', width: 120 },
     { field: 'nombreObra', headerName: 'Nombre obra', width: 260 },
     { field: 'ubicacion', headerName: 'Ubicacion', width: 160 },

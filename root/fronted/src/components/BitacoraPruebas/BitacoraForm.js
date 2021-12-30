@@ -70,7 +70,7 @@ function BitacoraForm(props) {
                   defaultValue={state.form.numMuestra}
                   size="small"
                   variant="outlined"
-                  label="lab"
+                  label="numEnsaye"
                   name="numMuestra"
                   error={!!state.formErrors.lab}
                   helperText={state.formErrors.lab}
@@ -273,31 +273,6 @@ function BitacoraForm(props) {
                               payload: e
                             })
                           }
-                          defaultValue={14}
-                          size="small"
-                          variant="outlined"
-                          name="segunda"
-                        ></TextField>
-                        <DatePicker
-                          readOnly
-                          label="Segunda"
-                          name="catorce"
-                          views={['year', 'month', 'day']}
-                          inputFormat="yyyy/MM/dd"
-                          disableMaskedInput={true}
-                          value={state.form.catorce}
-                          renderInput={params => <TextField size="small" {...params} />}
-                          onChange={newValue => {}}
-                        />
-                      </Grid>
-                      <Grid item xs={5}>
-                        <TextField
-                          onBlur={e =>
-                            dispatch({
-                              type: 'SET_DATE',
-                              payload: e
-                            })
-                          }
                           defaultValue={28}
                           size="small"
                           variant="outlined"
@@ -311,6 +286,31 @@ function BitacoraForm(props) {
                           inputFormat="yyyy/MM/dd"
                           disableMaskedInput={true}
                           value={state.form.veintiocho}
+                          renderInput={params => <TextField size="small" {...params} />}
+                          onChange={newValue => {}}
+                        />
+                      </Grid>
+                      <Grid item xs={5}>
+                        <TextField
+                          onBlur={e =>
+                            dispatch({
+                              type: 'SET_DATE',
+                              payload: e
+                            })
+                          }
+                          defaultValue={14}
+                          size="small"
+                          variant="outlined"
+                          name="segunda"
+                        ></TextField>
+                        <DatePicker
+                          readOnly
+                          label="Segunda"
+                          name="catorce"
+                          views={['year', 'month', 'day']}
+                          inputFormat="yyyy/MM/dd"
+                          disableMaskedInput={true}
+                          value={state.form.catorce}
                           renderInput={params => <TextField size="small" {...params} />}
                           onChange={newValue => {}}
                         />

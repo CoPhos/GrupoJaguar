@@ -49,7 +49,7 @@ function DatosProyecto(props) {
             padding: '2'
           }}
         >
-          {'REVENIMIENTO ' + props.data.revenimientoProyecto}
+          {'REVENIMIENTO ' + props.data.revenimientoProyecto.toLocaleString('pt-BR')}
         </Text>
       </View>
       <View style={{ borderBottom: '1px solid #000', display: 'flex', flexDirection: 'row' }}>

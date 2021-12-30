@@ -402,14 +402,12 @@ function BitacoraContainer() {
       console.log('error: ', err);
     }
   }
-
   const handleEdad = e => {
     setEdad(e.target.value);
   };
   const handleLogo = e => {
     setlogo(e.target.value);
   };
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -417,7 +415,6 @@ function BitacoraContainer() {
     setSnackbar(false);
     setSnackbarMoreNotes(false);
   };
-
   const handleClickOpenCreate = () => {
     const form = {
       id: '',
@@ -470,18 +467,15 @@ function BitacoraContainer() {
     dispatch({ type: 'SET_COUNT', payload: form });
     setOpenCreate(true);
   };
-
   const handleCloseCreate = () => {
     setOpenCreate(false);
     dispatch({
       type: 'RESET_FORM'
     });
   };
-
   const handleClickOpenUpdate = () => {
     setOpenUpdate(true);
   };
-
   const handleCloseUpdate = () => {
     dispatch({
       type: 'SET_FORM_UPDATE',
@@ -537,13 +531,13 @@ function BitacoraContainer() {
       ]
     });
   };
-
   const handleCloseDialog = () => {
     setOpen(false);
   };
   const handleClickOpen = () => {
     setOpen(true);
   };
+
   useEffect(() => {
     fetchNotes();
     getEnsayeCount();

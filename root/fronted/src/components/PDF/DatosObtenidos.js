@@ -143,22 +143,22 @@ function fields(...args) {
   let count = 0;
   let component = [];
   if (!(args[0] === ' ') && !(args[0] === 0) && !(args[0] === '0.0')) {
-    component.push(<Text style={styles.subContent}>{args[0]}</Text>);
+    component.push(<Text style={styles.subContent}>{args[0].toLocaleString('pt-BR')}</Text>);
   } else {
     count = count + 1;
   }
   if (!(args[1] === ' ') && !(args[1] === 0) && !(args[1] === '0.0')) {
-    component.push(<Text style={styles.subContent}>{args[1]}</Text>);
+    component.push(<Text style={styles.subContent}>{args[1].toLocaleString('pt-BR')}</Text>);
   } else {
     count = count + 1;
   }
   if (!(args[2] === ' ') && !(args[2] === 0) && !(args[2] === '0.0')) {
-    component.push(<Text style={styles.subContent}>{args[2]}</Text>);
+    component.push(<Text style={styles.subContent}>{args[2].toLocaleString('pt-BR')}</Text>);
   } else {
     count = count + 1;
   }
   if (!(args[3] === ' ') && !(args[3] === 0) && !(args[3] === '0.0')) {
-    component.push(<Text style={styles.subContent}>{args[3]}</Text>);
+    component.push(<Text style={styles.subContent}>{args[3].toLocaleString('pt-BR')}</Text>);
   } else {
     count = count + 1;
   }
@@ -176,7 +176,9 @@ function DatosObtenidos(props) {
       </View>
       <View style={styles.borderFlex}>
         <Text style={styles.subtittle}>REVENIMIENTO, cm</Text>
-        <Text style={styles.paddingWidth}>{props.data.revenimientoObtenido}</Text>
+        <Text style={styles.paddingWidth}>
+          {props.data.revenimientoObtenido.toLocaleString('pt-BR')}
+        </Text>
       </View>
 
       <View style={styles.flexRow}>
