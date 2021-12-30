@@ -4,11 +4,11 @@ import { schema } from './schema';
 
 
 
-const { BitacoraDePruebasComprension, DiarioDePruebasComprension, DocumentoBitacora, ImagenReportColado } = initSchema(schema);
+const { BitacoraDePruebasComprension, DocumentoBitacora, ImagenReportColado, numEnsayeCount } = initSchema(schema);
 
 export {
   BitacoraDePruebasComprension,
-  DiarioDePruebasComprension,
   DocumentoBitacora,
-  ImagenReportColado
+  ImagenReportColado,
+  numEnsayeCount
 };

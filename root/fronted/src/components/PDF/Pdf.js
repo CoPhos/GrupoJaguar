@@ -115,7 +115,7 @@ function Pdf(props) {
         <Image
           fixed
           src={logo}
-          style={{ position: 'relative', top: 230, left: 10, width: 550, height: 400 }}
+          style={{ position: 'relative', top: 230, left: 10, width: 450, height: 100 }}
         ></Image>
         {/* header */}
         <View style={styles.cell}>

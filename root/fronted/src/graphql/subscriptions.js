@@ -169,102 +169,6 @@ export const onDeleteBitacoraDePruebasComprension = /* GraphQL */ `
     }
   }
 `;
-export const onCreateDiarioDePruebasComprension = /* GraphQL */ `
-  subscription OnCreateDiarioDePruebasComprension {
-    onCreateDiarioDePruebasComprension {
-      id
-      equipoEL
-      fecha
-      ensayeNum
-      muestraNum
-      resistenciaProyecto
-      altura1
-      altura2
-      promedioAltura
-      diametro1
-      diametro2
-      promedioRadio
-      area
-      planicidad
-      perpendicularidad
-      cargaMaxima
-      resistenciaComprension
-      porcentajeResistenciaComprension
-      tipoFalla
-      horaEnsaye
-      observaciones
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onUpdateDiarioDePruebasComprension = /* GraphQL */ `
-  subscription OnUpdateDiarioDePruebasComprension {
-    onUpdateDiarioDePruebasComprension {
-      id
-      equipoEL
-      fecha
-      ensayeNum
-      muestraNum
-      resistenciaProyecto
-      altura1
-      altura2
-      promedioAltura
-      diametro1
-      diametro2
-      promedioRadio
-      area
-      planicidad
-      perpendicularidad
-      cargaMaxima
-      resistenciaComprension
-      porcentajeResistenciaComprension
-      tipoFalla
-      horaEnsaye
-      observaciones
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onDeleteDiarioDePruebasComprension = /* GraphQL */ `
-  subscription OnDeleteDiarioDePruebasComprension {
-    onDeleteDiarioDePruebasComprension {
-      id
-      equipoEL
-      fecha
-      ensayeNum
-      muestraNum
-      resistenciaProyecto
-      altura1
-      altura2
-      promedioAltura
-      diametro1
-      diametro2
-      promedioRadio
-      area
-      planicidad
-      perpendicularidad
-      cargaMaxima
-      resistenciaComprension
-      porcentajeResistenciaComprension
-      tipoFalla
-      horaEnsaye
-      observaciones
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
 export const onCreateDocumentoBitacora = /* GraphQL */ `
   subscription OnCreateDocumentoBitacora {
     onCreateDocumentoBitacora {
@@ -350,6 +254,45 @@ export const onDeleteImagenReportColado = /* GraphQL */ `
       numEnsaye
       numMuestra
       imageKey
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onCreateNumEnsayeCount = /* GraphQL */ `
+  subscription OnCreateNumEnsayeCount {
+    onCreateNumEnsayeCount {
+      id
+      count
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onUpdateNumEnsayeCount = /* GraphQL */ `
+  subscription OnUpdateNumEnsayeCount {
+    onUpdateNumEnsayeCount {
+      id
+      count
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onDeleteNumEnsayeCount = /* GraphQL */ `
+  subscription OnDeleteNumEnsayeCount {
+    onDeleteNumEnsayeCount {
+      id
+      count
       createdAt
       updatedAt
       _version

@@ -3,9 +3,11 @@ import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { listBitacoraDePruebasComprensions } from '../../graphql/queries';
 import { listBitacoraDePruebasComprensionsByNumMuestra as listBitacoraByMuestra } from '../../graphql/queries';
 import { getBitacoraDePruebasComprension } from '../../graphql/queries';
+import { getNumEnsayeCount } from '../../graphql/queries';
 import { createBitacoraDePruebasComprension as createBitacora } from '../../graphql/mutations';
 import { updateBitacoraDePruebasComprension as updateBitacora } from '../../graphql/mutations';
 import { createDocumentoBitacora } from '../../graphql/mutations';
+import { updateNumEnsayeCount } from '../../graphql/mutations';
 import { prettyPrint } from '@base2/pretty-print-object';
 import { v4 as uuidv4 } from 'uuid';
 import protectedRoute from '../../protectedRoute';
@@ -13,7 +15,7 @@ import BitacoraForm from './BitacoraForm';
 import BitacoraTable from './BitacoraTable';
 import Pdf from '../PDF/Pdf';
 
-import { pdf, PDFDownloadLink } from '@react-pdf/renderer';
+import { pdf } from '@react-pdf/renderer';
 
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -34,7 +36,7 @@ import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import Search from '@mui/icons-material/Search';
 import AddCircle from '@mui/icons-material/AddCircle';
-
+import { useHistory } from 'react-router';
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -76,9 +78,9 @@ function reducer(state, action) {
     case 'RESET_FORM':
       return {
         ...state,
-        form: initialState.form,
-        formErrors: initialState.formErrors,
-        saveSend: false
+        form: initialState.form
+        // formErrors: initialState.formErrors,
+        // saveSend: false
       };
     case 'SET_FORM_UPDATE':
       const [note, update] = action.payload;
@@ -161,13 +163,13 @@ function reducer(state, action) {
     case 'VALIDATE_FORM':
       const temp = validate(state.form);
       return {
-        ...state,
-        formErrors: temp
+        ...state
+        // formErrors: temp
       };
     case 'VALIDATE_SEND':
       return {
-        ...state,
-        saveSend: Object.values(state.formErrors).every(x => x === '')
+        ...state
+        // saveSend: Object.values(state.formErrors).every(x => x === '')
       };
     case 'SET_FORM':
       return {
@@ -186,6 +188,11 @@ function reducer(state, action) {
           ...state.fechas,
           [action.payload.target.name]: action.payload.target.value
         }
+      };
+    case 'SET_COUNT':
+      return {
+        ...state,
+        form: action.payload
       };
     default:
       return state;
@@ -234,8 +241,8 @@ const calcularResistenciaComprension = (valorArea, valorCarga, valorResistenciaC
   const area = parseFloat(valorArea);
   const carga = parseFloat(valorCarga);
   return [
-    String((carga / area).toFixed(2)),
-    String(((carga / area / valorResistenciaCompresion) * 1000).toFixed(2))
+    String(Math.ceil((carga / area).toFixed(2))),
+    String(Math.floor(((carga / area / valorResistenciaCompresion) * 100).toFixed(2)))
   ];
 };
 const calcularArea = (valorDiametro, valorAltura) => {
@@ -256,50 +263,50 @@ const initialState = {
   error: false,
   form: {
     id: '',
-    numMuestra: '',
-    numObra: '',
-    nombreObra: '',
-    laboratorista: '',
-    tipoFalla: '',
-    ubicacion: '',
-    solicitadoPor: '',
-    elementoColado: '',
-    observaciones: '',
-    resistenciaComprensionProyecto: '', //number
-    revenimientoProyecto: '', //number
-    revenimientoObtenido: '', //number
+    numMuestra: ' ',
+    numObra: ' ',
+    nombreObra: ' ',
+    laboratorista: ' ',
+    tipoFalla: ' ',
+    ubicacion: ' ',
+    solicitadoPor: ' ',
+    elementoColado: ' ',
+    observaciones: ' ',
+    resistenciaComprensionProyecto: ' ', //number
+    revenimientoProyecto: ' ', //number
+    revenimientoObtenido: ' ', //number
     fechaColado: new Date(),
-    equipoMezclado: '',
-    resistenciaTipo: '',
-    concretera: '',
+    equipoMezclado: ' ',
+    resistenciaTipo: ' ',
+    concretera: ' ',
     siete: new Date(),
     catorce: new Date(),
     veintiocho: new Date(),
     veintiochoDos: new Date(),
-    altura1: '',
-    altura2: '',
-    altura3: '',
-    altura4: '',
-    diametro1: '',
-    diametro2: '',
-    diametro3: '',
-    diametro4: '',
-    area1: '',
-    area2: '',
-    area3: '',
-    area4: '',
-    carga1: '',
-    carga2: '',
-    carga3: '',
-    carga4: '',
-    resistenciaComprension1: '',
-    resistenciaComprension2: '',
-    resistenciaComprension3: '',
-    resistenciaComprension4: '',
-    porcentajeResistenciaComprension1: '',
-    porcentajeResistenciaComprension2: '',
-    porcentajeResistenciaComprension3: '',
-    porcentajeResistenciaComprension4: ''
+    altura1: 0.0,
+    altura2: 0.0,
+    altura3: 0.0,
+    altura4: 0.0,
+    diametro1: 0.0,
+    diametro2: 0.0,
+    diametro3: 0.0,
+    diametro4: 0.0,
+    area1: 0.0,
+    area2: 0.0,
+    area3: 0.0,
+    area4: 0.0,
+    carga1: 0.0,
+    carga2: 0.0,
+    carga3: 0.0,
+    carga4: 0.0,
+    resistenciaComprension1: 0.0,
+    resistenciaComprension2: 0.0,
+    resistenciaComprension3: 0.0,
+    resistenciaComprension4: 0.0,
+    porcentajeResistenciaComprension1: 0.0,
+    porcentajeResistenciaComprension2: 0.0,
+    porcentajeResistenciaComprension3: 0.0,
+    porcentajeResistenciaComprension4: 0.0
   },
   formErrors: {},
   saveSend: false,
@@ -322,7 +329,8 @@ function BitacoraContainer() {
   const [snackbarMoreNotes, setSnackbarMoreNotes] = useState(false);
   const [open, setOpen] = useState(false);
   const [edad, setEdad] = useState('');
-
+  const [count, setcount] = useState(0);
+  const history = useHistory();
   const generatePdfData = () => {
     const pdfData = { ...state.form };
     const fecha = new Date(pdfData.fechaColado);
@@ -404,7 +412,55 @@ function BitacoraContainer() {
   };
 
   const handleClickOpenCreate = () => {
+    const form = {
+      id: '',
+      numMuestra: count.count,
+      numObra: ' ',
+      nombreObra: ' ',
+      laboratorista: ' ',
+      tipoFalla: ' ',
+      ubicacion: ' ',
+      solicitadoPor: ' ',
+      elementoColado: ' ',
+      observaciones: ' ',
+      resistenciaComprensionProyecto: ' ', //number
+      revenimientoProyecto: ' ', //number
+      revenimientoObtenido: ' ', //number
+      fechaColado: new Date(),
+      equipoMezclado: ' ',
+      resistenciaTipo: ' ',
+      concretera: ' ',
+      siete: new Date(),
+      catorce: new Date(),
+      veintiocho: new Date(),
+      veintiochoDos: new Date(),
+      altura1: 0.0,
+      altura2: 0.0,
+      altura3: 0.0,
+      altura4: 0.0,
+      diametro1: 0.0,
+      diametro2: 0.0,
+      diametro3: 0.0,
+      diametro4: 0.0,
+      area1: 0.0,
+      area2: 0.0,
+      area3: 0.0,
+      area4: 0.0,
+      carga1: 0.0,
+      carga2: 0.0,
+      carga3: 0.0,
+      carga4: 0.0,
+      resistenciaComprension1: 0.0,
+      resistenciaComprension2: 0.0,
+      resistenciaComprension3: 0.0,
+      resistenciaComprension4: 0.0,
+      porcentajeResistenciaComprension1: 0.0,
+      porcentajeResistenciaComprension2: 0.0,
+      porcentajeResistenciaComprension3: 0.0,
+      porcentajeResistenciaComprension4: 0.0
+    };
     dispatch({ type: 'RESET_FORM' });
+    dispatch({ type: 'SET_COUNT', payload: form });
     setOpenCreate(true);
   };
 
@@ -483,6 +539,7 @@ function BitacoraContainer() {
   };
   useEffect(() => {
     fetchNotes();
+    getEnsayeCount();
   }, []);
 
   useEffect(() => {
@@ -492,7 +549,9 @@ function BitacoraContainer() {
   async function fetchNotes() {
     try {
       const notesData = await API.graphql(
-        graphqlOperation(listBitacoraDePruebasComprensions, { limit: 2 })
+        graphqlOperation(listBitacoraDePruebasComprensions, {
+          limit: 2
+        })
       );
       dispatch({
         type: 'SET_NOTES',
@@ -541,7 +600,7 @@ function BitacoraContainer() {
     try {
       const notesData = await API.graphql(
         graphqlOperation(listBitacoraByMuestra, {
-          limit: 100,
+          limit: 25,
           filter: {
             and: [
               { numMuestra: { eq: state.searchField[0] } },
@@ -566,39 +625,49 @@ function BitacoraContainer() {
   }
   async function createNote() {
     const { form, saveSend } = state;
-    if (saveSend) {
-      const note = { ...form, id: CLIENT_ID };
 
-      dispatch({ type: 'ADD_NOTE', note });
-      dispatch({ type: 'RESET_FORM' });
-      try {
-        await API.graphql(graphqlOperation(createBitacora, { input: note }));
-        dispatch({ type: 'SET_ERROR', payload: false });
-        setSnackbar(true);
-        handleCloseCreate();
-      } catch (err) {
-        dispatch({ type: 'SET_ERROR', payload: true });
-        setSnackbar(true);
-      }
+    const note = { ...form, id: CLIENT_ID };
+
+    dispatch({ type: 'ADD_NOTE', note });
+    dispatch({ type: 'RESET_FORM' });
+    try {
+      await API.graphql(graphqlOperation(createBitacora, { input: note }));
+      dispatch({ type: 'SET_ERROR', payload: false });
+      setSnackbar(true);
+      handleCloseCreate();
+      await updateCount();
+      history.go(0);
+    } catch (err) {
+      dispatch({ type: 'SET_ERROR', payload: true });
+      setSnackbar(true);
+      console.log(err);
     }
   }
   async function updateNote() {
     const { form, saveSend } = state;
-
-    if (saveSend) {
-      try {
-        console.log(form);
-        await API.graphql(graphqlOperation(updateBitacora, { input: form }));
-        dispatch({ type: 'RESET_FORM' });
-        dispatch({ type: 'SET_ERROR', payload: false });
-        console.log('note successfully updated!');
-        setSnackbar(true);
-        handleCloseUpdate();
-      } catch (err) {
-        console.log('error: ', err);
-        dispatch({ type: 'SET_ERROR', payload: true });
-        setSnackbar(true);
-      }
+    try {
+      console.log(form);
+      await API.graphql(graphqlOperation(updateBitacora, { input: form }));
+      dispatch({ type: 'RESET_FORM' });
+      dispatch({ type: 'SET_ERROR', payload: false });
+      console.log('note successfully updated!');
+      setSnackbar(true);
+      handleCloseUpdate();
+      history.go(0);
+    } catch (err) {
+      console.log('error: ', err);
+      dispatch({ type: 'SET_ERROR', payload: true });
+      setSnackbar(true);
+    }
+  }
+  async function updateCount() {
+    let num = count.count + 1;
+    try {
+      await API.graphql(
+        graphqlOperation(updateNumEnsayeCount, { input: { ...count, count: num } })
+      );
+    } catch (err) {
+      console.log(err);
     }
   }
   async function getNoteUpdate(id) {
@@ -629,6 +698,15 @@ function BitacoraContainer() {
     } catch (err) {
       console.log('error: ', err);
       dispatch({ type: 'SET_ERROR', payload: true });
+    }
+  }
+  async function getEnsayeCount() {
+    try {
+      const response = await API.graphql(graphqlOperation(getNumEnsayeCount, { id: 1 }));
+      setcount(response.data.getNumEnsayeCount);
+      console.log(response.data.getNumEnsayeCount.count);
+    } catch (err) {
+      console.log(err);
     }
   }
 

@@ -240,8 +240,6 @@ export const listDetailsBitacoraDePruebasComprensions = /* GraphQL */ `
         porcentajeResistenciaComprension4
         tipoFalla
         laboratorista
-        createdAt
-        updatedAt
       }
       nextToken
     }
@@ -265,124 +263,6 @@ export const listBitacoraDePruebasComprensionsByNumMuestra = /* GraphQL */ `
         updatedAt
       }
       nextToken
-    }
-  }
-`;
-export const getDiarioDePruebasComprension = /* GraphQL */ `
-  query GetDiarioDePruebasComprension($id: ID!) {
-    getDiarioDePruebasComprension(id: $id) {
-      id
-      equipoEL
-      fecha
-      ensayeNum
-      muestraNum
-      resistenciaProyecto
-      altura1
-      altura2
-      promedioAltura
-      diametro1
-      diametro2
-      promedioRadio
-      area
-      planicidad
-      perpendicularidad
-      cargaMaxima
-      resistenciaComprension
-      porcentajeResistenciaComprension
-      tipoFalla
-      horaEnsaye
-      observaciones
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const listDiarioDePruebasComprensions = /* GraphQL */ `
-  query ListDiarioDePruebasComprensions(
-    $filter: ModelDiarioDePruebasComprensionFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listDiarioDePruebasComprensions(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        equipoEL
-        fecha
-        ensayeNum
-        muestraNum
-        resistenciaProyecto
-        altura1
-        altura2
-        promedioAltura
-        diametro1
-        diametro2
-        promedioRadio
-        area
-        planicidad
-        perpendicularidad
-        cargaMaxima
-        resistenciaComprension
-        porcentajeResistenciaComprension
-        tipoFalla
-        horaEnsaye
-        observaciones
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncDiarioDePruebasComprensions = /* GraphQL */ `
-  query SyncDiarioDePruebasComprensions(
-    $filter: ModelDiarioDePruebasComprensionFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncDiarioDePruebasComprensions(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        equipoEL
-        fecha
-        ensayeNum
-        muestraNum
-        resistenciaProyecto
-        altura1
-        altura2
-        promedioAltura
-        diametro1
-        diametro2
-        promedioRadio
-        area
-        planicidad
-        perpendicularidad
-        cargaMaxima
-        resistenciaComprension
-        porcentajeResistenciaComprension
-        tipoFalla
-        horaEnsaye
-        observaciones
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -512,6 +392,67 @@ export const syncImagenReportColados = /* GraphQL */ `
         numEnsaye
         numMuestra
         imageKey
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getNumEnsayeCount = /* GraphQL */ `
+  query GetNumEnsayeCount($id: ID!) {
+    getNumEnsayeCount(id: $id) {
+      id
+      count
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const listNumEnsayeCounts = /* GraphQL */ `
+  query ListNumEnsayeCounts(
+    $filter: ModelNumEnsayeCountFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listNumEnsayeCounts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        count
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncNumEnsayeCounts = /* GraphQL */ `
+  query SyncNumEnsayeCounts(
+    $filter: ModelNumEnsayeCountFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncNumEnsayeCounts(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        count
         createdAt
         updatedAt
         _version

@@ -178,111 +178,6 @@ export const deleteBitacoraDePruebasComprension = /* GraphQL */ `
     }
   }
 `;
-export const createDiarioDePruebasComprension = /* GraphQL */ `
-  mutation CreateDiarioDePruebasComprension(
-    $input: CreateDiarioDePruebasComprensionInput!
-    $condition: ModelDiarioDePruebasComprensionConditionInput
-  ) {
-    createDiarioDePruebasComprension(input: $input, condition: $condition) {
-      id
-      equipoEL
-      fecha
-      ensayeNum
-      muestraNum
-      resistenciaProyecto
-      altura1
-      altura2
-      promedioAltura
-      diametro1
-      diametro2
-      promedioRadio
-      area
-      planicidad
-      perpendicularidad
-      cargaMaxima
-      resistenciaComprension
-      porcentajeResistenciaComprension
-      tipoFalla
-      horaEnsaye
-      observaciones
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const updateDiarioDePruebasComprension = /* GraphQL */ `
-  mutation UpdateDiarioDePruebasComprension(
-    $input: UpdateDiarioDePruebasComprensionInput!
-    $condition: ModelDiarioDePruebasComprensionConditionInput
-  ) {
-    updateDiarioDePruebasComprension(input: $input, condition: $condition) {
-      id
-      equipoEL
-      fecha
-      ensayeNum
-      muestraNum
-      resistenciaProyecto
-      altura1
-      altura2
-      promedioAltura
-      diametro1
-      diametro2
-      promedioRadio
-      area
-      planicidad
-      perpendicularidad
-      cargaMaxima
-      resistenciaComprension
-      porcentajeResistenciaComprension
-      tipoFalla
-      horaEnsaye
-      observaciones
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const deleteDiarioDePruebasComprension = /* GraphQL */ `
-  mutation DeleteDiarioDePruebasComprension(
-    $input: DeleteDiarioDePruebasComprensionInput!
-    $condition: ModelDiarioDePruebasComprensionConditionInput
-  ) {
-    deleteDiarioDePruebasComprension(input: $input, condition: $condition) {
-      id
-      equipoEL
-      fecha
-      ensayeNum
-      muestraNum
-      resistenciaProyecto
-      altura1
-      altura2
-      promedioAltura
-      diametro1
-      diametro2
-      promedioRadio
-      area
-      planicidad
-      perpendicularidad
-      cargaMaxima
-      resistenciaComprension
-      porcentajeResistenciaComprension
-      tipoFalla
-      horaEnsaye
-      observaciones
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
 export const createDocumentoBitacora = /* GraphQL */ `
   mutation CreateDocumentoBitacora(
     $input: CreateDocumentoBitacoraInput!
@@ -386,6 +281,54 @@ export const deleteImagenReportColado = /* GraphQL */ `
       numEnsaye
       numMuestra
       imageKey
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const createNumEnsayeCount = /* GraphQL */ `
+  mutation CreateNumEnsayeCount(
+    $input: CreateNumEnsayeCountInput!
+    $condition: ModelNumEnsayeCountConditionInput
+  ) {
+    createNumEnsayeCount(input: $input, condition: $condition) {
+      id
+      count
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const updateNumEnsayeCount = /* GraphQL */ `
+  mutation UpdateNumEnsayeCount(
+    $input: UpdateNumEnsayeCountInput!
+    $condition: ModelNumEnsayeCountConditionInput
+  ) {
+    updateNumEnsayeCount(input: $input, condition: $condition) {
+      id
+      count
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const deleteNumEnsayeCount = /* GraphQL */ `
+  mutation DeleteNumEnsayeCount(
+    $input: DeleteNumEnsayeCountInput!
+    $condition: ModelNumEnsayeCountConditionInput
+  ) {
+    deleteNumEnsayeCount(input: $input, condition: $condition) {
+      id
+      count
       createdAt
       updatedAt
       _version
