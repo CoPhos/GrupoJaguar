@@ -20,7 +20,7 @@ function Identificacion(props) {
       <View style={{ borderBottom: '1px solid #000', display: 'flex', flexDirection: 'row' }}>
         <Text
           style={{
-            padding: '2',
+            padding: '1',
             fontWeight: 700,
             borderRight: '1px solid #000',
             width: '192px'
@@ -30,7 +30,7 @@ function Identificacion(props) {
         </Text>
         <Text
           style={{
-            padding: '2',
+            padding: '1',
             flex: 2
           }}
         >
@@ -40,7 +40,7 @@ function Identificacion(props) {
       <View style={{ borderBottom: '1px solid #000', display: 'flex', flexDirection: 'row' }}>
         <Text
           style={{
-            padding: '2',
+            padding: '1',
             width: '192px',
             fontWeight: 700,
             borderRight: '1px solid #000'
@@ -48,7 +48,7 @@ function Identificacion(props) {
         >
           MUESTRA No.
         </Text>
-        <Text style={{ padding: '2', flex: 2 }}>{props.data.numObra}</Text>
+        <Text style={{ padding: '1', flex: 2 }}>{props.data.numObra}</Text>
       </View>
       <View
         style={{
@@ -60,7 +60,7 @@ function Identificacion(props) {
       >
         <Text
           style={{
-            padding: '2',
+            padding: '1',
             width: '192px',
             fontWeight: 700,
             borderRight: '1px solid #000'
@@ -68,7 +68,7 @@ function Identificacion(props) {
         >
           TOMADA DE
         </Text>
-        <Text style={{ padding: '2', flex: 2, display: 'flex', flexDirection: 'row' }}>
+        <Text style={{ padding: '1', flex: 2, display: 'flex', flexDirection: 'row' }}>
           {props.data.elementoColado}
         </Text>
       </View>

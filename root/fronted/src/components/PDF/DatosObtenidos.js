@@ -3,32 +3,32 @@ import { Text, View, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   subtittle: {
-    padding: '2',
+    padding: '1',
     paddingRight: '100',
     fontWeight: 700,
     borderRight: '1px solid #000',
     width: '192px'
   },
   subtittle2: {
-    padding: '2',
+    padding: '1',
     fontWeight: 700,
     borderRight: '1px solid #000',
     paddingRight: 41,
     width: '139.5px'
   },
   subNopadding: {
-    padding: '2',
+    padding: '1',
     borderRight: '1px solid #000',
     width: '170.5px'
   },
   subNopadding2: {
-    padding: '2',
+    padding: '1',
     fontWeight: 700,
     borderRight: '1px solid #000',
     width: '31px'
   },
   subContent: {
-    padding: '2',
+    padding: '1',
     width: '77px',
     borderRight: '1px solid #000'
   },
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     marginLeft: 40
   },
   paddingWidth: {
-    padding: '2',
+    padding: '1',
     width: '192px'
   },
   flexRow: { display: 'flex', flexDirection: 'row' }
@@ -143,22 +143,30 @@ function fields(...args) {
   let count = 0;
   let component = [];
   if (!(args[0] === ' ') && !(args[0] === 0) && !(args[0] === '0.0')) {
-    component.push(<Text style={styles.subContent}>{args[0].toLocaleString('pt-BR')}</Text>);
+    component.push(
+      <Text style={styles.subContent}>{parseFloat(args[0]).toLocaleString('pt-BR')}</Text>
+    );
   } else {
     count = count + 1;
   }
   if (!(args[1] === ' ') && !(args[1] === 0) && !(args[1] === '0.0')) {
-    component.push(<Text style={styles.subContent}>{args[1].toLocaleString('pt-BR')}</Text>);
+    component.push(
+      <Text style={styles.subContent}>{parseFloat(args[1]).toLocaleString('pt-BR')}</Text>
+    );
   } else {
     count = count + 1;
   }
   if (!(args[2] === ' ') && !(args[2] === 0) && !(args[2] === '0.0')) {
-    component.push(<Text style={styles.subContent}>{args[2].toLocaleString('pt-BR')}</Text>);
+    component.push(
+      <Text style={styles.subContent}>{parseFloat(args[2]).toLocaleString('pt-BR')}</Text>
+    );
   } else {
     count = count + 1;
   }
   if (!(args[3] === ' ') && !(args[3] === 0) && !(args[3] === '0.0')) {
-    component.push(<Text style={styles.subContent}>{args[3].toLocaleString('pt-BR')}</Text>);
+    component.push(
+      <Text style={styles.subContent}>{parseFloat(args[3]).toLocaleString('pt-BR')}</Text>
+    );
   } else {
     count = count + 1;
   }
@@ -199,7 +207,7 @@ function DatosObtenidos(props) {
           {/* masa kg*/}
           <View style={styles.borderFlex}>
             <Text style={styles.subNopadding}>MASA, kg</Text>
-            {fields('_ _ _', '_ _ _', ' ', ' ').map(item => {
+            {fields(' ', ' ', ' ', ' ').map(item => {
               return item;
             })}
           </View>

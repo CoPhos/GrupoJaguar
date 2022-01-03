@@ -17,9 +17,9 @@ function Firmas() {
           <View>
             <Text style={{ height: 55, marginTop: 5 }}>Elaboro</Text>
           </View>
-          <View style={{ borderBottom: '1px solid #000', marginBottom: 12 }}>
-            <Text>Luis Ramon Sanchez C Laboratorista</Text>
-          </View>
+          <View
+            style={{ borderBottom: '1px solid #000', marginBottom: 8, height: '1px', width: '80%' }}
+          ></View>
         </View>
       </View>
     </>

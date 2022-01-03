@@ -19,7 +19,7 @@ function DatosProyecto(props) {
       <View style={{ borderBottom: '1px solid #000', display: 'flex', flexDirection: 'row' }}>
         <Text
           style={{
-            padding: '2',
+            padding: '1',
             paddingRight: '100',
             fontWeight: 700,
             borderRight: '1px solid #000',
@@ -30,7 +30,7 @@ function DatosProyecto(props) {
         </Text>
         <Text
           style={{
-            padding: '2',
+            padding: '1',
             borderRight: '1px solid #000'
           }}
         >
@@ -38,7 +38,7 @@ function DatosProyecto(props) {
         </Text>
         <Text
           style={{
-            padding: '2',
+            padding: '1',
             borderRight: '1px solid #000'
           }}
         >
@@ -55,7 +55,7 @@ function DatosProyecto(props) {
       <View style={{ borderBottom: '1px solid #000', display: 'flex', flexDirection: 'row' }}>
         <Text
           style={{
-            padding: '2',
+            padding: '1',
             borderRight: '1px solid #000',
             width: '192px'
           }}
@@ -64,7 +64,7 @@ function DatosProyecto(props) {
         </Text>
         <Text
           style={{
-            padding: '2',
+            padding: '1',
             flex: 2
           }}
         >
@@ -74,14 +74,14 @@ function DatosProyecto(props) {
       <View style={{ borderBottom: '1px solid #000', display: 'flex', flexDirection: 'row' }}>
         <Text
           style={{
-            padding: '2',
+            padding: '1',
             borderRight: '1px solid #000',
             width: '192px'
           }}
         >
           EQUIPOS DE MEZCLADO
         </Text>
-        <Text style={{ padding: '2', flex: 2 }}>{props.data.equipoMezclado}</Text>
+        <Text style={{ padding: '1', flex: 2 }}>{props.data.equipoMezclado}</Text>
       </View>
       <View
         style={{
@@ -92,7 +92,7 @@ function DatosProyecto(props) {
       >
         <Text
           style={{
-            padding: '2',
+            padding: '1',
 
             borderRight: '1px solid #000',
             width: '192px'
@@ -100,7 +100,7 @@ function DatosProyecto(props) {
         >
           CONCRETERA O CEMENTO
         </Text>
-        <Text style={{ padding: '2', flex: 2 }}>{props.data.concretera}</Text>
+        <Text style={{ padding: '1', flex: 2 }}>{props.data.concretera}</Text>
       </View>
     </>
   );
