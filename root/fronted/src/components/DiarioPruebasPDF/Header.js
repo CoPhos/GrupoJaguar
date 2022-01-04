@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
   }
 });
 
-function Header() {
+function Header(props) {
+  const fecha = new Date(props.fecha);
   return (
     <View style={styles.flexColumn}>
       <View style={[styles.flex, { marginLeft: '50px', marginBottom: '10px' }]}>
@@ -45,9 +46,15 @@ function Header() {
         ]}
       >
         <Text style={{ fontSize: 14, fontWeight: 600 }}>EQUIPO EL - </Text>
-        <Text style={{ fontSize: 14, borderBottom: '1px solid #008433', width: '32px' }}>004</Text>
+        <Text style={{ fontSize: 14, borderBottom: '1px solid #008433', width: '32px' }}></Text>
         <Text style={{ fontSize: 14, fontWeight: 600, marginLeft: '90px' }}>Fecha: </Text>
-        <Text style={{ fontSize: 14, borderBottom: '1px solid #008433' }}>21 / 09 / 20</Text>
+        <Text style={{ fontSize: 10, borderBottom: '1px solid #008433' }}>
+          {fecha.toLocaleDateString('es-ES', { year: 'numeric' }) +
+            '-' +
+            fecha.toLocaleDateString('es-ES', { month: 'long' }) +
+            '-' +
+            fecha.toLocaleDateString('es-ES', { day: 'numeric' })}
+        </Text>
       </View>
     </View>
   );

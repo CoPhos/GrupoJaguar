@@ -20,23 +20,24 @@ const styles = StyleSheet.create({
     width: '42px',
     height: '17px',
     borderBottom: '1px solid #008433',
-    borderRight: '1px solid #008433'
+    borderRight: '1px solid #008433',
+    fontWeight: 700
   }
 });
-function Row() {
+function Row(props) {
   return (
     <View style={styles.flex}>
       <Text style={[styles.text, { borderLeft: '1px solid #008433' }]} break>
-        aaa
+        {props.info.numMuestra}
       </Text>
       <Text style={styles.text} break>
-        aaa
+        {props.info.numObra}
       </Text>
       <Text style={styles.text} break>
-        aa
+        {props.info.resistenciaComprensionProyecto}
       </Text>
       <Text style={styles.text} break>
-        aa
+        {props.info.edadDias}
       </Text>
       <Text style={[styles.text, { padding: '0px', width: '32px' }]} break></Text>
       <Text style={[styles.text, { padding: '0px', width: '32px' }]} break></Text>

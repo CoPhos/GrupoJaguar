@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   }
 });
 
-function Column() {
+function Column(props) {
   return (
     <View>
       <View style={styles.flex}>
@@ -113,26 +113,9 @@ function Column() {
           Observaciones
         </Text>
       </View>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
-      <Row></Row>
+      {props.data.map((element, index) => {
+        return <Row key={index} info={element}></Row>;
+      })}
     </View>
   );
 }

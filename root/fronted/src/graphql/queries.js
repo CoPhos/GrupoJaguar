@@ -266,6 +266,27 @@ export const listBitacoraDePruebasComprensionsByNumMuestra = /* GraphQL */ `
     }
   }
 `;
+export const listBitacoraDePruebasComprensionsByDate = /* GraphQL */ `
+  query ListBitacoraDePruebasComprensions(
+    $filter: ModelBitacoraDePruebasComprensionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBitacoraDePruebasComprensions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        numMuestra
+        numObra
+        resistenciaComprensionProyecto
+        fechaColado
+        siete
+        catorce
+        veintiocho
+        veintiochoDos
+      }
+      nextToken
+    }
+  }
+`;
 export const getDocumentoBitacora = /* GraphQL */ `
   query GetDocumentoBitacora($id: ID!) {
     getDocumentoBitacora(id: $id) {

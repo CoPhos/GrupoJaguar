@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, View, Document, StyleSheet, Image, Font } from '@react-pdf/renderer';
+import { Page, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
 import { PDFViewer } from '@react-pdf/renderer';
 import Firma from './Firma';
 
@@ -55,29 +55,43 @@ const styles = StyleSheet.create({
   }
 });
 
-function Pdf() {
-  return (
-    <PDFViewer style={{ height: '100vh', width: '100vw' }}>
-      <Document>
-        <Page size="A4" style={styles.page} orientation="landscape">
-          <Header></Header>
+function Pdf(props) {
+  function formatData() {
+    const data = [...props.data];
+    let emptyObject = {};
+    if (data.length < 20) {
+      const limit = 20 - data.length;
+      console.log(limit);
+      for (let i = 0; i < limit; i++) {
+        data.push(emptyObject);
+      }
+      console.log(data);
+      return data;
+    } else {
+      return data;
+    }
+  }
 
-          <Column></Column>
-          <View>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly'
-              }}
-            >
-              <Firma></Firma>
-              <Firma></Firma>
-            </View>
+  return (
+    <Document>
+      <Page size="A4" style={styles.page} orientation="landscape">
+        <Header fecha={props.fecha}></Header>
+
+        <Column data={formatData()}></Column>
+        <View>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-evenly'
+            }}
+          >
+            <Firma></Firma>
+            <Firma></Firma>
           </View>
-        </Page>
-      </Document>
-    </PDFViewer>
+        </View>
+      </Page>
+    </Document>
   );
 }
 export default Pdf;
