@@ -872,7 +872,7 @@ function BitacoraContainer() {
                 onChange={e => {
                   dispatch({ type: 'SET_SEARCH_FIELD', payload: e });
                 }}
-                label="Numero Muestra"
+                label="Busqueda NumEnsaye,NomObra"
                 size="small"
                 variant="outlined"
                 sx={{ width: '75%' }}

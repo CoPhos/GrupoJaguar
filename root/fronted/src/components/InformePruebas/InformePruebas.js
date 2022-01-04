@@ -44,7 +44,7 @@ function InformePruebas(props) {
               onBlur={e => {
                 props.setSearchField(e);
               }}
-              label="Buscar por Numero Muestra"
+              label="Buscar por Num Ensaye,Num Obra"
               size="small"
               variant="outlined"
               sx={{ width: '75%' }}
@@ -87,16 +87,19 @@ function InformePruebas(props) {
               <p>sin resultados</p>
             ) : (
               posts.map(post => (
-                <Card sx={{ width: 200, margin: '12px' }} key={post.id}>
-                  <CardMedia
+                <Card sx={{ width: 350, margin: '12px' }} key={post.id}>
+                  {/* <CardMedia
                     component="img"
                     height="140"
                     image={pdfImage}
                     alt="documento Digitalizado"
-                  />
+                  /> */}
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                       {post.numEnsaye + ' - ' + post.numMuestra}
+                    </Typography>
+                    <Typography gutterBottom variant="h6" component="div">
+                      {post.nombreObra}
                     </Typography>
                   </CardContent>
                   <CardActions>
