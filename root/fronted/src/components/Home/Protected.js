@@ -30,7 +30,7 @@ function Protected() {
           }}
         >
           <Typography variant="h4" component="div" sx={{ marginBottom: '30px' }}>
-            Contenido
+            Menú principal
           </Typography>
           <Paper sx={{ padding: '30px 0' }}>
             {itemList.map((item, index) => {

@@ -4,7 +4,7 @@ export const itemList = [
     link: '/diarioPruebas'
   },
   {
-    text: 'Report de colado',
+    text: 'Reporte de colado',
     link: '/reporteColado'
   },
   {
@@ -15,4 +15,4 @@ export const itemList = [
     text: 'Informe de pruebas',
     link: '/informePruebas'
   }
-]
+];

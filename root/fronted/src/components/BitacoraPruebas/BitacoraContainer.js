@@ -78,9 +78,9 @@ function reducer(state, action) {
     case 'RESET_FORM':
       return {
         ...state,
-        form: initialState.form
-        // formErrors: initialState.formErrors,
-        // saveSend: false
+        form: initialState.form,
+        formErrors: initialState.formErrors,
+        saveSend: false
       };
     case 'SET_FORM_UPDATE':
       const [note, update] = action.payload;
@@ -163,13 +163,13 @@ function reducer(state, action) {
     case 'VALIDATE_FORM':
       const temp = validate(state.form);
       return {
-        ...state
-        // formErrors: temp
+        ...state,
+        formErrors: temp
       };
     case 'VALIDATE_SEND':
       return {
-        ...state
-        // saveSend: Object.values(state.formErrors).every(x => x === '')
+        ...state,
+        saveSend: Object.values(state.formErrors).every(x => x === '')
       };
     case 'SET_FORM':
       return {
@@ -208,32 +208,32 @@ const validate = values => {
   temp.solicitadoPor = values.solicitadoPor ? '' : 'Debe llenar este campo.';
   temp.elementoColado = values.elementoColado ? '' : 'Debe llenar este campo.';
   temp.laboratorista = values.laboratorista ? '' : 'Debe llenar este campo.';
-  temp.equipoMezclado = values.equipoMezclado ? '' : 'Debe llenar este campo.';
+  // temp.equipoMezclado = values.equipoMezclado ? '' : 'Debe llenar este campo.';
   temp.resistenciaTipo = values.resistenciaTipo ? '' : 'Debe llenar este campo.';
   temp.concretera = values.concretera ? '' : 'Debe llenar este campo.';
-  temp.laboratorista = values.laboratorista ? '' : 'Debe llenar este campo.';
-  temp.resistenciaComprensionProyecto = /^\d+$/.test(values.resistenciaComprensionProyecto)
-    ? ''
-    : 'Debe contener solo numeros';
-  temp.revenimientoProyecto = numberPattern.test(values.revenimientoProyecto)
-    ? ''
-    : 'Debe contener solo numeros';
-  temp.revenimientoObtenido = numberPattern.test(values.revenimientoObtenido)
-    ? ''
-    : 'Debe contener solo numeros';
+  // temp.laboratorista = values.laboratorista ? '' : 'Debe llenar este campo.';
+  // temp.resistenciaComprensionProyecto = /^\d+$/.test(values.resistenciaComprensionProyecto)
+  //   ? ''
+  //   : 'Debe contener solo numeros';
+  // temp.revenimientoProyecto = numberPattern.test(values.revenimientoProyecto)
+  //   ? ''
+  //   : 'Debe contener solo numeros';
+  // temp.revenimientoObtenido = numberPattern.test(values.revenimientoObtenido)
+  //   ? ''
+  //   : 'Debe contener solo numeros';
 
-  temp.altura1 = numberPattern.test(values.altura1) ? '' : 'Debe contener solo numeros';
-  temp.altura2 = numberPattern.test(values.altura2) ? '' : 'Debe contener solo numeros';
-  temp.altura3 = numberPattern.test(values.altura3) ? '' : 'Debe contener solo numeros';
-  temp.altura4 = numberPattern.test(values.altura4) ? '' : 'Debe contener solo numeros';
-  temp.diametro1 = numberPattern.test(values.diametro1) ? '' : 'Debe contener solo numeros';
-  temp.diametro2 = numberPattern.test(values.diametro2) ? '' : 'Debe contener solo numeros';
-  temp.diametro3 = numberPattern.test(values.diametro3) ? '' : 'Debe contener solo numeros';
-  temp.diametro4 = numberPattern.test(values.diametro4) ? '' : 'Debe contener solo numeros';
-  temp.carga1 = numberPattern.test(values.carga1) ? '' : 'Debe contener solo numeros';
-  temp.carga2 = numberPattern.test(values.carga2) ? '' : 'Debe contener solo numeros';
-  temp.carga3 = numberPattern.test(values.carga3) ? '' : 'Debe contener solo numeros';
-  temp.carga4 = numberPattern.test(values.carga4) ? '' : 'Debe contener solo numeros';
+  // temp.altura1 = numberPattern.test(values.altura1) ? '' : 'Debe contener solo numeros';
+  // temp.altura2 = numberPattern.test(values.altura2) ? '' : 'Debe contener solo numeros';
+  // temp.altura3 = numberPattern.test(values.altura3) ? '' : 'Debe contener solo numeros';
+  // temp.altura4 = numberPattern.test(values.altura4) ? '' : 'Debe contener solo numeros';
+  // temp.diametro1 = numberPattern.test(values.diametro1) ? '' : 'Debe contener solo numeros';
+  // temp.diametro2 = numberPattern.test(values.diametro2) ? '' : 'Debe contener solo numeros';
+  // temp.diametro3 = numberPattern.test(values.diametro3) ? '' : 'Debe contener solo numeros';
+  // temp.diametro4 = numberPattern.test(values.diametro4) ? '' : 'Debe contener solo numeros';
+  // temp.carga1 = numberPattern.test(values.carga1) ? '' : 'Debe contener solo numeros';
+  // temp.carga2 = numberPattern.test(values.carga2) ? '' : 'Debe contener solo numeros';
+  // temp.carga3 = numberPattern.test(values.carga3) ? '' : 'Debe contener solo numeros';
+  // temp.carga4 = numberPattern.test(values.carga4) ? '' : 'Debe contener solo numeros';
 
   return temp;
 };
@@ -263,22 +263,22 @@ const initialState = {
   error: false,
   form: {
     id: '',
-    numMuestra: ' ',
-    numObra: ' ',
-    nombreObra: ' ',
-    laboratorista: ' ',
+    numMuestra: '',
+    numObra: '',
+    nombreObra: '',
+    laboratorista: '',
     tipoFalla: ' ',
-    ubicacion: ' ',
-    solicitadoPor: ' ',
-    elementoColado: ' ',
+    ubicacion: '',
+    solicitadoPor: '',
+    elementoColado: '',
     observaciones: ' ',
     resistenciaComprensionProyecto: ' ', //number
     revenimientoProyecto: ' ', //number
     revenimientoObtenido: ' ', //number
     fechaColado: new Date(),
     equipoMezclado: ' ',
-    resistenciaTipo: ' ',
-    concretera: ' ',
+    resistenciaTipo: '',
+    concretera: '',
     siete: new Date(),
     catorce: new Date(),
     veintiocho: new Date(),
@@ -419,21 +419,21 @@ function BitacoraContainer() {
     const form = {
       id: '',
       numMuestra: count.count,
-      numObra: ' ',
-      nombreObra: ' ',
-      laboratorista: ' ',
+      numObra: '',
+      nombreObra: '',
+      laboratorista: '',
       tipoFalla: ' ',
-      ubicacion: ' ',
-      solicitadoPor: ' ',
-      elementoColado: ' ',
+      ubicacion: '',
+      solicitadoPor: '',
+      elementoColado: '',
       observaciones: ' ',
       resistenciaComprensionProyecto: ' ', //number
       revenimientoProyecto: ' ', //number
       revenimientoObtenido: ' ', //number
       fechaColado: new Date(),
       equipoMezclado: ' ',
-      resistenciaTipo: ' ',
-      concretera: ' ',
+      resistenciaTipo: '',
+      concretera: '',
       siete: new Date(),
       catorce: new Date(),
       veintiocho: new Date(),
@@ -626,39 +626,42 @@ function BitacoraContainer() {
   }
   async function createNote() {
     const { form, saveSend } = state;
+    if (saveSend) {
+      const note = { ...form, id: CLIENT_ID };
 
-    const note = { ...form, id: CLIENT_ID };
-
-    dispatch({ type: 'ADD_NOTE', note });
-    dispatch({ type: 'RESET_FORM' });
-    try {
-      await API.graphql(graphqlOperation(createBitacora, { input: note }));
-      dispatch({ type: 'SET_ERROR', payload: false });
-      setSnackbar(true);
-      handleCloseCreate();
-      await updateCount();
-      history.go(0);
-    } catch (err) {
-      dispatch({ type: 'SET_ERROR', payload: true });
-      setSnackbar(true);
-      console.log(err);
+      dispatch({ type: 'ADD_NOTE', note });
+      dispatch({ type: 'RESET_FORM' });
+      try {
+        await API.graphql(graphqlOperation(createBitacora, { input: note }));
+        dispatch({ type: 'SET_ERROR', payload: false });
+        setSnackbar(true);
+        handleCloseCreate();
+        await updateCount();
+        history.go(0);
+      } catch (err) {
+        dispatch({ type: 'SET_ERROR', payload: true });
+        setSnackbar(true);
+        console.log(err);
+      }
     }
   }
   async function updateNote() {
     const { form, saveSend } = state;
-    try {
-      console.log(form);
-      await API.graphql(graphqlOperation(updateBitacora, { input: form }));
-      dispatch({ type: 'RESET_FORM' });
-      dispatch({ type: 'SET_ERROR', payload: false });
-      console.log('note successfully updated!');
-      setSnackbar(true);
-      handleCloseUpdate();
-      history.go(0);
-    } catch (err) {
-      console.log('error: ', err);
-      dispatch({ type: 'SET_ERROR', payload: true });
-      setSnackbar(true);
+    if (saveSend) {
+      try {
+        console.log(form);
+        await API.graphql(graphqlOperation(updateBitacora, { input: form }));
+        dispatch({ type: 'RESET_FORM' });
+        dispatch({ type: 'SET_ERROR', payload: false });
+        console.log('note successfully updated!');
+        setSnackbar(true);
+        handleCloseUpdate();
+        history.go(0);
+      } catch (err) {
+        console.log('error: ', err);
+        dispatch({ type: 'SET_ERROR', payload: true });
+        setSnackbar(true);
+      }
     }
   }
   async function updateCount() {
