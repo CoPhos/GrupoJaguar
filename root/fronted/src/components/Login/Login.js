@@ -6,8 +6,10 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import LockOutlined from '@mui/icons-material/LockOutlined';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 
-function Login({ signIn, updateFormState }) {
+function Login({ signIn, updateFormState, error, setError }) {
   return (
     <Paper
       elevation={10}
@@ -75,6 +77,24 @@ function Login({ signIn, updateFormState }) {
           </Button>
         </Box>
       </Box>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={error}
+        autoHideDuration={6000}
+        onClose={() => {
+          setError();
+        }}
+      >
+        <Alert
+          onClose={() => {
+            setError();
+          }}
+          severity="error"
+          sx={{ width: '100%' }}
+        >
+          Credenciales incorrectas
+        </Alert>
+      </Snackbar>
     </Paper>
   );
 }

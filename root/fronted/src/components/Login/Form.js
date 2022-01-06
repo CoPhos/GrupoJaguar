@@ -12,43 +12,10 @@ const initialFormState = {
   confirmationCode: ''
 };
 
-async function signIn({ username, password }, setUser, history) {
-  try {
-    const user = await Auth.signIn(username, password);
-    const userInfo = { username: user.username, ...user.attributes };
-    setUser(userInfo);
-    history.push({
-      pathname: '/'
-    });
-    history.go(0);
-  } catch (err) {
-    console.log('error signing up..', err);
-  }
-}
-async function signUp({ username, password, email }, updateFormType) {
-  try {
-    await Auth.signUp({
-      username,
-      password,
-      attributes: { email }
-    });
-    console.log('sign up success!');
-    updateFormType('confirmSignUp');
-  } catch (err) {
-    console.log('error signing up..', err);
-  }
-}
-async function confirmSignUp({ username, confirmationCode }, updateFormType) {
-  try {
-    await Auth.confirmSignUp(username, confirmationCode);
-    updateFormType('signIn');
-  } catch (err) {
-    console.log('error signing up..', err);
-  }
-}
 function Form(props) {
   const [formType, updateFormType] = useState('signIn');
   const [formState, updateFormState] = useState(initialFormState);
+  const [error, seterror] = useState(false);
   const history = useHistory();
   function updateForm(event) {
     const newFormState = {
@@ -56,6 +23,47 @@ function Form(props) {
       [event.target.name]: event.target.value
     };
     updateFormState(newFormState);
+  }
+
+  function handleError() {
+    seterror(false);
+  }
+
+  async function signIn({ username, password }, setUser, history) {
+    try {
+      const user = await Auth.signIn(username, password);
+      const userInfo = { username: user.username, ...user.attributes };
+      setUser(userInfo);
+      seterror(false);
+      history.push({
+        pathname: '/'
+      });
+      history.go(0);
+    } catch (err) {
+      seterror(true);
+      console.log('error signing up..', err);
+    }
+  }
+  async function signUp({ username, password, email }, updateFormType) {
+    try {
+      await Auth.signUp({
+        username,
+        password,
+        attributes: { email }
+      });
+      console.log('sign up success!');
+      updateFormType('confirmSignUp');
+    } catch (err) {
+      console.log('error signing up..', err);
+    }
+  }
+  async function confirmSignUp({ username, confirmationCode }, updateFormType) {
+    try {
+      await Auth.confirmSignUp(username, confirmationCode);
+      updateFormType('signIn');
+    } catch (err) {
+      console.log('error signing up..', err);
+    }
   }
 
   function renderForm() {
@@ -79,6 +87,8 @@ function Form(props) {
           <Login
             signIn={() => signIn(formState, updateFormType, history)}
             updateFormState={e => updateForm(e)}
+            error={error}
+            setError={() => handleError()}
           />
         );
       default:
