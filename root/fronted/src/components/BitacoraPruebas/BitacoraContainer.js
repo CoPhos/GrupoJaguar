@@ -194,6 +194,31 @@ function reducer(state, action) {
         ...state,
         form: action.payload
       };
+    case 'CHANGE_PROPERTY_NAME':
+      let date0 = new Date(state.form.fechaColado);
+      let date1 = new Date(state.form.siete);
+      let date2 = new Date(state.form.catorce);
+      let date3 = new Date(state.form.veintiocho);
+      let date4 = new Date(state.form.veintiochoDos);
+      let difference1 = date1 - date0;
+      let difference2 = date2 - date0;
+      let difference3 = date3 - date0;
+      let difference4 = date4 - date0;
+      let days1 = Math.ceil(difference1 / (1000 * 3600 * 24));
+      let days2 = Math.ceil(difference2 / (1000 * 3600 * 24));
+      let days3 = Math.ceil(difference3 / (1000 * 3600 * 24));
+      let days4 = Math.ceil(difference4 / (1000 * 3600 * 24));
+      state.form.fecha1 = state.form.siete + ' ' + days1;
+      state.form.fecha2 = state.form.catorce + ' ' + days2;
+      state.form.fecha3 = state.form.veintiocho + ' ' + days3;
+      state.form.fecha4 = state.form.veintiochoDos + ' ' + days4;
+      delete state.form.siete;
+      delete state.form.catorce;
+      delete state.form.veintiocho;
+      delete state.form.veintiochoDos;
+      return {
+        ...state
+      };
     default:
       return state;
   }
@@ -383,7 +408,6 @@ function BitacoraContainer() {
     console.log(pdfData);
     return pdfData;
   };
-
   async function savePdf() {
     const pdfData = generatePdfData();
     const blob = await pdf(<Pdf info={pdfData}></Pdf>).toBlob();
@@ -697,6 +721,9 @@ function BitacoraContainer() {
       dispatch({
         type: 'SET_FORM',
         payload: noteDetial.data.getBitacoraDePruebasComprension
+      });
+      dispatch({
+        type: 'CHANGE_PROPERTY_NAME'
       });
       dispatch({ type: 'SET_ERROR', payload: false });
     } catch (err) {
