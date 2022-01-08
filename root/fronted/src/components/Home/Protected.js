@@ -8,7 +8,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import protectedRoute from '../../protectedRoute';
-import Pdf from '../PDF/Pdf';
+// import Pdf from '../PDF/Pdf';
 function Protected() {
   return (
     <Container

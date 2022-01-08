@@ -10,7 +10,6 @@ import DatosObtenidos from './DatosObtenidos';
 import Notas from './Notas';
 import Firmas from './Firmas';
 import Footer from './Footer';
-import { PDFViewer } from '@react-pdf/renderer';
 import PTSerif from '../../assets/fonts/PT_Serif/PTSerif-Regular.ttf';
 import PTSerifBold from '../../assets/fonts/PT_Serif/PTSerif-Bold.ttf';
 
@@ -154,9 +153,9 @@ function Pdf(props) {
                 justifyContent: 'space-evenly'
               }}
             >
-              <Firmas></Firmas>
-              <Firmas></Firmas>
-              <Firmas></Firmas>
+              <Firmas firma={data.laboratorista} texto="ELABORÓ:"></Firmas>
+              <Firmas firma=" " texto=" "></Firmas>
+              <Firmas firma="Dulce María Guitiérrez E." texto="AUTORIZÓ:"></Firmas>
             </View>
           </View>
           <View>

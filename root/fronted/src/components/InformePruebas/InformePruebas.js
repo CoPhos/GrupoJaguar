@@ -2,7 +2,6 @@ import React from 'react';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -94,7 +93,7 @@ function InformePruebas(props) {
                     image={pdfImage}
                     alt="documento Digitalizado"
                   /> */}
-                  <CardContent>
+                  <CardContent sx={{ minHeight: 200 }}>
                     <Typography gutterBottom variant="h5" component="div">
                       {post.numEnsaye + ' - ' + post.numMuestra}
                     </Typography>

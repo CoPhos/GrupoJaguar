@@ -43,7 +43,7 @@ function Notas(props) {
             fontWeight: 700
           }}
         >
-          NOTAS:
+          OBSERVACIONES:
         </Text>
         <Text
           style={{

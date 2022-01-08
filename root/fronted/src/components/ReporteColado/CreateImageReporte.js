@@ -64,7 +64,7 @@ function CreateImageReporte(props) {
                 size="small"
                 variant="outlined"
                 value={props.value.numMuestra}
-                sx={{ marginBottom: '20px', width: '35%', marginLeft: '20px' }}
+                sx={{ marginBottom: '20px', width: '35%', marginLeft: '19px' }}
               />
               <Button
                 variant="outlined"

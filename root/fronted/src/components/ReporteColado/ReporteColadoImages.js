@@ -6,7 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { Button, CardActions } from '@mui/material';
 
 import { MyContext } from './ReporteColadoContainer';
 function ReporteColadoImages() {
@@ -70,12 +70,5 @@ function ReporteColadoImages() {
     </MyContext.Consumer>
   );
 }
-const postContainer = {
-  padding: '20px 0px 0px',
-  borderBottom: '1px solid #ddd'
-};
-const heading = { margin: '20px 0px' };
-const postImage = { width: 400 };
-const postTitle = { marginTop: 4 };
 
 export default ReporteColadoImages;

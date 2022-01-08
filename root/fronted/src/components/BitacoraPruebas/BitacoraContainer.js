@@ -194,37 +194,12 @@ function reducer(state, action) {
         ...state,
         form: action.payload
       };
-    case 'CHANGE_PROPERTY_NAME':
-      let date0 = new Date(state.form.fechaColado);
-      let date1 = new Date(state.form.siete);
-      let date2 = new Date(state.form.catorce);
-      let date3 = new Date(state.form.veintiocho);
-      let date4 = new Date(state.form.veintiochoDos);
-      let difference1 = date1 - date0;
-      let difference2 = date2 - date0;
-      let difference3 = date3 - date0;
-      let difference4 = date4 - date0;
-      let days1 = Math.ceil(difference1 / (1000 * 3600 * 24));
-      let days2 = Math.ceil(difference2 / (1000 * 3600 * 24));
-      let days3 = Math.ceil(difference3 / (1000 * 3600 * 24));
-      let days4 = Math.ceil(difference4 / (1000 * 3600 * 24));
-      state.form.fecha1 = state.form.siete + ' ' + days1;
-      state.form.fecha2 = state.form.catorce + ' ' + days2;
-      state.form.fecha3 = state.form.veintiocho + ' ' + days3;
-      state.form.fecha4 = state.form.veintiochoDos + ' ' + days4;
-      delete state.form.siete;
-      delete state.form.catorce;
-      delete state.form.veintiocho;
-      delete state.form.veintiochoDos;
-      return {
-        ...state
-      };
     default:
       return state;
   }
 }
 const validate = values => {
-  const numberPattern = /^[1-9]\d*(\.\d+)?$/;
+  // const numberPattern = /^[1-9]\d*(\.\d+)?$/;
   let temp = {};
   temp.lab = values.numMuestra ? '' : 'Debe llenar este campo.';
   temp.numObra = values.numObra ? '' : 'Debe llenar este campo.';
@@ -272,7 +247,7 @@ const calcularResistenciaComprension = (valorArea, valorCarga, valorResistenciaC
 };
 const calcularArea = (valorDiametro, valorAltura) => {
   const radio = parseFloat(valorDiametro / 2);
-  const altura = parseFloat(valorAltura);
+  // const altura = parseFloat(valorAltura);
   const area = Math.PI * (radio * radio);
 
   return String(area.toFixed(2));
@@ -353,13 +328,42 @@ function BitacoraContainer() {
   const [snackbar, setSnackbar] = useState(false);
   const [snackbarMoreNotes, setSnackbarMoreNotes] = useState(false);
   const [open, setOpen] = useState(false);
-  const [edad, setEdad] = useState('');
+  const [edad, setEdad] = useState('0');
   const [logo, setlogo] = useState('1');
   const [count, setcount] = useState(0);
   const history = useHistory();
 
+  const changePropertyName = () => {
+    const info = { ...state.form };
+    let date0 = new Date(info.fechaColado);
+    let date1 = new Date(info.siete);
+    let date2 = new Date(info.catorce);
+    let date3 = new Date(info.veintiocho);
+    let date4 = new Date(info.veintiochoDos);
+    let difference1 = date1 - date0;
+    let difference2 = date2 - date0;
+    let difference3 = date3 - date0;
+    let difference4 = date4 - date0;
+    let days1 = Math.ceil(difference1 / (1000 * 3600 * 24));
+    let days2 = Math.ceil(difference2 / (1000 * 3600 * 24));
+    let days3 = Math.ceil(difference3 / (1000 * 3600 * 24));
+    let days4 = Math.ceil(difference4 / (1000 * 3600 * 24));
+    info.fecha1 = days1 + '-' + info.siete;
+    info.fecha2 = days2 + '-' + info.catorce;
+    info.fecha3 = days3 + '-' + info.veintiocho;
+    info.fecha4 = days4 + '-' + info.veintiochoDos;
+    delete info.siete;
+    delete info.catorce;
+    delete info.veintiocho;
+    delete info.veintiochoDos;
+    delete info._version;
+    delete info.id;
+
+    return info;
+  };
   const generatePdfData = () => {
     const pdfData = { ...state.form };
+    console.log(state.form);
     const logotipo = logo;
     const fecha = new Date(pdfData.fechaColado);
     const siete = new Date(pdfData.siete);
@@ -496,9 +500,6 @@ function BitacoraContainer() {
     dispatch({
       type: 'RESET_FORM'
     });
-  };
-  const handleClickOpenUpdate = () => {
-    setOpenUpdate(true);
   };
   const handleCloseUpdate = () => {
     dispatch({
@@ -650,24 +651,25 @@ function BitacoraContainer() {
   }
   async function createNote() {
     const { form, saveSend } = state;
-    if (saveSend) {
-      const note = { ...form, id: CLIENT_ID };
+    // if (saveSend) {
+    const note = { ...form, id: CLIENT_ID };
 
-      dispatch({ type: 'ADD_NOTE', note });
-      dispatch({ type: 'RESET_FORM' });
-      try {
-        await API.graphql(graphqlOperation(createBitacora, { input: note }));
-        dispatch({ type: 'SET_ERROR', payload: false });
-        setSnackbar(true);
-        handleCloseCreate();
-        await updateCount();
-        history.go(0);
-      } catch (err) {
-        dispatch({ type: 'SET_ERROR', payload: true });
-        setSnackbar(true);
-        console.log(err);
-      }
+    dispatch({ type: 'ADD_NOTE', note });
+    dispatch({ type: 'RESET_FORM' });
+    try {
+      await API.graphql(graphqlOperation(createBitacora, { input: note }));
+      dispatch({ type: 'SET_ERROR', payload: false });
+
+      setSnackbar(true);
+      handleCloseCreate();
+      await updateCount();
+      history.go(0);
+    } catch (err) {
+      dispatch({ type: 'SET_ERROR', payload: true });
+      setSnackbar(true);
+      console.log(err);
     }
+    // }
   }
   async function updateNote() {
     const { form, saveSend } = state;
@@ -722,9 +724,7 @@ function BitacoraContainer() {
         type: 'SET_FORM',
         payload: noteDetial.data.getBitacoraDePruebasComprension
       });
-      dispatch({
-        type: 'CHANGE_PROPERTY_NAME'
-      });
+
       dispatch({ type: 'SET_ERROR', payload: false });
     } catch (err) {
       console.log('error: ', err);
@@ -815,6 +815,10 @@ function BitacoraContainer() {
                     type="submit"
                     onClick={() => {
                       dispatch({
+                        type: 'DATES',
+                        payload: new Date(state.form.fechaColado)
+                      });
+                      dispatch({
                         type: 'VALIDATE_FORM'
                       });
                       dispatch({
@@ -885,7 +889,7 @@ function BitacoraContainer() {
             <DialogTitle id="scroll-dialog-title">Detalles</DialogTitle>
             <DialogContent dividers={true}>
               <pre>
-                {prettyPrint(state.form, {
+                {prettyPrint(changePropertyName(), {
                   indent: '   ',
                   singleQuotes: false,
                   inlineCharacterLimit: 12

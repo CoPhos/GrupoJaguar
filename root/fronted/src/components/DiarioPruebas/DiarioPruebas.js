@@ -1,6 +1,4 @@
 import React from 'react';
-import Alert from '@mui/material/Alert';
-import Snackbar from '@mui/material/Snackbar';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -34,6 +32,7 @@ function DiarioPruebas(props) {
             inputFormat="yyyy/MM/dd"
             disableMaskedInput={true}
             name="searchField"
+            value={props.date}
             onChange={newValue => {
               props.searchField(newValue);
             }}

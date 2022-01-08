@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useReducer } from 'react';
-import { API, graphqlOperation, Storage } from 'aws-amplify';
+import React, { useState } from 'react';
+import { API, graphqlOperation } from 'aws-amplify';
 import { listBitacoraDePruebasComprensionsByDate } from '../../graphql/queries';
 import DiarioPruebas from './DiarioPruebas';
 import DiarioPruebasDownload from './DiarioPruebasDownload';
@@ -77,6 +77,7 @@ function DiarioPruebasContainer() {
       <DiarioPruebas
         searchField={handleSearchFIeld}
         fetchData={fetchBitacoraByMuestra}
+        date={searchField}
       ></DiarioPruebas>
       <DiarioPruebasDownload
         openSnack={snackbar}

@@ -385,11 +385,7 @@ export const getNumEnsayeCount = /* GraphQL */ `
     getNumEnsayeCount(id: $id) {
       id
       count
-      createdAt
-      updatedAt
       _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;

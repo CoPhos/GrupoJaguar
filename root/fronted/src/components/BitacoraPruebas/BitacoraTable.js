@@ -43,10 +43,8 @@ const useStyles = makeStyles(theme =>
 function BitacoraTable(props) {
   const [detail, setdetail] = useState('');
   const [click, setclick] = useState(false);
-  const [clickUpdate, setclickUpdate] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [value, setValue] = React.useState('');
-  const [page, setPage] = React.useState(0);
   const [openPDF, setOpenPDF] = React.useState(false);
   const open = Boolean(anchorEl);
   const theme = createTheme();
@@ -445,7 +443,6 @@ function BitacoraTable(props) {
                   label="Edad, dias"
                   fullWidth
                   variant="standard"
-                  type="number"
                   onBlur={e => {
                     props.setEdad(e);
                   }}

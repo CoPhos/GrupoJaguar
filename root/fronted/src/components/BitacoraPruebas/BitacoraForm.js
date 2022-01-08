@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React from 'react';
 
 import { createStyles, makeStyles } from '@mui/styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -376,7 +376,7 @@ function BitacoraForm(props) {
                   helperText={
                     state.formErrors.resistenciaTipo ? state.formErrors.resistenciaTipo : ''
                   }
-                  defaultValue={state.form.revenimientoProyecto}
+                  defaultValue={state.form.resistenciaTipo}
                 ></TextField>
                 <TextField
                   onBlur={e =>

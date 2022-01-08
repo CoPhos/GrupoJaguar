@@ -12,7 +12,6 @@ import '@aws-amplify/ui-react/styles.css';
 import ReporteColadoImages from './ReporteColadoImages';
 import CreateImageReporte from './CreateImageReporte';
 
-import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
 export const MyContext = React.createContext();
